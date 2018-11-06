@@ -72,39 +72,32 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_JV(self):
-        x = np.random.normal(size=1000)
-        y = np.random.normal(size=1000)
-        self.ui.density_graph.setBackground((255, 255, 255))
-        self.ui.density_graph.setLabel('bottom','Voltage','V')
-        self.ui.density_graph.setLabel('left', 'Current', 'A')
-        self.ui.density_graph.getAxis('bottom').setPen((0,0,0))
-        self.ui.density_graph.plot(x, y, pen=None, symbol='o')
+        self.draw_method(self.ui.density_graph, 'Current density', 'A/cm^2', 'Voltage', 'V')
         pass
 
     def draw_I(self):
-        x = np.random.normal(size=500)
-        y = np.random.normal(size=500)
-        self.ui.current_graph.setBackground((255, 255, 255))
-        self.ui.current_graph.setLabel('bottom','Time','s')
-        self.ui.current_graph.setLabel('left', 'Current', 'A')
-        self.ui.current_graph.getAxis('bottom').setPen((0,0,0))
-        self.ui.current_graph.getAxis('left').setPen((0,0,0))
-        self.ui.current_graph.plot(x, y, pen=None, symbol='o')
+        self.draw_method(self.ui.current_graph, 'Current', 'A', 'Time', 's')
         pass
 
     def draw_P(self):
+        self.draw_method(self.ui.power_graph, 'Power density', 'W/cm^2', 'Voltage', 'V')
+        pass
+
+    def draw_method(self, graph, x_title, x_scale, y_title, y_scale):
         x = np.random.normal(size=500)
         y = np.random.normal(size=500)
-        self.ui.power_graph.setBackground((255, 255, 255))
-        self.ui.power_graph.setLabel('bottom', 'Time', 's')
-        self.ui.power_graph.setLabel('left', 'Current', 'A')
-        self.ui.power_graph.getAxis('bottom').setPen((0, 0, 0))
-        self.ui.power_graph.getAxis('left').setPen((0, 0, 0))
-        self.ui.power_graph.plot(x, y, pen=None, symbol='o')
-        pass
+        graph.setBackground((255, 255, 255))
+        graph.setLabel('bottom', x_title, x_scale)
+        graph.setLabel('left', y_title, y_scale)
+        graph.getAxis('bottom').setPen((0, 0, 0))
+        graph.getAxis('left').setPen((0, 0, 0))
+        graph.plot(x, y, pen=None, symbol='o')
+
+
     def pop_dialog(self):
         self.dialog = PopUp()
         self.dialog.show()
+
 
 class PopUp(QtWidgets.QDialog):
     def __init__(self):
