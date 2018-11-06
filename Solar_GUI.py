@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 from Solar import Ui_MainWindow
+from Dialog import Ui_SettingsDialog
 import pyqtgraph
 import sys
 import numpy as np
@@ -18,6 +19,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
 
     def hell(self):
+        self.pop_dialog()
         self.draw_JV()
         self.draw_I()
         self.draw_P()
@@ -100,6 +102,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.power_graph.getAxis('left').setPen((0, 0, 0))
         self.ui.power_graph.plot(x, y, pen=None, symbol='o')
         pass
+    def pop_dialog(self):
+        self.dialog = PopUp()
+        self.dialog.show()
+
+class PopUp(QtWidgets.QDialog):
+    def __init__(self):
+        super(PopUp, self).__init__()
+        self.ui = Ui_SettingsDialog()
+        self.ui.setupUi(self)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

@@ -122,7 +122,7 @@
       <widget class="QLabel" name="label_16">
        <property name="geometry">
         <rect>
-         <x>420</x>
+         <x>400</x>
          <y>20</y>
          <width>101</width>
          <height>17</height>
@@ -140,7 +140,33 @@
         <rect>
          <x>340</x>
          <y>40</y>
-         <width>271</width>
+         <width>221</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17">
+       <property name="geometry">
+        <rect>
+         <x>595</x>
+         <y>20</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SC name:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="save_slot_2">
+       <property name="geometry">
+        <rect>
+         <x>580</x>
+         <y>40</y>
+         <width>131</width>
          <height>21</height>
         </rect>
        </property>
@@ -152,7 +178,7 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="vach_tab">
        <attribute name="title">
         <string>VACh</string>
        </attribute>
@@ -742,9 +768,14 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="time_tab">
        <attribute name="title">
         <string>Time functions</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="opt_tab">
+       <attribute name="title">
+        <string>Options</string>
        </attribute>
       </widget>
      </widget>
