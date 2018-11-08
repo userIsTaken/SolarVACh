@@ -305,10 +305,10 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="electrode_combo"/>
       </item>
       <item row="3" column="1">
-       <widget class="QComboBox" name="comboBox_2"/>
+       <widget class="QComboBox" name="relay_combo"/>
       </item>
      </layout>
     </widget>

@@ -16,36 +16,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.jvView = self.ui.density_graph
         self.ui.pushButton.clicked.connect(self.hell)
-
+        self.parameters = {}
 
     def hell(self):
         self.pop_dialog()
         self.draw_JV()
         self.draw_I()
         self.draw_P()
-        self.updateQLCD()
+        self.updateQLCD(self.ui.lcdNumber)
+        self.updateQLCD(self.ui.lcdNumber_2)
+        self.updateQLCD(self.ui.lcdNumber_3)
+        self.updateQLCD(self.ui.lcdNumber_4)
         pass
-
-    def updateQLCD(self):
-        palette = self.ui.lcdNumber.palette()
-        # foreground color
-        palette.setColor(palette.WindowText, QtGui.QColor(255, 255, 255))
-        # background color
-        palette.setColor(palette.Background, QtGui.QColor(0, 170, 255))
-        # "light" border
-        palette.setColor(palette.Light, QtGui.QColor(255, 0, 0))
-        # "dark" border
-        palette.setColor(palette.Dark, QtGui.QColor(0, 255, 0))
-
-        # set the palette
-        self.ui.lcdNumber.setPalette(palette)
-        self.ui.lcdNumber.display(666)
-        self.ui.lcdNumber_2.setPalette(palette)
-        self.ui.lcdNumber_2.display(666)
-        self.ui.lcdNumber_3.setPalette(palette)
-        self.ui.lcdNumber_3.display(666)
-        self.ui.lcdNumber_4.setPalette(palette)
-        self.ui.lcdNumber_4.display(666)
 
 
     def GetAllParameters(self):
@@ -58,6 +40,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         x_mean = self.ui.x_mean_box.value()
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
+        fb_scan = self.ui.fb_scan.value()
+        relay_combo = self.ui.relay_combo.value()
+        el_combo = self.ui.electrode_combo.value()
+
 
         parameters = {'startV': startV,
                       'endV': endV,
@@ -67,7 +53,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'array_size': array_size,
                       'x_mean': x_mean,
                       'area': el_area,
-                      'in_power': in_power}
+                      'in_power': in_power,
+                      'fb_scan': fb_scan,
+                      'relay_combo':relay_combo,
+                      'el_combo': el_combo}
         return parameters
         pass
 
@@ -93,17 +82,61 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         graph.getAxis('left').setPen((0, 0, 0))
         graph.plot(x, y, pen=None, symbol='o')
 
+    def updateQLCD(self, lcd, value):
+        palette = self.ui.lcdNumber.palette()
+        # foreground color
+        palette.setColor(palette.WindowText, QtGui.QColor(255, 255, 255))
+        # background color
+        palette.setColor(palette.Background, QtGui.QColor(0, 170, 255))
+        # "light" border
+        palette.setColor(palette.Light, QtGui.QColor(255, 0, 0))
+        # "dark" border
+        palette.setColor(palette.Dark, QtGui.QColor(0, 255, 0))
+        # set the palette
+        lcd.setPalette(palette)
+        lcd.display(666)
 
     def pop_dialog(self):
-        self.dialog = PopUp()
+        self.dialog = PopUp(self.parameters)
         self.dialog.show()
+        self.parameters = {''}
 
 
 class PopUp(QtWidgets.QDialog):
-    def __init__(self):
+    def __init__(self, parameters):
         super(PopUp, self).__init__()
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
+
+    def GetAllParameters(self):
+        startV = self.ui.startV_box.value()
+        endV = self.ui.endV_box.value()
+        points = self.ui.points_box.value()
+        current_limit = self.ui.limitA_box.value()
+        wait = self.ui.wait_box.value()
+        array_size = self.ui.array_size_box.value()
+        x_mean = self.ui.x_mean_box.value()
+        el_area = self.ui.area_box.value()
+        in_power = self.ui.power_input_box.value()
+        fb_scan = self.ui.fb_scan.value()
+        relay_combo = self.ui.relay_combo.value()
+        el_combo = self.ui.electrode_combo.value()
+
+        parameters = {'startV': startV,
+                      'endV': endV,
+                      'points': points,
+                      'limitA': current_limit,
+                      'wait': wait,
+                      'array_size': array_size,
+                      'x_mean': x_mean,
+                      'area': el_area,
+                      'in_power': in_power,
+                      'fb_scan': fb_scan,
+                      'relay_combo':relay_combo,
+                      'el_combo': el_combo}
+        return parameters
+        pass
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
