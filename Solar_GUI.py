@@ -1,9 +1,13 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 from Solar import Ui_MainWindow
 from Dialog import Ui_SettingsDialog
+from ExpLoop import *
 import pyqtgraph
 import sys
 import numpy as np
+import traceback as tb
+from PyQt5.QtCore import *
+
 
 
 
@@ -13,7 +17,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        self.ThreadPool = QThreadPool()  # because of threading?
+        self._threads = []
+        self._thread = None
+        self._worker = None
+        self._path = None
         self.jvView = self.ui.density_graph
         self.ui.pushButton.clicked.connect(self.hell)
         self.parameters = {}
@@ -23,10 +31,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.draw_JV()
         self.draw_I()
         self.draw_P()
-        self.updateQLCD(self.ui.lcdNumber)
-        self.updateQLCD(self.ui.lcdNumber_2)
-        self.updateQLCD(self.ui.lcdNumber_3)
-        self.updateQLCD(self.ui.lcdNumber_4)
+        self.updateQLCD(self.ui.lcdNumber, 22.1)
+        self.updateQLCD(self.ui.lcdNumber_2, 85)
+        self.updateQLCD(self.ui.lcdNumber_3, 0.80)
+        self.updateQLCD(self.ui.lcdNumber_4, 29.5)
         pass
 
 
@@ -61,26 +69,27 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_JV(self):
-        self.draw_method(self.ui.density_graph, 'Current density', 'A/cm^2', 'Voltage', 'V')
+        self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2')
         pass
 
     def draw_I(self):
-        self.draw_method(self.ui.current_graph, 'Current', 'A', 'Time', 's')
+        self.draw_method(self.ui.current_graph,  'Time', 's', 'Current', 'A')
         pass
 
     def draw_P(self):
-        self.draw_method(self.ui.power_graph, 'Power density', 'W/cm^2', 'Voltage', 'V')
+        self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2')
         pass
 
     def draw_method(self, graph, x_title, x_scale, y_title, y_scale):
-        x = np.random.normal(size=500)
-        y = np.random.normal(size=500)
-        graph.setBackground((255, 255, 255))
+        y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        x = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+        graph.setBackground((47,79,79))
         graph.setLabel('bottom', x_title, x_scale)
         graph.setLabel('left', y_title, y_scale)
-        graph.getAxis('bottom').setPen((0, 0, 0))
-        graph.getAxis('left').setPen((0, 0, 0))
-        graph.plot(x, y, pen=None, symbol='o')
+        graph.getAxis('bottom').setPen((255, 255, 255))
+        graph.getAxis('left').setPen((255, 255, 255))
+        graph.plot(x, y, pen=(255,255,102), symbol='o')
+        graph.showGrid(x=True,y=True)
 
     def updateQLCD(self, lcd, value):
         palette = self.ui.lcdNumber.palette()
@@ -94,7 +103,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         palette.setColor(palette.Dark, QtGui.QColor(0, 255, 0))
         # set the palette
         lcd.setPalette(palette)
-        lcd.display(666)
+        lcd.display(value)
 
     def pop_dialog(self):
         self.dialog = PopUp(self.parameters)
