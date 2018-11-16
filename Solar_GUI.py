@@ -1,11 +1,7 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from Solar import Ui_MainWindow
-from Dialog import Ui_SettingsDialog
-from ExpLoop import *
-import pyqtgraph
+from PyQt5 import QtWidgets, QtGui
+from GUI.Solar import Ui_MainWindow
+from GUI.Dialog import Ui_SettingsDialog
 import sys
-import numpy as np
-import traceback as tb
 from PyQt5.QtCore import *
 
 
@@ -28,6 +24,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def hell(self):
         self.pop_dialog()
+        pass
+
+    def startExp(self):
         self.draw_JV()
         self.draw_I()
         self.draw_P()
@@ -109,6 +108,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.dialog = PopUp(self.parameters)
         self.dialog.show()
         self.parameters = {''}
+        self.dialog.ui.buttonBox.accepted.connect(self.startExp)
 
 
 class PopUp(QtWidgets.QDialog):
