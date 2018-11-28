@@ -13,7 +13,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ThreadPool = QThreadPool()  # because of threading?
         self._threads = []
         self._thread = None
         self._worker = None
