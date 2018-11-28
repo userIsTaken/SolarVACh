@@ -25,4 +25,3 @@ class SourceMeter():
             dataArray = None
         return dataArray
 
-    
