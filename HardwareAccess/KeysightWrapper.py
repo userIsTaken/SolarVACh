@@ -3,6 +3,10 @@ from vxi11 import vxi11 as vx
 
 class SourceMeter():
     def __init__(self, _ip_address:str):
+        """
+
+        :param _ip_address: TCP/IP address of source meter
+        """
         self.Device = vx.Instrument(_ip_address)
         self.ID = self.Device.ask("*IDN?")
         self.ON = "ON"
@@ -36,6 +40,11 @@ class SourceMeter():
         pass
 
     def fetchArrayData(self, _atype:str):
+        """
+
+        :param _atype:
+        :return:
+        """
         dataArray = None
         if (_atype.capitalize() in "CURRENT" ):
             dataArray = self.Device.ask(":fetc:arr:curr?")
@@ -47,6 +56,11 @@ class SourceMeter():
         return dataArray
 
     def enableVoltageOutput(self, _status:bool):
+        """
+
+        :param _status:
+        :return:
+        """
         if(_status):
             self.write(":OUTP ON")
         elif (not _status):
@@ -56,6 +70,11 @@ class SourceMeter():
         pass
 
     def enableAmmeterInput(self, _status:bool):
+        """
+
+        :param _status:
+        :return:
+        """
         if (_status):
             self.write(":INP ON")
         elif (not _status):
@@ -65,6 +84,11 @@ class SourceMeter():
         pass
 
     def setMeasurementMode(self, mode:int):
+        """
+
+        :param mode:
+        :return:
+        """
         if(mode == 1):
             self.write(":SENS:FUNC \"CURR\"") #  CURRENT MODE
         elif (mode == 2):
@@ -74,6 +98,11 @@ class SourceMeter():
         pass
 
     def setTriggerSource(self, source:int):
+        """
+
+        :param source:
+        :return:
+        """
         if source == 1: #TIMER TRIGGER
             self.write(":trig:sour tim")
             pass
@@ -87,10 +116,20 @@ class SourceMeter():
         pass
 
     def setTriggerCounts(self, counts):
+        """
+
+        :param counts:
+        :return:
+        """
         self.write(":trig:coun "+str(counts))
         pass
 
     def setTriggerTimerInterval(self, interval):
+        """
+
+        :param interval:
+        :return:
+        """
         self.write(":trig:tim "+str(interval))
         pass
 
@@ -99,14 +138,31 @@ class SourceMeter():
         pass
 
     def setVoltOutValue(self, value):
+        """
+
+        :param value:
+        :return:
+        """
         self.write(":SOUR:VOLT "+str(value))
         pass
 
     def setSourceOutputMode(self, mode):
+        """
+
+        :param mode:
+        :return:
+        """
         self.write(":SOUR:FUNC:MODE "+str(mode))
         pass
 
     def setMeasurementRange(self, range, mode="curr", on="ON"):
+        """
+
+        :param range: AUTO or value
+        :param mode: curr or volt
+        :param on: ON OFF
+        :return:
+        """
         if str(range) == "AUTO":
             self.write(":sens:"+mode+":rang:auto "+on)
         else:
