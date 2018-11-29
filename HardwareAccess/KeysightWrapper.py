@@ -12,6 +12,7 @@ class SourceMeter():
         self.TRIGGER_TIM = 1
         self.TRIGGER_AINT = 0
         self.TRIGGER_BUS = 2
+        self.SOURCE_MODE_VOLTS = "VOLT"
         pass
 
     def getIDN(self):
@@ -85,4 +86,16 @@ class SourceMeter():
 
     def setTriggerTimerInterval(self, interval):
         self.write(":trig:tim "+str(interval))
+        pass
+
+    def resetDevice(self):
+        self.write("*RST")
+        pass
+
+    def setVoltOutValue(self, value):
+        self.write(":SOUR:VOLT "+str(value))
+        pass
+
+    def setSourceOutputMode(self, mode):
+        self.write(":SOUR:FUNC:MODE "+str(mode))
         pass
