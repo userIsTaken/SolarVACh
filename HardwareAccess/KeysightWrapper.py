@@ -13,6 +13,7 @@ class SourceMeter():
         self.TRIGGER_AINT = 0
         self.TRIGGER_BUS = 2
         self.SOURCE_MODE_VOLTS = "VOLT"
+        self.SOURCE_MODE_CURR = "CURR"
         pass
 
     def getIDN(self):
