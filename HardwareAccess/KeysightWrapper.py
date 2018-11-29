@@ -5,8 +5,10 @@ class SourceMeter():
     def __init__(self, _ip_address:str):
         self.Device = vx.Instrument(_ip_address)
         self.ID = self.Device.ask("*IDN?")
-        self.ON = True
-        self.OFF = False
+        self.ON = "ON"
+        self.OFF = "OFF"
+        self.bON = True
+        self.bOFF = False
         self.CURRENT_MODE = 1
         self.VOLTAGE_MODE = 2
         self.TRIGGER_TIM = 1
@@ -14,6 +16,9 @@ class SourceMeter():
         self.TRIGGER_BUS = 2
         self.SOURCE_MODE_VOLTS = "VOLT"
         self.SOURCE_MODE_CURR = "CURR"
+        self.MEAS_RANGE_AUTO = "AUTO"
+        self.MEAS_MODE_CURR = "curr"
+        self.MEAS_MODE_VOLT = "volt"
         pass
 
     def getIDN(self):
@@ -99,4 +104,13 @@ class SourceMeter():
 
     def setSourceOutputMode(self, mode):
         self.write(":SOUR:FUNC:MODE "+str(mode))
+        pass
+
+    def setMeasurementRange(self, range, mode="curr", on="ON"):
+        if str(range) == "AUTO":
+            self.write(":sens:"+mode+":rang:auto "+on)
+        else:
+            self.write(":sens:" + mode + ":rang:auto " + "off")
+            self.write(":sens:"+mode+":rang "+str(range))
+            pass
         pass
