@@ -10,6 +10,13 @@ class SourceMeter():
     def getIDN(self):
         return self.ID
 
+    def ask(self, cmd:str):
+        data = self.Device.ask(cmd)
+        return data
+
+    def write(self, cmd:str):
+        self.Device.write(cmd)
+
     def initAcquire(self):
         self.Device.write(":init:acq")
         pass
@@ -25,3 +32,11 @@ class SourceMeter():
             dataArray = None
         return dataArray
 
+    def enableVoltageOutput(self, _status:bool):
+        if(_status):
+            self.write(":OUTP ON")
+        elif (not _status):
+            self.write(":OUTP OFF")
+        else:
+            pass
+        pass
