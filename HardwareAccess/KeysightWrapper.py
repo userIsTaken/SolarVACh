@@ -159,8 +159,8 @@ class SourceMeter():
         """
 
         :param range: AUTO or value
-        :param mode: curr or volt
-        :param on: ON OFF
+        :param mode: curr or volt, default : current
+        :param on: ON OFF, default : ON
         :return:
         """
         if str(range) == "AUTO":
@@ -170,3 +170,4 @@ class SourceMeter():
             self.write(":sens:"+mode+":rang "+str(range))
             pass
         pass
+
