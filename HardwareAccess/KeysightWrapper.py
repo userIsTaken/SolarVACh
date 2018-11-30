@@ -171,3 +171,17 @@ class SourceMeter():
             pass
         pass
 
+    def setMeasurementSpeed(self, speed="auto", mode="curr"):
+        """
+
+        :param speed: auto, 0.001, 0.1, 1, 10, it is explained deeper in doc's
+        :param mode: curr. volt
+        :return:
+        """
+        if speed in "auto":
+            self.write(":sens:"+mode+":nplc:auto on")
+        else:
+            self.write(":sens:"+mode+":nplc:auto off")
+            self.write(":sens:"+mode+":nplc "+str(speed))
+        pass
+
