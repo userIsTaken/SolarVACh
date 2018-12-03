@@ -4,22 +4,26 @@ import time
 
 
 class LoopWorker(QObject):
-    results = pyqtSignal(list, list, list, str, dict)
+    results = pyqtSignal()
     errors = pyqtSignal(int, str)
     final = pyqtSignal(int)
     progress = pyqtSignal(str)
 
-    def __init__(self, generator, oscilograph, *args, **kwargs):
+    def __init__(self, meter, *args, **kwargs):
         super(LoopWorker, self).__init__()
         self.args = args
-        self.kwargs = kwargs
+        self.params = kwargs
+        self.ExpensiveMeter = meter
         self._require_stop = False
-        self.Oscilograph.cmd_emiter.connect(self.emit_str)
-        #
         self._measurement_parameters = {}
-        self._current_ampl = 0
-        self._current_offs = 0
-        self._current_period = 0
-        self._current_time_unit = ""
-        # print("Init")
         pass
+
+    @pyqtSlot()
+    def run(self):
+        try:
+            #startV = self.params['startV']
+            #endV = self.params['endV']
+            self.results.emit()
+        except:
+            print('blah')
+    pass

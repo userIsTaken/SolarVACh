@@ -3,7 +3,8 @@ from GUI.Solar import Ui_MainWindow
 from GUI.Dialog import Ui_SettingsDialog
 import sys
 from PyQt5.QtCore import *
-
+from HardwareAccess.KeysightWrapper import SourceMeter
+from ExpLoop import *
 
 
 
@@ -13,26 +14,48 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ThreadPool = QThreadPool()
         self._threads = []
         self._thread = None
         self._worker = None
         self._path = None
+        self.ExpensiveMeter = None
+        self.MeterConnect()
         self.jvView = self.ui.density_graph
         self.ui.pushButton.clicked.connect(self.hell)
         self.parameters = {}
+
+    def MeterConnect(self):
+        try:
+            self.ExpensiveMeter = SourceMeter("192.168.0.103")
+        except:
+            print("wrong IP")
+        pass
 
     def hell(self):
         self.pop_dialog()
         pass
 
     def startExp(self):
-        self.draw_JV()
-        self.draw_I()
-        self.draw_P()
-        self.updateQLCD(self.ui.lcdNumber, 22.1)
-        self.updateQLCD(self.ui.lcdNumber_2, 85)
-        self.updateQLCD(self.ui.lcdNumber_3, 0.80)
-        self.updateQLCD(self.ui.lcdNumber_4, 29.5)
+        parameters = self.GetAllParameters()
+        self._thread = QThread()
+        self._thread.setObjectName("WLoop")
+        self._worker = LoopWorker(self.ExpensiveMeter, **parameters)
+        self._worker.moveToThread(self._thread)
+        self._worker.results.connect(self.draw_JV)
+        #self._worker.final.connect(self.WorkerEnded)
+        #self._worker.errors.connect(self.ErrorHasBeenGot)
+        #self._worker.progress.connect(self.ExperimentInfo)
+        self._thread.started.connect(self._worker.run)
+        self._thread.start()
+
+        #self.draw_JV()
+        #self.draw_I()
+        #self.draw_P()
+        #self.updateQLCD(self.ui.lcdNumber, 22.1)
+        #self.updateQLCD(self.ui.lcdNumber_2, 85)
+        #self.updateQLCD(self.ui.lcdNumber_3, 0.80)
+        #self.updateQLCD(self.ui.lcdNumber_4, 29.5)
         pass
 
 
@@ -46,9 +69,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         x_mean = self.ui.x_mean_box.value()
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
-        fb_scan = self.ui.fb_scan.value()
-        relay_combo = self.ui.relay_combo.value()
-        el_combo = self.ui.electrode_combo.value()
+        fb_scan = self.ui.fb_scan.checkState()
+        relay_combo = self.ui.relay_combo.currentText()
+        el_combo = self.ui.electrode_combo.currentText()
 
 
         parameters = {'startV': startV,
@@ -126,9 +149,9 @@ class PopUp(QtWidgets.QDialog):
         x_mean = self.ui.x_mean_box.value()
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
-        fb_scan = self.ui.fb_scan.value()
-        relay_combo = self.ui.relay_combo.value()
-        el_combo = self.ui.electrode_combo.value()
+        fb_scan = self.ui.fb_scan.checkState()
+        relay_combo = self.ui.relay_combo.currentText()
+        el_combo = self.ui.electrode_combo.currentText()
 
         parameters = {'startV': startV,
                       'endV': endV,
