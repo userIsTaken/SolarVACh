@@ -27,7 +27,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.parameters = {}
 
     def MeterConnect(self):
-        self.ip = self.ui.ip_address.text()
+        self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
         except:
