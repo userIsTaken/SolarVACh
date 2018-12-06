@@ -23,6 +23,8 @@ class SourceMeter():
         self.MEAS_RANGE_AUTO = "AUTO"
         self.MEAS_MODE_CURR = "curr"
         self.MEAS_MODE_VOLT = "volt"
+        self.CURR="curr"
+        self.VOLT="volt"
         pass
 
     def getIDN(self):
@@ -183,5 +185,17 @@ class SourceMeter():
         else:
             self.write(":sens:"+mode+":nplc:auto off")
             self.write(":sens:"+mode+":nplc "+str(speed))
+        pass
+
+    def setTriggerDelay(self, delay=None):
+        """
+
+        :param delay: None or delay in seconds
+        :return:
+        """
+        if delay is None:
+            self.write(":trig:acq:del 0")
+        else:
+            self.write(":trig:acq:del "+str(delay))
         pass
 
