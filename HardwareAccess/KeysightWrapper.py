@@ -46,7 +46,7 @@ class SourceMeter():
     def fetchArrayData(self, _atype:str):
         """
 
-        :param _atype:
+        :param _atype: curr or volt, it will work even by passing c or v. 
         :return:
         """
         dataArray = None
