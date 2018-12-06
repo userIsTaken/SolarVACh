@@ -36,7 +36,8 @@ class LoopWorker(QObject):
         #’ Adjust trigger timing parameters
         #ioObj.WriteString(":trig:acq:del 2.0e-3")   (from Keysight example)
         #needed?????? Nope, delay has to be equal to zero.
-        self.meter.setTriggerSource(1)
+        self.meter.setTriggerDelay() # no parameter is used for zero delay
+        self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
         self.meter.setTriggerTimerInterval(0.004)
         self.meter.setTriggerCounts(array_size)
         self.meter.enableAmmeterInput(True)
