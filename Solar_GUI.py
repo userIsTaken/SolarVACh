@@ -20,14 +20,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker = None
         self._path = None
         self.ExpensiveMeter = None
-        self.MeterConnect()
+        self.ip = None
         self.jvView = self.ui.density_graph
+        self.ui.connect_button.clicked.connect(self.MeterConnect)
         self.ui.pushButton.clicked.connect(self.hell)
         self.parameters = {}
 
     def MeterConnect(self):
+        self.ip = self.ui.ip_address.currentText()
         try:
-            self.ExpensiveMeter = SourceMeter("192.168.0.103")
+            self.ExpensiveMeter = SourceMeter(self.ip)
         except:
             print("wrong IP")
         pass

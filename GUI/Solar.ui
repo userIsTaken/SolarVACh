@@ -176,7 +176,7 @@
     <item row="2" column="0" rowspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="vach_tab">
        <attribute name="title">
@@ -698,70 +698,137 @@
        <attribute name="title">
         <string>Options</string>
        </attribute>
-       <widget class="QWidget" name="widget" native="true">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>251</width>
-          <height>118</height>
-         </rect>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>300</width>
-          <height>160</height>
-         </size>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_4">
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QWidget" name="widget" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>160</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="1">
+              <widget class="QComboBox" name="electrode_combo"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="relay_combo"/>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="QCheckBox" name="fb_scan">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Forward-Backward Scan</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of electrodes:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_21">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start from relay:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="electrode_combo"/>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="relay_combo"/>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QCheckBox" name="fb_scan">
-             <property name="maximumSize">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>16777215</width>
-               <height>24</height>
+               <width>40</width>
+               <height>20</height>
               </size>
              </property>
-             <property name="text">
-              <string>Forward-Backward Scan</string>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame_7">
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>125</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="2" column="1">
+            <widget class="QTextEdit" name="ip_address">
+             <property name="maximumSize">
+              <size>
+               <width>256</width>
+               <height>41</height>
+              </size>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_19">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of electrodes:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <string>Device IP :</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_21">
+           <item row="3" column="1">
+            <widget class="QPushButton" name="connect_button">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start from relay:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>Connect</string>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_22">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
-             <property name="wordWrap">
-              <bool>false</bool>
+             <property name="text">
+              <string>DEVICE CONFIGURATION</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
              </property>
             </widget>
            </item>
           </layout>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -773,7 +840,7 @@
      <x>0</x>
      <y>0</y>
      <width>742</width>
-     <height>27</height>
+     <height>32</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
