@@ -23,7 +23,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = None
         self.jvView = self.ui.density_graph
         self.ui.connect_button.clicked.connect(self.MeterConnect)
-        self.ui.pushButton.clicked.connect(self.hell)
+        self.ui.startButton.clicked.connect(self.hell)
         self.parameters = {}
 
     def MeterConnect(self):
