@@ -1,7 +1,8 @@
 from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QObject
 import os, sys
 import time
-from statistics import mean
+# from statistics import mean
+from AnalyseScripts.Analyse import *
 
 
 class LoopWorker(QObject):
@@ -9,6 +10,7 @@ class LoopWorker(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(int)
     progress = pyqtSignal(str)
+    current_results = pyqtSignal(bool, float, float, float, list) # err ok, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
         super(LoopWorker, self).__init__()
@@ -20,6 +22,9 @@ class LoopWorker(QObject):
         self.volt_array = []
         self._require_stop = False
         self._measurement_parameters = {}
+        self.curr = None
+        self.volt = None
+        self.err_ok=False
         pass
 
     @pyqtSlot()
@@ -32,10 +37,16 @@ class LoopWorker(QObject):
             totalV = startV
             self.curr_array.append(totalV)
             while (totalV <= endV):
-                self.curr_array.append(mean(self.sample_measurement(array_size)))
-                self.results.emit(self.volt_array, self.curr_array)# re-think it
+                while not self.err_ok:
+                    self.curr_array = self.sample_measurement(array_size)
+                    status, data_mean, err_rate = getStats(self.curr_array)
+                    self.current_results.emit(self.err_ok, data_mean, err_rate,totalV, self.curr_array)
+                    self.err_ok = status
+                    pass
+                # self.curr_array.append(mean(self.sample_measurement(array_size)))
+                # self.results.emit(self.volt_array, self.curr_array)# re-think it
                 totalV = totalV + step
-                self.volt_array.append(totalV)
+                # self.volt_array.append(totalV)
             self.stop_measurement()
         except:
             print('blah')
