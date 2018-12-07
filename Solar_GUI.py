@@ -91,21 +91,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def draw_JV(self):
-        self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2')
+    def draw_JV(self, x, y):
+        self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2', x, y)
         pass
 
-    def draw_I(self):
-        self.draw_method(self.ui.current_graph,  'Time', 's', 'Current', 'A')
+    def draw_I(self, x, y):
+        self.draw_method(self.ui.current_graph,  'Time', 's', 'Current', 'A' , x, y)
         pass
 
-    def draw_P(self):
-        self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2')
+    def draw_P(self, x ,y):
+        self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', x, y)
         pass
 
-    def draw_method(self, graph, x_title, x_scale, y_title, y_scale):
-        y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        x = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y):
+        #y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        #x = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
         graph.setBackground((47,79,79))
         graph.setLabel('bottom', x_title, x_scale)
         graph.setLabel('left', y_title, y_scale)
