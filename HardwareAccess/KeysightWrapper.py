@@ -15,14 +15,18 @@ class SourceMeter():
         self.bOFF = False
         self.CURRENT_MODE = 1
         self.VOLTAGE_MODE = 2
+        # Trigger sources:
         self.TRIGGER_TIM = 1
         self.TRIGGER_AINT = 0
         self.TRIGGER_BUS = 2
+        # end of trigger sources
         self.SOURCE_MODE_VOLTS = "VOLT"
         self.SOURCE_MODE_CURR = "CURR"
         self.MEAS_RANGE_AUTO = "AUTO"
         self.MEAS_MODE_CURR = "curr"
         self.MEAS_MODE_VOLT = "volt"
+        self.CURR="curr"
+        self.VOLT="volt"
         pass
 
     def getIDN(self):
@@ -42,7 +46,7 @@ class SourceMeter():
     def fetchArrayData(self, _atype:str):
         """
 
-        :param _atype:
+        :param _atype: curr or volt, it will work even by passing c or v.
         :return:
         """
         dataArray = None
@@ -183,5 +187,17 @@ class SourceMeter():
         else:
             self.write(":sens:"+mode+":nplc:auto off")
             self.write(":sens:"+mode+":nplc "+str(speed))
+        pass
+
+    def setTriggerDelay(self, delay=None):
+        """
+
+        :param delay: None or delay in seconds
+        :return:
+        """
+        if delay is None:
+            self.write(":trig:acq:del 0")
+        else:
+            self.write(":trig:acq:del "+str(delay))
         pass
 

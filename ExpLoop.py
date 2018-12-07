@@ -35,12 +35,13 @@ class LoopWorker(QObject):
         #self.meter.adjustTrigTiming() not implemented
         #’ Adjust trigger timing parameters
         #ioObj.WriteString(":trig:acq:del 2.0e-3")   (from Keysight example)
-        #needed??????
-        self.meter.setTriggerSource(1)
+        #needed?????? Nope, delay has to be equal to zero.
+        self.meter.setTriggerDelay() # no parameter is used for zero delay
+        self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
         self.meter.setTriggerTimerInterval(0.004)
         self.meter.setTriggerCounts(array_size)
         self.meter.enableAmmeterInput(True)
         self.meter.initAcquire()
-        data = self.meter.fetchArrayData("CURRENT") #not sure if it's the right way to address [if (_atype.capitalize() in "CURRENT" ):]
+        data = self.meter.fetchArrayData(self.meter.CURR) #
         return data
         pass
