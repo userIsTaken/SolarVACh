@@ -32,7 +32,7 @@ class LoopWorker(QObject):
             totalV = startV
             self.curr_array.append(totalV)
             while (totalV <= endV):
-                self.curr_array.append(mean(self.sample_measure(array_size)))
+                self.curr_array.append(mean(self.sample_measurement(array_size)))
                 self.results.emit(self.volt_array, self.curr_array)
                 totalV = totalV + step
                 self.volt_array.append(totalV)
