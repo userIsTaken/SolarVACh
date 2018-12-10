@@ -3,6 +3,8 @@ import os, sys
 import time
 # from statistics import mean
 from AnalyseScripts.Analyse import *
+import numpy as np
+import scipy as sp
 
 
 class LoopWorker(QObject):
@@ -17,7 +19,7 @@ class LoopWorker(QObject):
         self.args = args
         self.params = kwargs
         self.meter = meter
-        self.data = None
+        # self.data = None
         self.curr_array = []
         self.volt_array = []
         self._require_stop = False
@@ -25,6 +27,7 @@ class LoopWorker(QObject):
         self.curr = None
         self.volt = None
         self.err_ok=False
+        # self.data_np=None
         pass
 
     @pyqtSlot()
@@ -68,8 +71,9 @@ class LoopWorker(QObject):
         self.meter.enableVoltageOutput(self.meter.bON)
         self.meter.enableAmmeterInput(self.meter.bON)
         self.meter.initAcquire()
-        self.data = self.meter.fetchArrayData(self.meter.CURR) #
-        return self.data
+        data = self.meter.fetchArrayData(self.meter.CURR) #
+        data_np = np.fromstring(data, dtype=float, sep=",")
+        return data_np
         pass
     def stop_measurement(self):
         self.meter.enableAmmeterInput(self.meter.bOFF)
