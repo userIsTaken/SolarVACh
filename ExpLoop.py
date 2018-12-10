@@ -15,13 +15,10 @@ class LoopWorker(QObject):
     current_results = pyqtSignal(bool, float, float, float, list) # err ok, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
-        super(LoopWorker, self).__init__()
+        super().__init__()# very new way to call super() method.
         self.args = args
         self.params = kwargs
         self.meter = meter
-        # self.data = None
-        #self.curr_array = []
-        #self.volt_array = []
         self._require_stop = False
         self._measurement_parameters = {}
         self.curr = None
