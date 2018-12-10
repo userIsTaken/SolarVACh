@@ -10,13 +10,11 @@ def getErrorsRate(_np_array):
     return (max-min)/mean, mean
     pass
 
-def convertToNpArray(_array):
-    return np.asarray(_array)
 
 def getStats(_array, limit):
     limit_stat = True
-    _np_array = convertToNpArray(_array)
-    rate, mean = getErrorsRate(_np_array)
+    #_np_array = convertToNpArray(_array)
+    rate, mean = getErrorsRate(_array)
     if rate>limit:
         limit_stat = False
     elif rate <= limit:
