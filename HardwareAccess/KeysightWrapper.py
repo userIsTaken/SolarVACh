@@ -182,11 +182,14 @@ class SourceMeter():
         :param mode: curr. volt
         :return:
         """
-        if speed in "auto":
-            self.write(":sens:"+mode+":nplc:auto on")
+        if speed is not None:
+            if (speed.lower() in "auto"):
+                self.write(":sens:"+mode+":nplc:auto on")
+            else:
+                self.write(":sens:"+mode+":nplc:auto off")
+                self.write(":sens:"+mode+":nplc "+str(speed))
         else:
-            self.write(":sens:"+mode+":nplc:auto off")
-            self.write(":sens:"+mode+":nplc "+str(speed))
+            self.write(":sens:" + mode + ":nplc:auto on")
         pass
 
     def setTriggerDelay(self, delay=None):
