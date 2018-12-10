@@ -20,8 +20,8 @@ class LoopWorker(QObject):
         self.params = kwargs
         self.meter = meter
         # self.data = None
-        self.curr_array = []
-        self.volt_array = []
+        #self.curr_array = []
+        #self.volt_array = []
         self._require_stop = False
         self._measurement_parameters = {}
         self.curr = None
@@ -38,43 +38,50 @@ class LoopWorker(QObject):
             array_size = self.params['array_size']
             step = (endV - startV)/self.params['points']
             totalV = startV
-            self.curr_array.append(totalV)
+            self.prepare_source_meter(array_size)
+            #self.curr_array.append(totalV) # what the hell is this?
             while (totalV <= endV):
                 while not self.err_ok:
-                    self.curr_array = self.sample_measurement(array_size)
-                    status, data_mean, err_rate = getStats(self.curr_array)
-                    self.current_results.emit(self.err_ok, data_mean, err_rate,totalV, self.curr_array)
+                    curr_array = self.sample_measurement(totalV)
+                    status, data_mean, err_rate = getStats(curr_array)
+                    self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                     self.err_ok = status
                     pass
-                # self.curr_array.append(mean(self.sample_measurement(array_size)))
-                # self.results.emit(self.volt_array, self.curr_array)# re-think it
                 totalV = totalV + step
-                # self.volt_array.append(totalV)
             self.stop_measurement()
-        except:
-            print('blah')
+        except Exception as ex:
+            print(str(ex))
         pass
 
 
-    def sample_measurement(self, array_size, voltage):
-        self.meter.setMeasurementRange(2e-9)
+    def prepare_source_meter(self, array_size):
+        """
+        We need to do this once, before all measurements
+
+        :param array_size:
+        :return:
+        """
+        self.meter.setMeasurementRange("auto")
         self.meter.setMeasurementSpeed()
-        #self.meter.adjustTrigTiming() not implemented
-        #’ Adjust trigger timing parameters
-        #ioObj.WriteString(":trig:acq:del 2.0e-3")   (from Keysight example)
-        #needed?????? Nope, delay has to be equal to zero.
-        self.meter.setTriggerDelay() # no parameter is used for zero delay
+        self.meter.setTriggerDelay()  # no parameter is used for zero delay
         self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
-        self.meter.setTriggerTimerInterval(0.004)
+        self.meter.setTriggerTimerInterval(0.004) # hardcoded?
         self.meter.setTriggerCounts(array_size)
+        pass
+
+
+    def sample_measurement(self, voltage):
         self.meter.setVoltOutValue(voltage)
         self.meter.enableVoltageOutput(self.meter.bON)
         self.meter.enableAmmeterInput(self.meter.bON)
         self.meter.initAcquire()
+        # Give enough time for this action
+        time.sleep(1) # one second is enough?
         data = self.meter.fetchArrayData(self.meter.CURR) #
         data_np = np.fromstring(data, dtype=float, sep=",")
         return data_np
         pass
+
     def stop_measurement(self):
         self.meter.enableAmmeterInput(self.meter.bOFF)
         self.meter.enableVoltageOutput(self.meter.bOFF)
