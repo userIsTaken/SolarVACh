@@ -56,7 +56,7 @@ class SourceMeter():
         elif (_atype.capitalize() in "VOLTAGE"):
             dataArray = self.Device.ask(":fetc:arr:volt?")
         else:
-            dataArray = None
+            dataArray = "fcuk"
         return dataArray
 
     def enableVoltageOutput(self, _status:bool):
@@ -199,5 +199,9 @@ class SourceMeter():
             self.write(":trig:acq:del 0")
         else:
             self.write(":trig:acq:del "+str(delay))
+        pass
+
+    def close(self):
+        self.Device.close()
         pass
 
