@@ -24,7 +24,6 @@ class LoopWorker(QObject):
         self.curr = None
         self.volt = None
         self.err_ok=False
-        # self.data_np=None
         pass
 
     @pyqtSlot()
@@ -47,6 +46,7 @@ class LoopWorker(QObject):
                 totalV = totalV + step
             self.stop_measurement()
         except Exception as ex:
+            print("ERR.CODE.001")
             print(str(ex))
         pass
 
@@ -58,29 +58,40 @@ class LoopWorker(QObject):
         :param array_size:
         :return:
         """
-        self.meter.setMeasurementRange("auto")
-        self.meter.setMeasurementSpeed()
-        self.meter.setTriggerDelay()  # no parameter is used for zero delay
-        self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
-        self.meter.setTriggerTimerInterval(0.004) # hardcoded?
-        self.meter.setTriggerCounts(array_size)
+        try:
+            self.meter.setMeasurementRange("auto")
+            self.meter.setMeasurementSpeed()
+            self.meter.setTriggerDelay()  # no parameter is used for zero delay
+            self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
+            self.meter.setTriggerTimerInterval(0.004) # hardcoded?
+            self.meter.setTriggerCounts(array_size)
+        except Exception as ex:
+            print("ERR.CODE.002")
+            print(str(ex))
         pass
 
 
     def sample_measurement(self, voltage):
-        self.meter.setVoltOutValue(voltage)
-        self.meter.enableVoltageOutput(self.meter.bON)
-        self.meter.enableAmmeterInput(self.meter.bON)
-        self.meter.initAcquire()
-        # Give enough time for this action
-        time.sleep(1) # one second is enough?
-        data = self.meter.fetchArrayData(self.meter.CURR) #
-        data_np = np.fromstring(data, dtype=float, sep=",")
-        return data_np
+        try:
+            self.meter.setVoltOutValue(voltage)
+            self.meter.enableVoltageOutput(self.meter.bON)
+            self.meter.enableAmmeterInput(self.meter.bON)
+            self.meter.initAcquire()
+            # Give enough time for this action
+            time.sleep(1) # one second is enough?
+            data = self.meter.fetchArrayData(self.meter.CURR) #
+            data_np = np.fromstring(data, dtype=float, sep=",")
+            return data_np
+        except Exception as ex:
+            print("ERR.CODE.003")
+            print(str(ex))
         pass
 
     def stop_measurement(self):
-        self.meter.enableAmmeterInput(self.meter.bOFF)
-        self.meter.enableVoltageOutput(self.meter.bOFF)
-
+        try:
+            self.meter.enableAmmeterInput(self.meter.bOFF)
+            self.meter.enableVoltageOutput(self.meter.bOFF)
+        except Exception as ex:
+            print("ERR.CODE.004")
+            print(str(ex))
         pass
