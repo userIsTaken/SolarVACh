@@ -50,10 +50,10 @@ class SourceMeter():
         :return:
         """
         dataArray = None
-        if (_atype.capitalize() in "CURRENT" ):
+        if (_atype.upper() in "CURRENT" ):
             dataArray = self.Device.ask(":fetc:arr:curr?")
             pass
-        elif (_atype.capitalize() in "VOLTAGE"):
+        elif (_atype.upper() in "VOLTAGE"):
             dataArray = self.Device.ask(":fetc:arr:volt?")
         else:
             dataArray = "fcuk"
@@ -167,7 +167,7 @@ class SourceMeter():
         :param on: ON OFF, default : ON
         :return:
         """
-        if str(range) == "AUTO":
+        if str(range).upper() == "AUTO":
             self.write(":sens:"+mode+":rang:auto "+on)
         else:
             self.write(":sens:" + mode + ":rang:auto " + "off")
