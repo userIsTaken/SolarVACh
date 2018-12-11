@@ -14,8 +14,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ThreadPool = QThreadPool()
-        self._threads = []
+        # self.ThreadPool = QThreadPool()
+        # self._threads = []
         self._thread = None
         self._worker = None
         self._path = None
@@ -24,7 +24,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.jvView = self.ui.density_graph
         self.ui.connect_button.clicked.connect(self.MeterConnect)
         self.ui.startButton.clicked.connect(self.hell)
+        self.ui.quitButton.clicked.connect(self.quit)
+        self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.parameters = {}
+
+    def quit(self):
+        sys.exit(0)
+
+    def fullscreen(self):
+        if self.isFullScreen():
+            self.showNormal()
+        else:
+            self.showFullScreen()
 
     def MeterConnect(self):
         self.ip = self.ui.ip_address.toPlainText()
