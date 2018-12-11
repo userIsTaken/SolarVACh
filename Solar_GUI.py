@@ -30,8 +30,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
-        except:
+        except Exception as ex:
+            print("ERR.CODE.A")
             print("wrong IP")
+            print(str(ex))
         pass
 
     def hell(self):

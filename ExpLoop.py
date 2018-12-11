@@ -35,16 +35,40 @@ class LoopWorker(QObject):
             step = (endV - startV)/self.params['points']
             totalV = startV
             self.prepare_source_meter(array_size)
+            fb_scan = self.params['fb_scan']
             #self.curr_array.append(totalV) # what the hell is this?
-            while (totalV <= endV):
-                while not self.err_ok:
-                    curr_array = self.sample_measurement(totalV)
-                    status, data_mean, err_rate = getStats(curr_array)
-                    self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
-                    self.err_ok = status
-                    pass
-                totalV = totalV + step
-            self.stop_measurement()
+            if not fb_scan:
+                while (totalV <= endV):
+                    while not self.err_ok:
+                        curr_array = self.sample_measurement(totalV)
+                        status, data_mean, err_rate = getStats(curr_array)
+                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.err_ok = status
+                        pass
+                    totalV = totalV + step
+                self.stop_measurement()
+            elif fb_scan:
+                while (totalV <= endV):
+                    while not self.err_ok:
+                        curr_array = self.sample_measurement(totalV)
+                        status, data_mean, err_rate = getStats(curr_array)
+                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.err_ok = status
+                        pass
+                    totalV = totalV + step
+                #Second while loop
+                while (totalV >= endV):
+                    while not self.err_ok:
+                        curr_array = self.sample_measurement(totalV)
+                        status, data_mean, err_rate = getStats(curr_array)
+                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.err_ok = status
+                        pass
+                    totalV = totalV - step
+                self.stop_measurement()
+            else:
+                print("ERR.CODE.SHIT")
+                print(str(fb_scan))
         except Exception as ex:
             print("ERR.CODE.001")
             print(str(ex))
