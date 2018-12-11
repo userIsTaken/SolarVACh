@@ -53,14 +53,14 @@ class LoopWorker(QObject):
 
     def prepare_source_meter(self, array_size):
         """
-        We need to do this once, before all measurements
+        We need to do this just once, before all measurements
 
         :param array_size:
         :return:
         """
         try:
             self.meter.setMeasurementRange("auto")
-            self.meter.setMeasurementSpeed()
+            self.meter.setMeasurementSpeed("auto")
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
             self.meter.setTriggerTimerInterval(0.004) # hardcoded?
@@ -72,6 +72,7 @@ class LoopWorker(QObject):
 
 
     def sample_measurement(self, voltage):
+        data_np = None
         try:
             self.meter.setVoltOutValue(voltage)
             self.meter.enableVoltageOutput(self.meter.bON)
@@ -81,11 +82,10 @@ class LoopWorker(QObject):
             time.sleep(1) # one second is enough?
             data = self.meter.fetchArrayData(self.meter.CURR) #
             data_np = np.fromstring(data, dtype=float, sep=",")
-            return data_np
         except Exception as ex:
             print("ERR.CODE.003")
             print(str(ex))
-        pass
+        return data_np
 
     def stop_measurement(self):
         try:
