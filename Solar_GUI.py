@@ -29,6 +29,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.parameters = {}
 
     def quit(self):
+        try:
+            if self.ExpensiveMeter is not None:
+                self.ExpensiveMeter.close()
+        except Exception as ex:
+            print(str(ex))
         sys.exit(0)
 
     def fullscreen(self):
@@ -48,7 +53,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def hell(self):
-        self.pop_dialog()
+        self.startExp()
         pass
 
     def startExp(self):

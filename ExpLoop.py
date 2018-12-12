@@ -12,7 +12,7 @@ class LoopWorker(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(int)
     progress = pyqtSignal(str)
-    current_results = pyqtSignal(bool, float, float, float, list) # err ok, mean, rate, volts, curr_array
+    current_results = pyqtSignal(bool, float, float, float, np.ndarray) # err ok, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
         super().__init__()# very new way to call super() method.
@@ -34,33 +34,48 @@ class LoopWorker(QObject):
             array_size = self.params['array_size']
             step = (endV - startV)/self.params['points']
             totalV = startV
+            limit = self.params['x_mean']
             self.prepare_source_meter(array_size)
             fb_scan = self.params['fb_scan']
+            print("(y)")
+            print(fb_scan)
             #self.curr_array.append(totalV) # what the hell is this?
-            if not fb_scan:
-                while (totalV <= endV):
+            if 0 == fb_scan:
+                while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array)
+                        status, data_mean, err_rate, scale_change = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        if(scale_change):
+                            self.meter.setMeasurementRange(2e-6)
+                        else:
+                            self.meter.setMeasurementRange('auto')
+                        print("======================")
+                        print(str(status))
+                        print(str(data_mean))
+                        print(str(err_rate))
                         self.err_ok = status
                         pass
+                    print('++++++++++++++++++++++++++++')
                     totalV = totalV + step
+                    self.err_ok = False
+                    print('totalV', totalV)
+                    print('step', step)
                 self.stop_measurement()
-            elif fb_scan:
-                while (totalV <= endV):
+            elif fb_scan == 1:
+                while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array)
+                        status, data_mean, err_rate = getStats(curr_array,limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
                     totalV = totalV + step
                 #Second while loop
-                while (totalV >= endV):
+                while (totalV <= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array)
+                        status, data_mean, err_rate = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
