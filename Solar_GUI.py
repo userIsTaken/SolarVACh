@@ -29,6 +29,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.parameters = {}
 
     def quit(self):
+        try:
+            self.ExpensiveMeter.close()
+        except Exception as ex:
+            print("ERR.CODE.EXIT")
+            print(str(ex))
         sys.exit(0)
 
     def fullscreen(self):
@@ -41,6 +46,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
+            print(self.ExpensiveMeter.ID)
         except Exception as ex:
             print("ERR.CODE.A")
             print("wrong IP")
@@ -144,7 +150,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def pop_dialog(self):
         self.dialog = PopUp(self.parameters)
         self.dialog.show()
-        self.parameters = {''}
+        self.parameters = self.dialog.GetAllParameters()
         self.dialog.ui.buttonBox.accepted.connect(self.startExp)
 
 
