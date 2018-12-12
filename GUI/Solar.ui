@@ -687,9 +687,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="4" colspan="3">
-        <widget class="QComboBox" name="device_box"/>
-       </item>
        <item row="1" column="7">
         <widget class="QComboBox" name="channel_box"/>
        </item>
@@ -804,6 +801,9 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="5">
+        <widget class="QComboBox" name="device_box"/>
+       </item>
       </layout>
      </widget>
     </item>
@@ -815,7 +815,7 @@
      <x>0</x>
      <y>0</y>
      <width>973</width>
-     <height>28</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

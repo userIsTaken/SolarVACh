@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -276,7 +276,6 @@ class Ui_MainWindow(object):
         self.widget.setMaximumSize(QtCore.QSize(300, 160))
         self.widget.setObjectName("widget")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
@@ -348,9 +347,6 @@ class Ui_MainWindow(object):
         self.label_17.setAlignment(QtCore.Qt.AlignCenter)
         self.label_17.setObjectName("label_17")
         self.gridLayout_10.addWidget(self.label_17, 0, 9, 1, 1)
-        self.device_box = QtWidgets.QComboBox(self.frame)
-        self.device_box.setObjectName("device_box")
-        self.gridLayout_10.addWidget(self.device_box, 1, 4, 1, 3)
         self.channel_box = QtWidgets.QComboBox(self.frame)
         self.channel_box.setObjectName("channel_box")
         self.gridLayout_10.addWidget(self.channel_box, 1, 7, 1, 1)
@@ -399,10 +395,13 @@ class Ui_MainWindow(object):
         self.fullscreenButton.setMaximumSize(QtCore.QSize(60, 40))
         self.fullscreenButton.setObjectName("fullscreenButton")
         self.gridLayout_10.addWidget(self.fullscreenButton, 1, 10, 1, 1)
+        self.device_box = QtWidgets.QComboBox(self.frame)
+        self.device_box.setObjectName("device_box")
+        self.gridLayout_10.addWidget(self.device_box, 1, 5, 1, 1)
         self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 973, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 973, 27))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
