@@ -62,7 +62,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **parameters)
         self._worker.moveToThread(self._thread)
-        self._worker.results.connect(self.draw_JV)
+        self._worker.results.connect(self.draw_I)
         #self._worker.final.connect(self.WorkerEnded)
         #self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)
@@ -114,7 +114,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_I(self, x, y):
-        self.draw_method(self.ui.current_graph,  'Time', 's', 'Current', 'A' , x, y)
+        array = np.arange(0, x, 1)
+        self.draw_method(self.ui.current_graph,  '6th dimension', 'a.u.', 'Current', 'A' , array, y)
         pass
 
     def draw_P(self, x ,y):
@@ -124,13 +125,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y):
         #y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
         #x = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+        graph.clear()
         graph.setBackground((47,79,79))
         graph.setLabel('bottom', x_title, x_scale)
         graph.setLabel('left', y_title, y_scale)
         graph.getAxis('bottom').setPen((255, 255, 255))
         graph.getAxis('left').setPen((255, 255, 255))
-        graph.plot(x, y, pen=(255,255,102), symbol='o')
-        graph.showGrid(x=True,y=True)
+        gr = graph.plot()
+        gr.setPen((255, 255, 102))
+        gr.setData(x, y)
+        #graph.plot(x, y, pen=(255,255,102), symbol='o')
+        gr.showGrid(x=True,y=True)
 
     def updateQLCD(self, lcd, value):
         palette = self.ui.lcdNumber.palette()

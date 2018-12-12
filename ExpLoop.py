@@ -8,7 +8,7 @@ import scipy as sp
 
 
 class LoopWorker(QObject):
-    results = pyqtSignal(list, list)
+    results = pyqtSignal(int, np.ndarray)
     errors = pyqtSignal(int, str)
     final = pyqtSignal(int)
     progress = pyqtSignal(str)
@@ -46,6 +46,7 @@ class LoopWorker(QObject):
                         curr_array = self.sample_measurement(totalV)
                         status, data_mean, err_rate, scale_change = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.results.emit(array_size, curr_array)
                         if(scale_change):
                             self.meter.setMeasurementRange(2e-6)
                         else:
