@@ -27,6 +27,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.quitButton.clicked.connect(self.quit)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.parameters = {}
+        self.current_arr = None
+        self.voltage_arr = None
 
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
@@ -62,12 +64,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def startExp(self):
-        parameters = self.GetAllParameters()
+        self.parameters = {}
+        self.parameters = self.GetAllParameters()
         self._thread = QThread()
         self._thread.setObjectName("WLoop")
-        self._worker = LoopWorker(self.ExpensiveMeter, **parameters)
+        self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
         self._worker.moveToThread(self._thread)
         self._worker.results.connect(self.draw_I)
+        self._worker.current_results.connect(self.draw_graph)
         #self._worker.final.connect(self.WorkerEnded)
         #self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)
@@ -112,6 +116,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'relay_combo':relay_combo,
                       'el_combo': el_combo}
         return parameters
+        pass
+
+    def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
+        array = np.arange(0, self.parameters['array_size'], 1)
+        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
+        if status:
+            self.current_arr.append(data_mean)
+            self.voltage_arr.append(totalV)
+            self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
+            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2', self.voltage_arr, self.density_arr)
         pass
 
     def draw_JV(self, x, y):

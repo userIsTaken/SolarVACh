@@ -47,16 +47,21 @@ class LoopWorker(QObject):
                         status, data_mean, err_rate, scale_change = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.results.emit(array_size, curr_array)
-                        if not status:
-                            self.meter.setMeasurementRange(getScaleChange(data_mean))
+                        if(scale_change):
+                            self.meter.setMeasurementRange(2e-6)
+                        else:
+                            self.meter.setMeasurementRange('auto')
+                        print("======================")
+                        print(str(status))
+                        print(str(data_mean))
+                        print(str(err_rate))
                         self.err_ok = status
                         pass
-                    # print('++++++++++++++++++++++++++++')
-                    self.meter.setMeasurementRange('auto')
+                    print('++++++++++++++++++++++++++++')
                     totalV = totalV + step
                     self.err_ok = False
-                    # print('totalV', totalV)
-                    # print('step', step)
+                    print('totalV', totalV)
+                    print('step', step)
                 self.stop_measurement()
             elif fb_scan == 1:
                 while (totalV >= endV):
