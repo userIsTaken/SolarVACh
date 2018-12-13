@@ -28,3 +28,17 @@ def getStats(_array, limit):
         scale_change = False
     return limit_stat, mean, rate, scale_change
     pass
+
+
+# def getScaleChange(current_scale, mean):
+#     change, new_scale = False, None
+#     if str(current_scale).lower() in 'auto':
+#         if mean < 1e-6:
+#             change = True
+#             new_scale = 1e-6
+#     else:
+#         if mean < current_scale:
+#             pass
+#
+#     return change, new_scale
+#     pass
