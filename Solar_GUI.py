@@ -28,6 +28,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.parameters = {}
 
+    #     Plots:
+        self.density_graph = self.ui.density_graph.plot()
+        self.current_graph = self.ui.current_graph.plot()
+
     def quit(self):
         try:
             if self.ExpensiveMeter is not None:
