@@ -38,5 +38,6 @@ def getScaleChange(mean):
         new_scale = 1e-7
     elif mean < 1e-6:
         new_scale = 1e-6
+
     return new_scale
     pass

@@ -27,8 +27,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.quitButton.clicked.connect(self.quit)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.parameters = {}
-        self.current_arr = None
-        self.voltage_arr = None
+        self.current_arr = []
+        self.voltage_arr = []
 
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
@@ -125,7 +125,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.current_arr.append(data_mean)
             self.voltage_arr.append(totalV)
             self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
-            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2', self.voltage_arr, self.density_arr)
+            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
         pass
 
     def draw_JV(self, x, y):
@@ -150,11 +150,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         graph.setLabel('left', y_title, y_scale)
         graph.getAxis('bottom').setPen((255, 255, 255))
         graph.getAxis('left').setPen((255, 255, 255))
-        gr = graph.plot()
-        gr.setPen((255, 255, 102))
-        gr.setData(x, y)
-        #graph.plot(x, y, pen=(255,255,102), symbol='o')
-        gr.showGrid(x=True,y=True)
+        graph.plot(x, y, pen=(255,255,102), symbol='o')
+        graph.showGrid(x=True,y=True)
 
     def updateQLCD(self, lcd, value):
         palette = self.ui.lcdNumber.palette()
