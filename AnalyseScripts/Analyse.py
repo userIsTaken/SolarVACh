@@ -30,15 +30,13 @@ def getStats(_array, limit):
     pass
 
 
-# def getScaleChange(current_scale, mean):
-#     change, new_scale = False, None
-#     if str(current_scale).lower() in 'auto':
-#         if mean < 1e-6:
-#             change = True
-#             new_scale = 1e-6
-#     else:
-#         if mean < current_scale:
-#             pass
-#
-#     return change, new_scale
-#     pass
+def getScaleChange(mean):
+    new_scale=1e-6
+    if mean < 1e-8:
+        new_scale = 1e-8
+    elif mean < 1e-7:
+        new_scale = 1e-7
+    elif mean < 1e-6:
+        new_scale = 1e-6
+    return new_scale
+    pass
