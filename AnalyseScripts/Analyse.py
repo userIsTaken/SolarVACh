@@ -31,7 +31,7 @@ def getStats(_array, limit):
 
 
 def getScaleChange(mean):
-    new_scale=1e-6
+    new_scale='auto'
     if mean < 1e-8:
         new_scale = 1e-8
     elif mean < 1e-7:
