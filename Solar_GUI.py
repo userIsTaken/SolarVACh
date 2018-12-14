@@ -25,6 +25,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.connect_button.clicked.connect(self.MeterConnect)
         self.ui.startButton.clicked.connect(self.hell)
         self.ui.quitButton.clicked.connect(self.quit)
+        self.ui.save_as_button.clicked.connect(self.add_Chapayev_constant)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.parameters = {}
         self.current_arr = []
@@ -119,6 +120,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
+        self.ui.live_error.setText("error rate: ", err_rate)
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
         if status:
@@ -126,6 +128,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.voltage_arr.append(totalV)
             self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
             self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
+        pass
+
+    def add_Chapayev_constant(self):
+        text = ["U"]
+        self.ui.vach_text.append("blah, ha ha ha")
+
         pass
 
     def draw_JV(self, x, y):

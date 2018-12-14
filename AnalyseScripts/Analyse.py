@@ -11,7 +11,7 @@ def getErrorsRate(_np_array, current_scale):
     if (max >= 1e2):
         overflow = True
     mean = np.mean(_np_array)
-    if mean < 0.25*current_scale:
+    if mean < 0.05*current_scale:
         underflow = True
     return (max-min)/mean, mean, overflow, underflow
     pass
@@ -27,7 +27,7 @@ def getStats(_array, limit, current_scale):
         limit_stat = True
     else:
         limit_stat=True
-    return limit_stat, mean, rate, overflow
+    return limit_stat, mean, rate, overflow, underflow
     pass
 
 
