@@ -48,7 +48,7 @@ class LoopWorker(QObject):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
                         status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
-                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+
                         if overflow:
                             curr_range = self.meter.getCurrentRange()
                             new_scale = getBiggerScale(curr_range)
@@ -59,6 +59,7 @@ class LoopWorker(QObject):
                             new_scale = getLowerScale(self.current_scale)
                             self.meter.setCurrentSensorRange(new_scale)
                             self.current_scale = new_scale
+                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
