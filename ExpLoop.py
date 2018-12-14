@@ -98,7 +98,7 @@ class LoopWorker(QObject):
         try:
             self.meter.setMeasurementRange("auto")
             self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
-            self.meter.setCurrentAutoRangeULIM(1e-6) # 1 mA upper limit
+            self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
             self.meter.setMeasurementSpeed(10) # 10 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)

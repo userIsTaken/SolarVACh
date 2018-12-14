@@ -217,3 +217,13 @@ class SourceMeter():
     def setCurrentAutoRangeULIM(self, ulim):
         self.write(":sens:curr:rang:auto:ulim " + str(ulim))
         pass
+
+    # GET functions:
+    def ask(self, cmd):
+        answer = self.Device.ask(cmd)
+        return answer
+        pass
+
+    def getCurrentRange(self):
+
+        pass
