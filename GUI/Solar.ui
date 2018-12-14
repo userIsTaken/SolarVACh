@@ -140,8 +140,14 @@
               </item>
               <item row="2" column="0">
                <widget class="QDoubleSpinBox" name="startV_box">
+                <property name="minimum">
+                 <double>-20.000000000000000</double>
+                </property>
                 <property name="maximum">
-                 <double>10.000000000000000</double>
+                 <double>20.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
                 </property>
                 <property name="value">
                  <double>2.000000000000000</double>
@@ -172,7 +178,17 @@
                </widget>
               </item>
               <item row="4" column="0">
-               <widget class="QDoubleSpinBox" name="endV_box"/>
+               <widget class="QDoubleSpinBox" name="endV_box">
+                <property name="minimum">
+                 <double>-20.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>20.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+               </widget>
               </item>
               <item row="4" column="1">
                <widget class="QSpinBox" name="points_box">
@@ -293,6 +309,9 @@
               </item>
               <item row="3" column="2">
                <widget class="QDoubleSpinBox" name="x_mean_box">
+                <property name="decimals">
+                 <number>3</number>
+                </property>
                 <property name="singleStep">
                  <double>0.100000000000000</double>
                 </property>

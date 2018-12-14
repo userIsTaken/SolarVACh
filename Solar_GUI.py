@@ -120,14 +120,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
-        self.ui.live_error.setText("error rate: " + str(err_rate))
+        self.ui.live_error.setText(str(round(err_rate, 3)))
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
         if status:
             self.current_arr.append(data_mean)
             self.voltage_arr.append(totalV)
             self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
+            self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
             self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
+            self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr)
         pass
 
     def add_Chapayev_constant(self):
