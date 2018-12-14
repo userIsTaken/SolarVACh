@@ -60,7 +60,7 @@ class LoopWorker(QObject):
                             new_scale = getLowerScale(self.current_scale)
                             self.meter.setCurrentSensorRange(new_scale)
                             self.current_scale = new_scale
-                            status=True
+                            status=False
                         counter=counter+1
                         if counter>15:
                             status=True
