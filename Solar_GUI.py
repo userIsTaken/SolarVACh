@@ -73,7 +73,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker.moveToThread(self._thread)
         self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
-        #self._worker.final.connect(self.WorkerEnded)
+        self._worker.final.connect(self.calculate_param)
         #self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)
         self._thread.started.connect(self._worker.run)
@@ -117,6 +117,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'relay_combo':relay_combo,
                       'el_combo': el_combo}
         return parameters
+        pass
+
+    def calculate_param(self):
+
+        
+
         pass
 
     def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
