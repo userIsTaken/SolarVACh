@@ -6,6 +6,8 @@ import math
 def getErrorsRate(_np_array):
     min = np.amin(_np_array)
     max=np.amax(_np_array)
+    if (max >= 1e6):
+        pass
     mean = np.mean(_np_array)
     return (max-min)/mean, mean
     pass

@@ -208,3 +208,12 @@ class SourceMeter():
         self.Device.close()
         pass
 
+    # ioObj.WriteString(":sens:curr:rang:auto:llim 2e-9")
+
+    def setCurrentAutoRangeLLIM(self, llim):
+        self.write(":sens:curr:rang:auto:llim "+str(llim))
+        pass
+
+    def setCurrentAutoRangeULIM(self, ulim):
+        self.write(":sens:curr:rang:auto:ulim " + str(ulim))
+        pass
