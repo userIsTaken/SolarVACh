@@ -32,6 +32,7 @@ class LoopWorker(QObject):
     def run(self):
         try:
             # current_scale=None
+            counter = 0
             startV = self.params['startV']
             endV = self.params['endV']
             array_size = self.params['array_size']
@@ -59,12 +60,16 @@ class LoopWorker(QObject):
                             new_scale = getLowerScale(self.current_scale)
                             self.meter.setCurrentSensorRange(new_scale)
                             self.current_scale = new_scale
+                        counter = counter +1
+                        if counter > 15:
+                            status = True
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
                     # self.meter.setMeasurementRange(0.03)
                     time.sleep(1)
                     totalV = totalV + step
+                    counter = 0
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
