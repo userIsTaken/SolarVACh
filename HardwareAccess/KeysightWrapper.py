@@ -218,6 +218,10 @@ class SourceMeter():
         self.write(":sens:curr:rang:auto:ulim " + str(ulim))
         pass
 
+    def setCurrentSensorRange(self, range):
+        self.write(":sens:curr:rang " + str(range))
+        pass
+
     # GET functions:
     def ask(self, cmd):
         answer = self.Device.ask(cmd)

@@ -44,12 +44,13 @@ class LoopWorker(QObject):
                 while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array, limit)
+                        status, data_mean, err_rate, overflow = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
-                        # if not status:
-                        #     self.meter.setMeasurementRange(getScaleChange(data_mean))
-                        #     time.sleep(1)
-                        # self.meter.setMeasurementRange(getScaleChange(data_mean))
+                        if overflow:
+                            curr_range = self.meter.getCurrentRange()
+                            new_scale = getBiggerScale(curr_range)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            pass
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -96,9 +97,9 @@ class LoopWorker(QObject):
         :return:
         """
         try:
-            self.meter.setMeasurementRange("auto")
-            self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
-            self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
+            self.meter.setMeasurementRange(2e-4) # 200 μA range?
+            # self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
+            # self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
             self.meter.setMeasurementSpeed(10) # 10 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
