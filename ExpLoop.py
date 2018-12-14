@@ -53,7 +53,7 @@ class LoopWorker(QObject):
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
-                    self.meter.setMeasurementRange('auto')
+                    self.meter.setMeasurementRange(0.03)
                     time.sleep(1)
                     totalV = totalV + step
                     self.err_ok = False

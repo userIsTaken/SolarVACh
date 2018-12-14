@@ -13,7 +13,6 @@ def getErrorsRate(_np_array):
 
 def getStats(_array, limit):
     limit_stat = True
-    scale_change=False
     #_np_array = convertToNpArray(_array)
     rate, mean = getErrorsRate(_array)
     if rate>limit:
@@ -22,22 +21,19 @@ def getStats(_array, limit):
         limit_stat = True
     else:
         limit_stat=True
-    if mean < 1e-6:
-        scale_change = True
-    else:
-        scale_change = False
-    return limit_stat, mean, rate, scale_change
+    return limit_stat, mean, rate
     pass
 
 
 def getScaleChange(mean):
-    new_scale='auto'
-    if mean < 1e-8:
-        new_scale = 1e-8
+    new_scale=0.03
+    if mean < 1e-9:
+        new_scale = 2e-9
+    elif mean < 1e-8:
+        new_scale = 2e-8
     elif mean < 1e-7:
-        new_scale = 1e-7
+        new_scale = 2e-7
     elif mean < 1e-6:
-        new_scale = 1e-6
-
+        new_scale = 2e-6
     return new_scale
     pass
