@@ -224,6 +224,7 @@ class SourceMeter():
         return answer
         pass
 
-    def getCurrentRange(self):
-
+    def getCurrentSensorRange(self):
+        answer = self.Device.ask(":sens:curr:rang?")
+        return answer
         pass
