@@ -24,11 +24,14 @@ class LoopWorker(QObject):
         self.curr = None
         self.volt = None
         self.err_ok=False
+        # Few globals
+        self.current_scale=None
         pass
 
     @pyqtSlot()
     def run(self):
         try:
+            # current_scale=None
             startV = self.params['startV']
             endV = self.params['endV']
             array_size = self.params['array_size']
@@ -44,13 +47,18 @@ class LoopWorker(QObject):
                 while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate, overflow = getStats(curr_array, limit)
+                        status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         if overflow:
                             curr_range = self.meter.getCurrentRange()
                             new_scale = getBiggerScale(curr_range)
                             self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
                             pass
+                        if underflow:
+                            new_scale = getLowerScale(self.current_scale)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -98,6 +106,7 @@ class LoopWorker(QObject):
         """
         try:
             self.meter.setMeasurementRange(2e-4) # 200 μA range?
+            self.current_scale=2e-4 #
             # self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
             # self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
             self.meter.setMeasurementSpeed(10) # 10 NPLC
