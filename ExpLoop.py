@@ -75,6 +75,7 @@ class LoopWorker(QObject):
                     # print('totalV', totalV)
                     # print('step', step)
                 self.stop_measurement()
+            #     TODO this part is incomplete!
             elif fb_scan == 1:
                 while (totalV >= endV):
                     while not self.err_ok:
