@@ -120,7 +120,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
-        self.ui.live_error.setText("error rate: ", err_rate)
+        self.ui.live_error.setText("error rate: " + str(err_rate))
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
         if status:

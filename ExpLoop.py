@@ -50,7 +50,7 @@ class LoopWorker(QObject):
                         status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
 
                         if overflow:
-                            curr_range = self.meter.getCurrentRange()
+                            curr_range = self.meter.getCurrentSensorRange()
                             new_scale = getBiggerScale(curr_range)
                             self.meter.setCurrentSensorRange(new_scale)
                             self.current_scale = new_scale
