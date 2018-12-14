@@ -44,16 +44,16 @@ class LoopWorker(QObject):
                 while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate, scale_change = getStats(curr_array, limit)
+                        status, data_mean, err_rate = getStats(curr_array, limit)
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         # if not status:
                         #     self.meter.setMeasurementRange(getScaleChange(data_mean))
                         #     time.sleep(1)
-                        self.meter.setMeasurementRange(getScaleChange(data_mean))
+                        # self.meter.setMeasurementRange(getScaleChange(data_mean))
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
-                    self.meter.setMeasurementRange(0.03)
+                    # self.meter.setMeasurementRange(0.03)
                     time.sleep(1)
                     totalV = totalV + step
                     self.err_ok = False
@@ -97,7 +97,9 @@ class LoopWorker(QObject):
         """
         try:
             self.meter.setMeasurementRange("auto")
-            self.meter.setMeasurementSpeed("auto")
+            self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
+            self.meter.setCurrentAutoRangeULIM(1e-6) # 1 mA upper limit
+            self.meter.setMeasurementSpeed(10) # 10 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
             self.meter.setTriggerTimerInterval(0.004) # hardcoded?

@@ -183,7 +183,7 @@ class SourceMeter():
         :return:
         """
         if speed is not None:
-            if (speed.lower() in "auto"):
+            if (str(speed).lower() in "auto"):
                 self.write(":sens:"+mode+":nplc:auto on")
             else:
                 self.write(":sens:"+mode+":nplc:auto off")
