@@ -139,7 +139,14 @@
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QDoubleSpinBox" name="startV_box"/>
+               <widget class="QDoubleSpinBox" name="startV_box">
+                <property name="maximum">
+                 <double>10.000000000000000</double>
+                </property>
+                <property name="value">
+                 <double>2.000000000000000</double>
+                </property>
+               </widget>
               </item>
               <item row="2" column="1">
                <widget class="QDoubleSpinBox" name="limitA_box"/>
@@ -168,7 +175,14 @@
                <widget class="QDoubleSpinBox" name="endV_box"/>
               </item>
               <item row="4" column="1">
-               <widget class="QSpinBox" name="points_box"/>
+               <widget class="QSpinBox" name="points_box">
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+                <property name="value">
+                 <number>50</number>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -255,7 +269,14 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QSpinBox" name="array_size_box"/>
+               <widget class="QSpinBox" name="array_size_box">
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+                <property name="value">
+                 <number>50</number>
+                </property>
+               </widget>
               </item>
               <item row="3" column="0">
                <widget class="QSpinBox" name="wait_box"/>
@@ -271,7 +292,14 @@
                </widget>
               </item>
               <item row="3" column="2">
-               <widget class="QDoubleSpinBox" name="x_mean_box"/>
+               <widget class="QDoubleSpinBox" name="x_mean_box">
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+                <property name="value">
+                 <double>0.500000000000000</double>
+                </property>
+               </widget>
               </item>
               <item row="2" column="2">
                <widget class="QLabel" name="label_9">
@@ -363,7 +391,14 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QSpinBox" name="area_box"/>
+               <widget class="QSpinBox" name="area_box">
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+                <property name="value">
+                 <number>7</number>
+                </property>
+               </widget>
               </item>
               <item row="1" column="1">
                <widget class="QSpinBox" name="power_input_box"/>
@@ -611,6 +646,13 @@
                <height>41</height>
               </size>
              </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;192.168.0.100&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
             </widget>
            </item>
            <item row="2" column="0">
@@ -815,7 +857,7 @@
      <x>0</x>
      <y>0</y>
      <width>973</width>
-     <height>27</height>
+     <height>32</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
