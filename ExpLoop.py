@@ -80,20 +80,63 @@ class LoopWorker(QObject):
                 while (totalV >= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array,limit)
+                        status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
+                        if overflow:
+                            curr_range = self.meter.getCurrentSensorRange()
+                            new_scale = getBiggerScale(curr_range)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
+                            status = False
+                            pass
+                        if underflow:
+                            new_scale = getLowerScale(self.current_scale)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
+                            status=False
+                        counter=counter+1
+                        if counter>15 and not overflow:
+                            status=True
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
+                    # print('++++++++++++++++++++++++++++')
+                    # self.meter.setMeasurementRange(0.03)
+                    time.sleep(1)
                     totalV = totalV + step
+                    self.err_ok = False
+                    # print('totalV', totalV)
+                    # print('step', step)
+                # self.stop_measurement()
                 #Second while loop
                 while (totalV <= endV):
                     while not self.err_ok:
                         curr_array = self.sample_measurement(totalV)
-                        status, data_mean, err_rate = getStats(curr_array, limit)
+                        status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
+                        if overflow:
+                            curr_range = self.meter.getCurrentSensorRange()
+                            new_scale = getBiggerScale(curr_range)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
+                            status = False
+                            pass
+                        if underflow:
+                            new_scale = getLowerScale(self.current_scale)
+                            self.meter.setCurrentSensorRange(new_scale)
+                            self.current_scale = new_scale
+                            status=False
+                        counter=counter+1
+                        if counter>15 and not overflow:
+                            status=True
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
+                    # print('++++++++++++++++++++++++++++')
+                    # self.meter.setMeasurementRange(0.03)
+                    time.sleep(1)
                     totalV = totalV - step
+                    self.err_ok = False
+                    # print('totalV', totalV)
+                    # print('step', step)
                 self.stop_measurement()
             else:
                 print("ERR.CODE.SHIT")
