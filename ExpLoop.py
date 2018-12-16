@@ -62,7 +62,7 @@ class LoopWorker(QObject):
                             self.current_scale = new_scale
                             status=False
                         counter=counter+1
-                        if counter>15:
+                        if counter>15 and not overflow:
                             status=True
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
