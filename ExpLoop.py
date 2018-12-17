@@ -26,6 +26,7 @@ class LoopWorker(QObject):
         self.err_ok=False
         # Few globals
         self.current_scale=None
+        self.current_array_counter=[] # empty list
         pass
 
     @pyqtSlot()
@@ -62,8 +63,14 @@ class LoopWorker(QObject):
                             self.current_scale = new_scale
                             status=False
                         counter=counter+1
+                        if not status:
+                            self.current_array_counter.append(data_mean)
+                        else:
+                            self.current_array_counter.clear()
                         if counter>15 and not overflow:
                             status=True
+                            data_mean = np.mean(np.asarray(self.current_array_counter))
+                            self.current_array_counter.clear()
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
