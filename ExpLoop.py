@@ -63,13 +63,15 @@ class LoopWorker(QObject):
                             self.current_scale = new_scale
                             status=False
                         counter=counter+1
-                        if not status:
+                        print('counter', counter)
+                        if not status and not overflow:
                             self.current_array_counter.append(data_mean)
                         else:
                             self.current_array_counter.clear()
                         if counter>15 and not overflow:
                             status=True
                             data_mean = np.mean(np.asarray(self.current_array_counter))
+                            print("counter is 16, ", data_mean)
                             self.current_array_counter.clear()
                         self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
@@ -77,6 +79,7 @@ class LoopWorker(QObject):
                     # print('++++++++++++++++++++++++++++')
                     # self.meter.setMeasurementRange(0.03)
                     time.sleep(1)
+                    counter = 0
                     totalV = totalV + step
                     self.err_ok = False
                     # print('totalV', totalV)

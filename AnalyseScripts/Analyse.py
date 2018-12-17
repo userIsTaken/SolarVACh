@@ -8,14 +8,21 @@ def getErrorsRate(_np_array, current_scale):
     underflow=False
     min = np.amin(_np_array)
     max=np.amax(_np_array)
-    if (max <= -1e2):
+    if (min <= -1e2):
         overflow = True
     if (max >= 1e2):
         overflow = True
     mean = np.mean(_np_array)
-    if abs(mean) < 0.05*current_scale:
+    x = mean
+    print('---------------')
+    print('mean', mean)
+    print('current_scale', current_scale)
+    print('---------------')
+    if abs(mean) < 0.05*current_scale and abs(mean) < 1e2 and abs(mean) > 0.0:
         underflow = True
-    return (max-min)/mean, mean, overflow, underflow
+    if mean == 0.0:
+        x = 1.0
+    return abs(abs(max)-abs(min))/abs(x), mean, overflow, underflow
     pass
 
 
