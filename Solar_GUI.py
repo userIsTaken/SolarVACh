@@ -67,6 +67,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
+            self.ui.tabWidget.setCurrentIndex(0)
         except Exception as ex:
             print("ERR.CODE.A")
             print("wrong IP")

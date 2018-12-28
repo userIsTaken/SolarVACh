@@ -335,6 +335,9 @@ class Ui_MainWindow(object):
         self.gridLayout_9.setObjectName("gridLayout_9")
         self.ip_address = QtWidgets.QTextEdit(self.frame_7)
         self.ip_address.setMaximumSize(QtCore.QSize(256, 41))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.ip_address.setFont(font)
         self.ip_address.setObjectName("ip_address")
         self.gridLayout_9.addWidget(self.ip_address, 2, 1, 1, 1)
         self.label_23 = QtWidgets.QLabel(self.frame_7)
@@ -488,8 +491,8 @@ class Ui_MainWindow(object):
         self.ip_address.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">192.168.0.100</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">192.168.0.100</span></p></body></html>"))
         self.label_23.setText(_translate("MainWindow", "Device IP :"))
         self.connect_button.setText(_translate("MainWindow", "Connect"))
         self.label_22.setText(_translate("MainWindow", "DEVICE CONFIGURATION"))
