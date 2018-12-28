@@ -29,9 +29,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.ui.stopButton.clicked.connect(self.stopExperiment)
         self.ui.actionQuit.triggered.connect(self.quit)
+
         self.parameters = {}
         self.current_arr = []
         self.voltage_arr = []
+    #     Shortcuts:
+        self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
+        # events of shortcuts:
+        self.quit_shortcut.activated.connect(self.quit)
 
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
