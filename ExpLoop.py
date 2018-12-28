@@ -12,7 +12,7 @@ class LoopWorker(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(int)
     progress = pyqtSignal(str)
-    current_results = pyqtSignal(bool, float, float, float, np.ndarray) # err ok, mean, rate, volts, curr_array
+    current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray) # err ok, fb_scan, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
         super().__init__()# very new way to call super() method.
@@ -73,7 +73,7 @@ class LoopWorker(QObject):
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             print("counter is 16, ", data_mean)
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -115,7 +115,7 @@ class LoopWorker(QObject):
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             print("counter is 16, ", data_mean)
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -154,7 +154,7 @@ class LoopWorker(QObject):
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             print("counter is 16, ", data_mean)
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
