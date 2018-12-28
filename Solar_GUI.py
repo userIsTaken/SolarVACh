@@ -67,11 +67,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
+            self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip))
             self.ui.tabWidget.setCurrentIndex(0)
+
         except Exception as ex:
             print("ERR.CODE.A")
             print("wrong IP")
             print(str(ex))
+            self.ui.connectionErrorsBox.setPlainText("ERR.CODE.A\nwrong IP\n"+str(ex))
         pass
 
     def hell(self):

@@ -747,6 +747,9 @@ p, li { white-space: pre-wrap; }
           </layout>
          </widget>
         </item>
+        <item row="1" column="1">
+         <widget class="QPlainTextEdit" name="connectionErrorsBox"/>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="result_tab">
