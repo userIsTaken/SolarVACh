@@ -177,8 +177,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y):
-        #y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-        #x = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
         graph.clear()
         graph.setBackground((47,79,79))
         graph.setLabel('bottom', x_title, x_scale)
