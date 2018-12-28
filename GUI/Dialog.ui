@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>518</width>
     <height>550</height>
    </rect>
   </property>
@@ -125,10 +125,18 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QSpinBox" name="array_size_box"/>
+       <widget class="QSpinBox" name="array_size_box">
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="x_mean_box"/>
+       <widget class="QDoubleSpinBox" name="x_mean_box">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_8">
@@ -141,7 +149,11 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QSpinBox" name="wait_box"/>
+       <widget class="QSpinBox" name="wait_box">
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -199,7 +211,14 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QDoubleSpinBox" name="startV_box"/>
+       <widget class="QDoubleSpinBox" name="startV_box">
+        <property name="minimum">
+         <double>-20.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="2" column="1">
        <widget class="QDoubleSpinBox" name="limitA_box"/>
@@ -225,10 +244,21 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QDoubleSpinBox" name="endV_box"/>
+       <widget class="QDoubleSpinBox" name="endV_box">
+        <property name="minimum">
+         <double>-20.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QSpinBox" name="points_box"/>
+       <widget class="QSpinBox" name="points_box">
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -275,12 +305,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QSpinBox" name="area_box"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="power_input_box"/>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_19">
         <property name="text">
@@ -309,6 +333,16 @@
       </item>
       <item row="3" column="1">
        <widget class="QComboBox" name="relay_combo"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="power_input_box">
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QDoubleSpinBox" name="area_box"/>
       </item>
      </layout>
     </widget>

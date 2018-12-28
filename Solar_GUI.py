@@ -84,13 +84,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def hell(self):
-        self.startExp()
+        params = self.GetAllParameters()
+        self.pop_dialog(params)
         pass
 
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
-        self.parameters = {}
+        # TODO: here is a mistake - we need to reorder the logic how we retrieve all
+        #  TODO: necessary parameters
+        # self.parameters = {} # DO not clear dict!
         self.parameters = self.GetAllParameters()
         self._thread = QThread()
         self._thread.setObjectName("WLoop")
@@ -104,14 +107,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         #self._worker.progress.connect(self.ExperimentInfo)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
-
-        #self.draw_JV()
-        #self.draw_I()
-        #self.draw_P()
-        #self.updateQLCD(self.ui.lcdNumber, 22.1)
-        #self.updateQLCD(self.ui.lcdNumber_2, 85)
-        #self.updateQLCD(self.ui.lcdNumber_3, 0.80)
-        #self.updateQLCD(self.ui.lcdNumber_4, 29.5)
         pass
 
 
@@ -237,11 +232,28 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         lcd.setPalette(palette)
         lcd.display(value)
 
-    def pop_dialog(self):
-        self.dialog = PopUp(self.parameters)
-        self.dialog.show()
-        self.parameters = {''}
-        self.dialog.ui.buttonBox.accepted.connect(self.startExp)
+    def pop_dialog(self, params):
+        self.dialog = PopUp(params)
+        if self.dialog.exec_():
+            parameters = self.dialog.GetAllParameters()
+            self.ui.startV_box.setValue(parameters['startV'])
+            self.ui.endV_box.setValue(parameters['endV'])
+            self.ui.points_box.setValue(parameters['points'])
+            self.ui.limitA_box.setValue(parameters['limitA'])
+            self.ui.wait_box.setValue(parameters['wait'])
+            self.ui.array_size_box.setValue(parameters['array_size'])
+            self.ui.x_mean_box.setValue(parameters['x_mean'])
+            self.ui.area_box.setValue(parameters['el_area'])
+            self.ui.power_input_box.setValue(parameters['in_power'])
+            self.ui.fb_scan.setCheckState(parameters['fb_scan'])
+            # TODO: ComboBoxe's are left, need to implement:
+            # relay_combo = self.ui.relay_combo.currentText()
+            # el_combo = self.ui.electrode_combo.currentText()
+            print("done")
+            self.startExp()
+        # self.dialog.show()
+        # # self.parameters = {''}
+        # self.dialog.ui.buttonBox.accepted.connect(self.startExp)
 
 
 class PopUp(QtWidgets.QDialog):
@@ -249,6 +261,21 @@ class PopUp(QtWidgets.QDialog):
         super(PopUp, self).__init__()
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
+        self.fillParams(parameters)
+
+    def fillParams(self, params):
+        self.ui.startV_box.setValue(float(params['startV']))
+        self.ui.endV_box.setValue(float(params['endV']))
+        self.ui.points_box.setValue(float(params['points']))
+        self.ui.area_box.setValue(float(params['area']))
+        self.ui.power_input_box.setValue(float(params['in_power']))
+        self.ui.array_size_box.setValue(float(params['array_size']))
+        self.ui.wait_box.setValue(float(params['wait']))
+        self.ui.x_mean_box.setValue(float(params['x_mean']))
+        # CheckBox: 0 - unchecked,  2- checked
+        self.ui.fb_scan.setCheckState(params['fb_scan'])
+        # TODO: ComboBoxes:
+        pass
 
     def GetAllParameters(self):
         startV = self.ui.startV_box.value()
