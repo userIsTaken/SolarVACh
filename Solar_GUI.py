@@ -75,7 +75,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ExpensiveMeter = SourceMeter(self.ip)
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip))
             self.ui.tabWidget.setCurrentIndex(0)
-
+            self.ui.startButton.setEnabled(True)
         except Exception as ex:
             # print("ERR.CODE.A")
             # print("wrong IP")

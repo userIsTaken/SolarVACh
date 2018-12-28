@@ -445,6 +445,7 @@ class Ui_MainWindow(object):
         self.stopButton.setObjectName("stopButton")
         self.gridLayout_10.addWidget(self.stopButton, 0, 2, 1, 1)
         self.startButton = QtWidgets.QPushButton(self.frame)
+        self.startButton.setEnabled(False)
         self.startButton.setMinimumSize(QtCore.QSize(85, 60))
         self.startButton.setObjectName("startButton")
         self.gridLayout_10.addWidget(self.startButton, 0, 0, 1, 1)
