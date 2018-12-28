@@ -47,8 +47,8 @@ class LoopWorker(QObject):
             print(fb_scan)
             #self.curr_array.append(totalV) # what the hell is this?
             if 0 == fb_scan:
-                while (totalV >= endV):
-                    while not self.err_ok:
+                while (totalV >= endV and not self._require_stop):
+                    while not self.err_ok and not self._require_stop:
                         curr_array = self.sample_measurement(totalV)
                         status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
                         if overflow:
@@ -215,14 +215,19 @@ class LoopWorker(QObject):
             print(str(ex))
         return data_np
 
-    @pyqtSlot()
+    # @pyqtSlot()
     def stop_measurement(self):
         try:
-            self._require_stop = True
             self.meter.enableAmmeterInput(self.meter.bOFF)
             self.meter.enableVoltageOutput(self.meter.bOFF)
         except Exception as ex:
             print("ERR.CODE.004")
             print(str(ex))
             print("ERROR IN: stop_measurement function")
+        pass
+
+    @pyqtSlot()
+    def stop(self):
+        self._require_stop = True
+        self.stop_measurement()
         pass

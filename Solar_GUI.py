@@ -27,6 +27,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.quitButton.clicked.connect(self.quit)
         self.ui.save_as_button.clicked.connect(self.add_Chapayev_constant)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
+        self.ui.stopButton.clicked.connect(self.stopExperiment)
         self.parameters = {}
         self.current_arr = []
         self.voltage_arr = []
@@ -34,6 +35,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
         self.current_graph = self.ui.current_graph.plot()
+
+    def stopExperiment(self):
+        """
+        Stops experiment
+        :return:
+        """
+        self._worker.stop()
+        self.ui.startButton.setEnabled(True)
+        self.ui.stopButton.setEnabled(False)
+        pass
 
     def quit(self):
         try:
@@ -65,6 +76,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def startExp(self):
+        self.ui.startButton.setEnabled(False)
+        self.ui.stopButton.setEnabled(True)
         self.parameters = {}
         self.parameters = self.GetAllParameters()
         self._thread = QThread()
