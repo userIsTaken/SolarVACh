@@ -28,6 +28,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.save_as_button.clicked.connect(self.add_Chapayev_constant)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.ui.stopButton.clicked.connect(self.stopExperiment)
+        self.ui.actionQuit.triggered.connect(self.quit)
         self.parameters = {}
         self.current_arr = []
         self.voltage_arr = []
