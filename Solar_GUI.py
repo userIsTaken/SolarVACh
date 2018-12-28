@@ -96,9 +96,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
         self._worker.moveToThread(self._thread)
-        self._worker.results.connect(self.draw_I)
+        # self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
-        self._worker.final.connect(self.calculate_param)
+        # self._worker.final.connect(self.calculate_param)
+        self._worker.trigger.connect(self.calculate_param)
         #self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)
         self._thread.started.connect(self._worker.run)
@@ -148,11 +149,22 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def calculate_param(self):
+    def calculate_param(self, trigger, fb_scan):
         """
 
         :return:
         """
+        if(trigger):
+            if(fb_scan):
+                pass
+            elif not fb_scan:
+                pass
+            else:
+                print("ERR:CODE:SHIT_HAPPENED AGAIN")
+                print(trigger, fb_scan, " VALUES")
+        else:
+            print("ERR:CODE:über shit")
+            print(trigger, " trig value")
         pass
 
     def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):

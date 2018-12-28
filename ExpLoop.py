@@ -8,10 +8,13 @@ import scipy as sp
 
 
 class LoopWorker(QObject):
-    results = pyqtSignal(int, np.ndarray)
+    # TODO: delete all unnecessary signals:
+    # results = pyqtSignal(int, np.ndarray)
     errors = pyqtSignal(int, str)
-    final = pyqtSignal(int, bool)
+    # final = pyqtSignal(int, bool)
     progress = pyqtSignal(str)
+    trigger = pyqtSignal(bool, bool) # trigger and fb_scan value ( 0 - False, 2 - True)
+    relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray) # err ok, fb_scan, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
@@ -31,6 +34,7 @@ class LoopWorker(QObject):
 
     @pyqtSlot()
     def run(self):
+        # TODO : We need to implement relay control here also
         try:
             # current_scale=None
             counter=0
@@ -85,6 +89,7 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
+                self.trigger.emit(True, False)
                 self.stop_measurement()
             #     TODO this part is incomplete!
             #     TODO: This part needs to be checked again, seems to be working
@@ -127,6 +132,7 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
+                self.trigger.emit(True, False)
                 #     second loop:
                 while (totalV <= startV and not self._require_stop):
                     while not self.err_ok and not self._require_stop:
@@ -166,10 +172,11 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
+                self.trigger.emit(True, True)
                 self.stop_measurement()
             else:
                 print("ERR.CODE.SHIT")
-                print(str(fb_scan))
+                print(str(fb_scan), " FB SCAN VALUE")
         except Exception as ex:
             print("ERR.CODE.001")
             print(str(ex))
