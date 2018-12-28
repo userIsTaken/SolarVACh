@@ -50,6 +50,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         try:
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
+            if self._worker is not None:
+                self._worker.stop()
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
