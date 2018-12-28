@@ -246,7 +246,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.area_box.setValue(parameters['el_area'])
             self.ui.power_input_box.setValue(parameters['in_power'])
             self.ui.fb_scan.setCheckState(parameters['fb_scan'])
-            # TODO: ComboBoxe's are left, need to implement:
+            # TODO: ComboBoxes are left, need to implement:
             # relay_combo = self.ui.relay_combo.currentText()
             # el_combo = self.ui.electrode_combo.currentText()
             print("done")
