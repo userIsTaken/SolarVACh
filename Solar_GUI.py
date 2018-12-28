@@ -90,6 +90,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
 
     def GetAllParameters(self):
+        """
+
+        :return:
+        """
         startV = self.ui.startV_box.value()
         endV = self.ui.endV_box.value()
         points = self.ui.points_box.value()
@@ -126,6 +130,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
+        """
+
+        :param status:
+        :param fb_scan:
+        :param data_mean:
+        :param err_rate:
+        :param totalV:
+        :param curr_array:
+        :return:
+        """
         print('status', status)
         print('current_mean', data_mean)
         print('err_rate', err_rate)
