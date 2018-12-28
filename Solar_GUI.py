@@ -94,7 +94,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # TODO: here is a mistake - we need to reorder the logic how we retrieve all
         #  TODO: necessary parameters
         # self.parameters = {} # DO not clear dict!
-        self.parameters = self.GetAllParameters()
+        self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         self._thread = QThread()
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
@@ -243,7 +243,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.wait_box.setValue(parameters['wait'])
             self.ui.array_size_box.setValue(parameters['array_size'])
             self.ui.x_mean_box.setValue(parameters['x_mean'])
-            self.ui.area_box.setValue(parameters['el_area'])
+            self.ui.area_box.setValue(parameters['area'])
             self.ui.power_input_box.setValue(parameters['in_power'])
             self.ui.fb_scan.setCheckState(parameters['fb_scan'])
             # TODO: ComboBoxes are left, need to implement:
