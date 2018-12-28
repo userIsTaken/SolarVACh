@@ -10,7 +10,7 @@ import scipy as sp
 class LoopWorker(QObject):
     results = pyqtSignal(int, np.ndarray)
     errors = pyqtSignal(int, str)
-    final = pyqtSignal(int)
+    final = pyqtSignal(int, bool)
     progress = pyqtSignal(str)
     current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray) # err ok, fb_scan, mean, rate, volts, curr_array
 
@@ -42,6 +42,7 @@ class LoopWorker(QObject):
             limit = self.params['x_mean']
             self.prepare_source_meter(array_size)
             fb_scan = self.params['fb_scan']
+            self._require_stop = False
             print("(y)")
             print(fb_scan)
             #self.curr_array.append(totalV) # what the hell is this?
@@ -214,11 +215,14 @@ class LoopWorker(QObject):
             print(str(ex))
         return data_np
 
+    @pyqtSlot()
     def stop_measurement(self):
         try:
+            self._require_stop = True
             self.meter.enableAmmeterInput(self.meter.bOFF)
             self.meter.enableVoltageOutput(self.meter.bOFF)
         except Exception as ex:
             print("ERR.CODE.004")
             print(str(ex))
+            print("ERROR IN: stop_measurement function")
         pass

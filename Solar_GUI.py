@@ -124,9 +124,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def calculate_param(self):
+        """
 
-        
-
+        :return:
+        """
         pass
 
     def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
