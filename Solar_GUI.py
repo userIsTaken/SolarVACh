@@ -125,7 +125,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         pass
 
-    def draw_graph(self, status, data_mean, err_rate, totalV, curr_array):
+    def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
         print('status', status)
         print('current_mean', data_mean)
         print('err_rate', err_rate)
