@@ -177,9 +177,11 @@ class LoopWorker(QObject):
             else:
                 print("ERR.CODE.SHIT")
                 print(str(fb_scan), " FB SCAN VALUE")
+                self.errors.emit(1, "ERR.CODE.SHIT\n"+str(fb_scan)+" FB SCAN VALUE")
         except Exception as ex:
             print("ERR.CODE.001")
             print(str(ex))
+            self.errors.emit(1, "ERR.CODE.001"+str(ex))
         pass
 
 

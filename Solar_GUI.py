@@ -103,13 +103,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker.current_results.connect(self.draw_graph)
         # self._worker.final.connect(self.calculate_param)
         self._worker.trigger.connect(self.calculate_param)
-        #self._worker.errors.connect(self.ErrorHasBeenGot)
+        self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
         pass
 
-
+    def ErrorHasBeenGot(self, i, string):
+        self.ui.connectionErrorsBox.appendPlainText(string)
+        pass
     def GetAllParameters(self):
         """
 
@@ -145,6 +147,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def calculate_param(self, trigger, fb_scan):
+        # TODO: implement triggered analysis
+
         """
 
         :return:
