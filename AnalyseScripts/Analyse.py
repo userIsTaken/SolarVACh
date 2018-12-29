@@ -14,10 +14,10 @@ def getErrorsRate(_np_array, current_scale):
         overflow = True
     mean = np.mean(_np_array)
     x = mean
-    print('---------------')
-    print('mean', mean)
-    print('current_scale', current_scale)
-    print('---------------')
+    # print('---------------')
+    # print('mean', mean)
+    # print('current_scale', current_scale)
+    # print('---------------')
     if abs(mean) < 0.05*current_scale and abs(mean) < 1e2 and abs(mean) > 0.0:
         underflow = True
     if mean == 0.0:
