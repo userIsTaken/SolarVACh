@@ -64,11 +64,40 @@ def getClosestValue(array, value):
     idx = (np.abs(array - value)).argmin()
     return array[idx]
 
-def getPCE(maxJ, maxP, solarP):
+def getPCE(pmax, solarP):
+    """
+
+    :param pmax:
+    :param solarP:
+    :return:
+    """
+    pce = pmax/solarP * 100.0 # in percents
+    return pce
     pass
 
 def getMaxPJV(current, voltage):
+    """
+
+    :param current:
+    :param voltage:
+    :return:
+    """
+    P = np.asarray([a * b for a,b in zip(current, voltage)])
+    p_idx = P.argmin()
+    p_max = P.min()
+    curr_sc = current[p_idx]
+    volt_oc = voltage[p_idx]
+    return p_max, curr_sc, volt_oc
     pass
 
-def getFF(maxj, maxV, uoc, jsc):
+def getFF(maxp, uoc, jsc):
+    """
+
+    :param maxp:
+    :param uoc:
+    :param jsc:
+    :return:
+    """
+    ff = maxp/(uoc*jsc) # in a. u. (0-1)
+    return ff
     pass
