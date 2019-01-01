@@ -188,10 +188,25 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if status:
             self.current_arr.append(data_mean)
             self.voltage_arr.append(totalV)
+            self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
             self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
             self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr)
+        pass
+
+    def append_jV_values(self, I, V, area):
+        """
+        Appends i, V, j, P values into vach_text field:
+
+        :param I:
+        :param V:
+        :param area:
+        :return:
+        """
+        j = I / area
+        P = I*V
+        self.ui.vach_text.append(str(V)+";"+str(I)+";"+str(j)+";"+str(P)+"\n")
         pass
 
     def add_Chapayev_constant(self):
