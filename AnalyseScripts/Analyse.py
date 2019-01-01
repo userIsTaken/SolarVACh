@@ -4,6 +4,12 @@ import math
 
 
 def getErrorsRate(_np_array, current_scale):
+    """
+
+    :param _np_array:
+    :param current_scale:
+    :return:
+    """
     overflow= False
     underflow=False
     min = np.amin(_np_array)
