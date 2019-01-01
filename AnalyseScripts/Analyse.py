@@ -51,3 +51,24 @@ def getLowerScale(curr_scale):
     new_scale = c_scale / 10.0
     return new_scale
     pass
+
+def getClosestValue(array, value):
+    """
+    Returns the closest value to an argument
+
+    :param value: value to compare
+    :param array: array to inspect
+    :return:
+    """
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return array[idx]
+
+def getPCE(maxJ, maxP, solarP):
+    pass
+
+def getMaxPJV(current, voltage):
+    pass
+
+def getFF(maxj, maxV, uoc, jsc):
+    pass

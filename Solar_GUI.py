@@ -33,6 +33,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.parameters = {}
         self.current_arr = []
         self.voltage_arr = []
+    #     for analysis
+        self.curr_array_analysis= []
+        self.voltage_array_analysis = []
     #     Shortcuts:
         self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
         # events of shortcuts:
@@ -156,8 +159,23 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         if(trigger):
             if(fb_scan):
+            #     forward direction
+                V_oc = getClosestValue(self.voltage_array_analysis, 0)
+                I_sc = getClosestValue(self.curr_array_analysis, 0)
+                j_sc = I_sc/self.parameters['area']
+                # Update values in LCDs:
+                # TODO: update LCDs and clear arrays:
+                self.curr_array_analysis = []
+                self.voltage_array_analysis = []
                 pass
             elif not fb_scan:
+                V_oc = getClosestValue(self.voltage_array_analysis, 0)
+                I_sc = getClosestValue(self.curr_array_analysis, 0)
+                j_sc = I_sc / self.parameters['area']
+                # Update values in LCDs:
+                # TODO: update LCDs and clear arrays:
+                self.curr_array_analysis = []
+                self.voltage_array_analysis = []
                 pass
             else:
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
@@ -187,7 +205,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
         if status:
             self.current_arr.append(data_mean)
+            self.curr_array_analysis.append(data_mean)
             self.voltage_arr.append(totalV)
+            self.voltage_array_analysis.append(totalV)
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
@@ -271,7 +291,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.relay_combo.setCurrentIndex(parameters['relay_combo'])
             # el_combo = self.ui.electrode_combo.currentText()
             self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
-            print("done")
+            # print("done")
             self.startExp()
         # self.dialog.show()
         # # self.parameters = {''}

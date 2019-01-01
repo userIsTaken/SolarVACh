@@ -690,7 +690,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdNumber"/>
+            <widget class="QLCDNumber" name="pceLCD"/>
            </item>
            <item>
             <widget class="QLabel" name="label_13">
@@ -703,7 +703,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdNumber_2"/>
+            <widget class="QLCDNumber" name="ffLCD"/>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
@@ -716,7 +716,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdNumber_3"/>
+            <widget class="QLCDNumber" name="uocLCD"/>
            </item>
            <item>
             <widget class="QLabel" name="label_15">
@@ -729,7 +729,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdNumber_4"/>
+            <widget class="QLCDNumber" name="jscLCD"/>
            </item>
           </layout>
          </widget>
