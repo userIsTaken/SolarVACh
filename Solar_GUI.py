@@ -112,6 +112,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def ErrorHasBeenGot(self, i, string):
         self.ui.connectionErrorsBox.appendPlainText(string)
         pass
+
     def GetAllParameters(self):
         """
 
@@ -127,8 +128,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
         fb_scan = self.ui.fb_scan.checkState()
-        relay_combo = self.ui.relay_combo.currentText()
-        el_combo = self.ui.electrode_combo.currentText()
+        relay_combo = self.ui.relay_combo.currentIndex()
+        el_combo = self.ui.electrode_combo.currentIndex()
 
 
         parameters = {'startV': startV,
@@ -252,7 +253,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.fb_scan.setCheckState(parameters['fb_scan'])
             # TODO: ComboBoxes are left, need to implement:
             # relay_combo = self.ui.relay_combo.currentText()
+            self.ui.relay_combo.setCurrentIndex(parameters['relay_combo'])
             # el_combo = self.ui.electrode_combo.currentText()
+            self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
             print("done")
             self.startExp()
         # self.dialog.show()
@@ -279,6 +282,8 @@ class PopUp(QtWidgets.QDialog):
         # CheckBox: 0 - unchecked,  2- checked
         self.ui.fb_scan.setCheckState(params['fb_scan'])
         # TODO: ComboBoxes:
+        self.ui.electrode_combo.setCurrentIndex(params['el_combo'])
+        self.ui.relay_combo.setCurrentIndex(params['el_combo'])
         pass
 
     def GetAllParameters(self):
@@ -292,8 +297,8 @@ class PopUp(QtWidgets.QDialog):
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
         fb_scan = self.ui.fb_scan.checkState()
-        relay_combo = self.ui.relay_combo.currentText()
-        el_combo = self.ui.electrode_combo.currentText()
+        relay_combo = self.ui.relay_combo.currentIndex()
+        el_combo = self.ui.electrode_combo.currentIndex()
 
         parameters = {'startV': startV,
                       'endV': endV,
