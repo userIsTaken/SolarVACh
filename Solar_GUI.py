@@ -97,6 +97,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # TODO: here is a mistake - we need to reorder the logic how we retrieve all
         #  TODO: necessary parameters
         # self.parameters = {} # DO not clear dict!
+        # clear all graph arrays:
+        self.curr_array_analysis = []
+        self.voltage_array_analysis = []
+        self.current_arr = []
+        self.voltage_arr = []
+        # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         self._thread = QThread()
         self._thread.setObjectName("WLoop")
