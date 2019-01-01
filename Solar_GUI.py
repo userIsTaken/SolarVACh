@@ -165,21 +165,41 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         if(trigger):
             if(fb_scan):
-            #     forward direction
+                #     forward direction
+                self.ui.fbStatusLabel.setText("FW scan")
                 V_oc = getClosestValue(self.voltage_array_analysis, 0)
                 I_sc = getClosestValue(self.curr_array_analysis, 0)
                 j_sc = I_sc/self.parameters['area']
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
+                p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
+                ff = getFF(p_max, V_oc, I_sc)
+                pce = getPCE(p_max, self.parameters['in_power'])
+                #     LCDs:
+                self.ui.pceLCD.display(pce)
+                self.ui.jscLCD.display(j_sc)
+                self.ui.uocLCD.display(V_oc)
+                self.ui.ffLCD.display(ff)
+                # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 pass
             elif not fb_scan:
+                self.ui.fbStatusLabel.setText("BW scan")
                 V_oc = getClosestValue(self.voltage_array_analysis, 0)
                 I_sc = getClosestValue(self.curr_array_analysis, 0)
                 j_sc = I_sc / self.parameters['area']
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
+                p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
+                ff = getFF(p_max, V_oc, I_sc)
+                pce = getPCE(p_max, self.parameters['in_power'])
+                #     LCDs:
+                self.ui.pceLCD.display(pce)
+                self.ui.jscLCD.display(j_sc)
+                self.ui.uocLCD.display(V_oc)
+                self.ui.ffLCD.display(ff)
+                # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 pass
