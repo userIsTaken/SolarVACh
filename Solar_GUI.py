@@ -40,10 +40,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
         # events of shortcuts:
         self.quit_shortcut.activated.connect(self.quit)
-
+    #     relay combos:
+        self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
         self.current_graph = self.ui.current_graph.plot()
+
+
+    def updateCombos(self):
+        """
+        index is from zero
+        :return:
+        """
+        i = self.ui.relay_combo.currentIndex()
+        self.ui.electrode_combo.setCurrentIndex(6-(i+1))
+        pass
 
     def stopExperiment(self):
         """
@@ -330,6 +341,16 @@ class PopUp(QtWidgets.QDialog):
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
         self.fillParams(parameters)
+        self.ui.relay_combo.currentIndexChanged.connect(self.comboUpdate)
+
+    def comboUpdate(self):
+        """
+                index is from zero
+                :return:
+                """
+        i = self.ui.relay_combo.currentIndex()
+        self.ui.electrode_combo.setCurrentIndex(6 - (i + 1))
+
 
     def fillParams(self, params):
         self.ui.startV_box.setValue(float(params['startV']))
