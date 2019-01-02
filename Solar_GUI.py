@@ -183,7 +183,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if(trigger):
             if(fb_scan):
                 #     forward direction
-                self.ui.fbStatusLabel.setText("FW scan")
+                self.ui.fbStatusLabel.setText("BW scan")
                 V_oc = getClosestValue(self.voltage_array_analysis, 0)
                 I_sc = getClosestValue(self.curr_array_analysis, 0)
                 j_sc = I_sc/self.parameters['area']
@@ -202,7 +202,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.voltage_array_analysis = []
                 pass
             elif not fb_scan:
-                self.ui.fbStatusLabel.setText("BW scan")
+                self.ui.fbStatusLabel.setText("FW scan")
                 V_oc = getClosestValue(self.voltage_array_analysis, 0)
                 I_sc = getClosestValue(self.curr_array_analysis, 0)
                 j_sc = I_sc / self.parameters['area']
