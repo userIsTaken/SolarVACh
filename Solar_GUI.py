@@ -18,6 +18,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # self._threads = []
         self._thread = None
         self._worker = None
+        self._threads = []
+        self._threads.append((self._thread, self._worker))
         self._path = None
         self.ExpensiveMeter = None
         self.ip = None
