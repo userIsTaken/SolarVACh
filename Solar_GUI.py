@@ -19,7 +19,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._thread = None
         self._worker = None
         self._threads = []
-        self._threads.append((self._thread, self._worker))
+        # self._threads.append((self._thread, self._worker))
         self._path = None
         self.ExpensiveMeter = None
         self.ip = None
@@ -86,6 +86,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker.stop()
         self.ui.startButton.setEnabled(True)
         self.ui.stopButton.setEnabled(False)
+        self._threads = []
         pass
 
     def loop_stopped(self, status):
@@ -93,6 +94,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.startButton.setEnabled(True)
             self.ui.stopButton.setEnabled(False)
             # self._thread = None # ?
+            self._threads = []
             pass
 
     def quit(self):
@@ -148,6 +150,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._thread = QThread()
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
+        self._threads.append((self._thread, self._worker))
         self._worker.moveToThread(self._thread)
         # self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
