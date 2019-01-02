@@ -66,6 +66,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.stopButton.setEnabled(False)
         pass
 
+    def loop_stopped(self, status):
+        if status:
+            self.ui.startButton.setEnabled(True)
+            self.ui.stopButton.setEnabled(False)
+            pass
+
     def quit(self):
         try:
             if self._worker is not None:
@@ -121,7 +127,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker.moveToThread(self._thread)
         # self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
-        # self._worker.final.connect(self.calculate_param)
+        self._worker.final.connect(self.loop_stopped)
         self._worker.trigger.connect(self.calculate_param)
         self._worker.errors.connect(self.ErrorHasBeenGot)
         #self._worker.progress.connect(self.ExperimentInfo)

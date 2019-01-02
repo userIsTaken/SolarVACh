@@ -11,7 +11,7 @@ class LoopWorker(QObject):
     # TODO: delete all unnecessary signals:
     # results = pyqtSignal(int, np.ndarray)
     errors = pyqtSignal(int, str)
-    # final = pyqtSignal(int, bool)
+    final = pyqtSignal(bool)
     progress = pyqtSignal(str)
     trigger = pyqtSignal(bool, bool) # trigger and fb_scan value ( 0 - False, 2 - True)
     relay = pyqtSignal(int)
@@ -229,6 +229,7 @@ class LoopWorker(QObject):
         try:
             self.meter.enableAmmeterInput(self.meter.bOFF)
             self.meter.enableVoltageOutput(self.meter.bOFF)
+            self.final.emit(True)
         except Exception as ex:
             print("ERR.CODE.004")
             print(str(ex))
