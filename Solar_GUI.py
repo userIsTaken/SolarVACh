@@ -90,6 +90,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if status:
             self.ui.startButton.setEnabled(True)
             self.ui.stopButton.setEnabled(False)
+            # self._thread = None # ?
             pass
 
     def quit(self):
@@ -139,6 +140,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.voltage_array_analysis = []
         self.current_arr = []
         self.voltage_arr = []
+        # self._thread = None
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         self._thread = QThread()
