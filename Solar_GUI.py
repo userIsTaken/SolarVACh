@@ -150,9 +150,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker.final.connect(self.loop_stopped)
         self._worker.trigger.connect(self.calculate_param)
         self._worker.errors.connect(self.ErrorHasBeenGot)
-        #self._worker.progress.connect(self.ExperimentInfo)
+        self._worker.progress.connect(self.ExperimentInfo)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
+        pass
+
+    def ExperimentInfo(self, string):
+        self.ui.real_data_output.appendPlainText(string)
         pass
 
     def ErrorHasBeenGot(self, i, string):
@@ -259,10 +263,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :param curr_array:
         :return:
         """
-        print('status', status)
-        print('current_mean', data_mean)
-        print('err_rate', err_rate)
-        print('totalV', totalV)
+        # print('status', status)
+        # print('current_mean', data_mean)
+        # print('err_rate', err_rate)
+        # print('totalV', totalV)
+        self.ExperimentInfo('status'+str(status)+"\n"+'current_mean'+ str( data_mean)+"\n"+'totalV'+str(totalV))
         self.ui.live_error.setText(str(round(err_rate, 3)))
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)

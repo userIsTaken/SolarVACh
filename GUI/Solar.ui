@@ -194,7 +194,7 @@
     <item row="2" column="0" rowspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="vach_tab">
        <attribute name="title">
@@ -435,7 +435,7 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="0" column="3">
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -649,7 +649,7 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="2">
+           <item row="2" column="3">
             <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -662,6 +662,19 @@
              </property>
             </spacer>
            </item>
+           <item row="0" column="2" rowspan="3">
+            <widget class="QPlainTextEdit" name="real_data_output">
+             <property name="maximumSize">
+              <size>
+               <width>300</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOn</enum>
+             </property>
+            </widget>
+           </item>
           </layout>
           <zorder>current_graph</zorder>
           <zorder>horizontalSpacer</zorder>
@@ -669,6 +682,7 @@
           <zorder>frame_3</zorder>
           <zorder>frame_6</zorder>
           <zorder>frame_4</zorder>
+          <zorder>real_data_output</zorder>
          </widget>
         </item>
         <item row="1" column="1">
