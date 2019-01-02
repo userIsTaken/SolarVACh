@@ -551,7 +551,7 @@ class Ui_MainWindow(object):
         self.fb_scan.setText(_translate("MainWindow", "Forward-Backward Scan"))
         self.label_19.setText(_translate("MainWindow", "<html><head/><body><p>Number of electrodes:</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.opt_tab), _translate("MainWindow", "Options"))
-        self.save_as_button.setText(_translate("MainWindow", "Save as..."))
+        self.save_as_button.setText(_translate("MainWindow", "Save all results"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.result_tab), _translate("MainWindow", "Results"))
         self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
