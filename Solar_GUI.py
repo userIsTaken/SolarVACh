@@ -147,11 +147,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # self._thread = None
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
-        self._thread = QThread()
+        self._thread = QThread(self)
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
         self._worker.moveToThread(self._thread)
-        self._threads.append((self._thread, self._worker))
+        # self._threads.append((self._thread, self._worker))
         # self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
         self._worker.final.connect(self.loop_stopped)
