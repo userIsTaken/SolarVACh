@@ -194,7 +194,7 @@
     <item row="2" column="0" rowspan="3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="vach_tab">
        <attribute name="title">
