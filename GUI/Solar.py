@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -277,14 +277,18 @@ class Ui_MainWindow(object):
         self.label_20.setWordWrap(False)
         self.label_20.setObjectName("label_20")
         self.gridLayout_11.addWidget(self.label_20, 0, 1, 1, 1)
-        self.area_box = QtWidgets.QSpinBox(self.frame_6)
-        self.area_box.setMaximum(1000)
-        self.area_box.setProperty("value", 7)
-        self.area_box.setObjectName("area_box")
-        self.gridLayout_11.addWidget(self.area_box, 1, 0, 1, 1)
-        self.power_input_box = QtWidgets.QSpinBox(self.frame_6)
+        self.power_input_box = QtWidgets.QDoubleSpinBox(self.frame_6)
+        self.power_input_box.setMinimum(1.0)
+        self.power_input_box.setMaximum(1000.0)
+        self.power_input_box.setProperty("value", 100.0)
         self.power_input_box.setObjectName("power_input_box")
         self.gridLayout_11.addWidget(self.power_input_box, 1, 1, 1, 1)
+        self.area_box = QtWidgets.QDoubleSpinBox(self.frame_6)
+        self.area_box.setMinimum(1.0)
+        self.area_box.setMaximum(1000.0)
+        self.area_box.setProperty("value", 8.0)
+        self.area_box.setObjectName("area_box")
+        self.gridLayout_11.addWidget(self.area_box, 1, 0, 1, 1)
         self.gridLayout_3.addWidget(self.frame_6, 2, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 2, 2, 1, 1)
@@ -416,7 +420,6 @@ class Ui_MainWindow(object):
         self.widget.setMaximumSize(QtCore.QSize(300, 160))
         self.widget.setObjectName("widget")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.electrode_combo = QtWidgets.QComboBox(self.widget)
         self.electrode_combo.setObjectName("electrode_combo")
@@ -474,7 +477,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 2, 0, 3, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1052, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1052, 27))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -489,7 +492,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.electrode_combo.setCurrentIndex(0)
         self.relay_combo.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -527,8 +530,8 @@ class Ui_MainWindow(object):
         self.ip_address.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:12pt;\">192.168.0.100</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">192.168.0.100</span></p></body></html>"))
         self.label_23.setText(_translate("MainWindow", "Device IP :"))
         self.connect_button.setText(_translate("MainWindow", "Connect"))
         self.label_22.setText(_translate("MainWindow", "DEVICE CONFIGURATION"))

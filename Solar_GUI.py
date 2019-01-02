@@ -263,7 +263,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         j = I / area
         P = I*V
-        self.ui.vach_text.append(str(V)+";"+str(I)+";"+str(j)+";"+str(P)+"\n")
+        self.ui.vach_text.append(str(V)+";"+str(I)+";"+str(j)+";"+str(P)) # there is no need to add newline
         pass
 
     def add_Chapayev_constant(self):
