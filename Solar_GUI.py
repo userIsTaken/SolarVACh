@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtGui
 from GUI.Solar import Ui_MainWindow
 from GUI.Dialog import Ui_SettingsDialog
-import sys
+import sys, os
 from PyQt5.QtCore import *
 from HardwareAccess.KeysightWrapper import SourceMeter
 from ExpLoop import *
@@ -25,10 +25,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.connect_button.clicked.connect(self.MeterConnect)
         self.ui.startButton.clicked.connect(self.hell)
         self.ui.quitButton.clicked.connect(self.quit)
-        self.ui.save_as_button.clicked.connect(self.add_Chapayev_constant)
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.ui.stopButton.clicked.connect(self.stopExperiment)
         self.ui.actionQuit.triggered.connect(self.quit)
+
+        # save button
+        self.ui.save_as_button.clicked.connect(self.save_results)
 
         self.parameters = {}
         self.current_arr = []
@@ -45,6 +47,24 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     #     Plots:
         self.density_graph = self.ui.density_graph.plot()
         self.current_graph = self.ui.current_graph.plot()
+
+
+
+    def save_results(self):
+        suffix = ".dat"
+        file_name = self.ui.name_of_cell.toPlainText()
+        file_path = self.ui.directory_path.toPlainText()
+        full_file = os.path.join(file_path, file_name+suffix)
+        print(full_file)
+        text = self.ui.vach_text.toPlainText() # all data in one big string
+        try:
+            fData = open(full_file, 'w')
+            fData.write(text)
+            fData.close()
+        except Exception as ex:
+            print("ERR:FILE:SAVE")
+            print(str(ex))
+        pass
 
 
     def updateCombos(self):

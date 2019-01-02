@@ -65,23 +65,6 @@
        <item row="2" column="11">
         <widget class="QComboBox" name="channel_box"/>
        </item>
-       <item row="2" column="13">
-        <widget class="QTextEdit" name="name_of_cell">
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="12">
-        <widget class="QTextEdit" name="directory_path">
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="12">
         <widget class="QLabel" name="label_16">
          <property name="text">
@@ -185,6 +168,23 @@
          </property>
          <property name="text">
           <string>Start</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="13">
+        <widget class="QPlainTextEdit" name="name_of_cell">
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="12">
+        <widget class="QPlainTextEdit" name="directory_path">
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
         </widget>
        </item>
