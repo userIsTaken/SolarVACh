@@ -6,6 +6,7 @@ from PyQt5.QtCore import *
 from HardwareAccess.KeysightWrapper import SourceMeter
 from ExpLoop import *
 from pyqtgraph import mkPen
+from Config.confparser import *
 
 
 
@@ -53,6 +54,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.params_field.setPlainText(
             'SC ; F/B ; Uoc ; jsc ; FF ; Umax ; jmax ; Pmax ; PCE; S')
         self.ui.params_field.append(" [?] ; [?] ; [V] ; [mA/cm^2] ; [%] ; [V] ; [mA/cm^2] ; [mW/cm^2] ; [%] ; [cm^2]")
+        ip = get_ip()
+        path = get_path()
+        if ip is not None:
+            self.ui.ip_address.setPlainText(ip)
+        if path is not None:
+            self.ui.directory_path.setPlainText(path)
         pass
 
     def select_path(self):
@@ -114,6 +121,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self._worker.stop()
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
+            path = self.ui.directory_path.toPlainText()
+            write_path(path)
+            ip = self.ui.ip_address.toPlainText()
+            write_ip(ip)
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
