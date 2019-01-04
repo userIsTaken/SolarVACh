@@ -91,7 +91,8 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
-                self.trigger.emit(True, False)
+                if not self._require_stop:
+                    self.trigger.emit(True, False)
                 self.stop_measurement()
             #     TODO this part is incomplete!
             #     TODO: This part needs to be checked again, seems to be working
@@ -136,7 +137,8 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
-                self.trigger.emit(True, False)
+                if not self._require_stop:
+                    self.trigger.emit(True, False)
                 #     second loop:
                 while (totalV <= startV and not self._require_stop):
                     while not self.err_ok and not self._require_stop:
@@ -178,7 +180,8 @@ class LoopWorker(QObject):
                     self.err_ok = False
                     # print('totalV', totalV)
                     # print('step', step)
-                self.trigger.emit(True, True)
+                if not self._require_stop:
+                    self.trigger.emit(True, False)
                 self.stop_measurement()
             else:
                 print("ERR.CODE.SHIT")
