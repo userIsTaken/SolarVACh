@@ -216,7 +216,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ui.fbStatusLabel.setText("BW scan")
                 V_oc = self.voltage_array_analysis[closestValueIndex(self.curr_array_analysis, 0)]
                 I_sc = self.curr_array_analysis[closestValueIndex(self.voltage_array_analysis, 0)]
-                j_sc = (I_sc/self.parameters['area'])*100
+                j_sc = (I_sc*1000/self.parameters['area'])*100 #mA/cm^2
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
@@ -224,7 +224,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 pce = getPCE(p_max, self.parameters['in_power'])
                 self.ExperimentInfo("========STATS=========")
                 self.ExperimentInfo('V_oc: ' + str(V_oc) + '\n' + 'I_sc: ' + str(I_sc) + '\n' + 'PCE: ' + str(
-                    pce) + '\n' + 'FF: ' + str(ff) + '\n')
+                    pce) + '\n' + 'FF: ' + str(ff))
+                self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
                 self.ui.pceLCD.setValue(pce)
@@ -239,7 +240,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ui.fbStatusLabel.setText("FW scan")
                 V_oc = self.voltage_array_analysis[closestValueIndex(self.curr_array_analysis, 0)]
                 I_sc = self.curr_array_analysis[closestValueIndex(self.voltage_array_analysis, 0)]
-                j_sc = (I_sc / self.parameters['area'])*100
+                j_sc = (I_sc*1000 / self.parameters['area'])*100
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
@@ -247,6 +248,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 pce = getPCE(p_max, self.parameters['in_power'])
                 self.ExperimentInfo("========STATS=========")
                 self.ExperimentInfo('V_oc: '+ str(V_oc) + '\n' +'I_sc: '+str(I_sc)+'\n'+'PCE: '+str(pce)+'\n'+'FF: '+str(ff)+ '\n')
+                self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
                 #     LCDs:
@@ -306,7 +308,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :param area:
         :return:
         """
-        j = I / (area/100) # mm^2 => cm^2
+        j = I*1000 / (area/100) # mm^2 => cm^2, A => mA
         P = I*V
         self.ui.vach_text.append(str(round(V, 7))+";"+str(round(I,7))+";"+str(round(j,7))+";"+str(round(P,7))) # there is no need to add newline
         pass
