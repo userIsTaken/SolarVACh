@@ -88,7 +88,7 @@ def getPCE(pmax, solarP):
     :param solarP:
     :return:
     """
-    pce = pmax/solarP * 100.0 # in percents
+    pce = abs(pmax)/solarP * 100.0 # in percents
     return pce
     pass
 
@@ -115,6 +115,6 @@ def getFF(maxp, uoc, jsc):
     :param jsc:
     :return:
     """
-    ff = maxp/(uoc*jsc) # in a. u. (0-1)
+    ff = maxp/(uoc*jsc) * 100 # in %
     return ff
     pass
