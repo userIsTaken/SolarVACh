@@ -188,6 +188,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         fb_scan = self.ui.fb_scan.checkState()
         relay_combo = self.ui.relay_combo.currentIndex()
         el_combo = self.ui.electrode_combo.currentIndex()
+        sc_name =  self.ui.name_of_cell.toPlainText()
 
 
         parameters = {'startV': startV,
@@ -201,7 +202,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'in_power': in_power,
                       'fb_scan': fb_scan,
                       'relay_combo':relay_combo,
-                      'el_combo': el_combo}
+                      'el_combo': el_combo,
+                      'sc_name':sc_name}
         return parameters
         pass
 
@@ -286,7 +288,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # print('err_rate', err_rate)
         # print('totalV', totalV)
         self.ExperimentInfo('status'+str(status)+"\n"+'current_mean'+ str( data_mean)+"\n"+'totalV'+str(totalV))
-        self.ui.live_error.setText(str(round(err_rate, 3)))
+        self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
         if status:
@@ -331,19 +333,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             y0.setPen(mkPen('y', width=3))
             x0.setPen(mkPen('y', width=3))
 
-    def updateQLCD(self, lcd, value):
-        palette = self.ui.lcdNumber.palette()
-        # foreground color
-        palette.setColor(palette.WindowText, QtGui.QColor(255, 255, 255))
-        # background color
-        palette.setColor(palette.Background, QtGui.QColor(0, 170, 255))
-        # "light" border
-        palette.setColor(palette.Light, QtGui.QColor(255, 0, 0))
-        # "dark" border
-        palette.setColor(palette.Dark, QtGui.QColor(0, 255, 0))
-        # set the palette
-        lcd.setPalette(palette)
-        lcd.display(abs(value))
+
 
     def pop_dialog(self, params):
         self.dialog = PopUp(params)
@@ -364,6 +354,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.relay_combo.setCurrentIndex(parameters['relay_combo'])
             # el_combo = self.ui.electrode_combo.currentText()
             self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
+            self.ui.name_of_cell.setPlainText(parameters['sc_name'])
             # print("done")
             self.startExp()
         # self.dialog.show()
@@ -402,6 +393,7 @@ class PopUp(QtWidgets.QDialog):
         # TODO: ComboBoxes:
         self.ui.electrode_combo.setCurrentIndex(params['el_combo'])
         self.ui.relay_combo.setCurrentIndex(params['el_combo'])
+        self.ui.sc_name.setPlainText(params['sc_name'])
         pass
 
     def GetAllParameters(self):
@@ -417,6 +409,7 @@ class PopUp(QtWidgets.QDialog):
         fb_scan = self.ui.fb_scan.checkState()
         relay_combo = self.ui.relay_combo.currentIndex()
         el_combo = self.ui.electrode_combo.currentIndex()
+        sc_name = self.ui.sc_name.toPlainText()
 
         parameters = {'startV': startV,
                       'endV': endV,
@@ -429,7 +422,8 @@ class PopUp(QtWidgets.QDialog):
                       'in_power': in_power,
                       'fb_scan': fb_scan,
                       'relay_combo':relay_combo,
-                      'el_combo': el_combo}
+                      'el_combo': el_combo,
+                      'sc_name':sc_name}
         return parameters
         pass
 

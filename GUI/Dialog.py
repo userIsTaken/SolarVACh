@@ -28,6 +28,8 @@ class Ui_SettingsDialog(object):
         self.gridLayout_5.addWidget(self.fb_scan, 4, 0, 1, 1)
         self.sc_name = QtWidgets.QTextEdit(self.frame_3)
         self.sc_name.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.sc_name.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.sc_name.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.sc_name.setObjectName("sc_name")
         self.gridLayout_5.addWidget(self.sc_name, 2, 0, 1, 1)
         self.label_16 = QtWidgets.QLabel(self.frame_3)
