@@ -1118,7 +1118,11 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QPlainTextEdit" name="connectionErrorsBox"/>
+         <widget class="QPlainTextEdit" name="connectionErrorsBox">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1138,7 +1142,14 @@ p, li { white-space: pre-wrap; }
          <widget class="QTextEdit" name="vach_text"/>
         </item>
         <item row="1" column="1">
-         <widget class="QTextEdit" name="params_field"/>
+         <widget class="QTextEdit" name="params_field">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

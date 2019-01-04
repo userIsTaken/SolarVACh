@@ -244,6 +244,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     'vmax':U_max,
                     'fb_scan':fb_scan
                 }
+                self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
                 self.ui.uocLCD.setValue(V_oc)
@@ -278,6 +279,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     'vmax': U_max,
                     'fb_scan':fb_scan
                 }
+                self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
