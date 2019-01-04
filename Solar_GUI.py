@@ -234,15 +234,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
                 params_dict = {
-                    'v_oc':V_oc,
-                    'j_sc':j_sc,
-                    'I_sc':I_sc,
-                    'Imax':I_max,
-                    'ff':ff,
-                    'pce':pce,
-                    'pmax':p_max*1000*100,
-                    'vmax':U_max,
-                    'fb_scan':fb_scan
+                    'v_oc': round(V_oc, 5),
+                    'j_sc': round(j_sc, 5),
+                    'I_sc': round(I_sc, 5),
+                    'Imax': round(I_max, 7),
+                    'ff': round(ff, 4),
+                    'pce': round(pce, 4),
+                    'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                    'vmax': round(U_max, 4),
+                    'fb_scan': fb_scan
                 }
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
@@ -269,14 +269,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
                 params_dict = {
-                    'v_oc': V_oc,
-                    'j_sc': j_sc,
-                    'I_sc': I_sc,
-                    'Imax': I_max,
-                    'ff': ff,
-                    'pce': pce,
-                    'pmax': p_max/self.parameters['area'] * 1000 * 100, # P max in mW/cm^2
-                    'vmax': U_max,
+                    'v_oc': round(V_oc, 5),
+                    'j_sc': round(j_sc,5),
+                    'I_sc': round(I_sc, 5),
+                    'Imax': round(I_max,7),
+                    'ff': round(ff, 4),
+                    'pce': round(pce, 4),
+                    'pmax': round(p_max/self.parameters['area'] * 1000 * 100, 4), # P max in mW/cm^2
+                    'vmax': round(U_max,4),
                     'fb_scan':fb_scan
                 }
                 self.upload_values(params_dict)
