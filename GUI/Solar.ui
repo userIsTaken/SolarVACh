@@ -736,7 +736,25 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="pceLCD"/>
+            <widget class="QDoubleSpinBox" name="pceLCD">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>5</number>
+             </property>
+             <property name="minimum">
+              <double>-1000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1000.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_13">
@@ -749,7 +767,25 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="ffLCD"/>
+            <widget class="QDoubleSpinBox" name="ffLCD">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>5</number>
+             </property>
+             <property name="minimum">
+              <double>-10000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>10000.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
@@ -762,7 +798,25 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="uocLCD"/>
+            <widget class="QDoubleSpinBox" name="uocLCD">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>5</number>
+             </property>
+             <property name="minimum">
+              <double>-10000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>10000.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_15">
@@ -775,7 +829,25 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="jscLCD"/>
+            <widget class="QDoubleSpinBox" name="jscLCD">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>5</number>
+             </property>
+             <property name="minimum">
+              <double>-10000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>10000.000000000000000</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

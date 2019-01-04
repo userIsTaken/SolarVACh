@@ -223,10 +223,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 ff = getFF(p_max, V_oc, I_sc)
                 pce = getPCE(p_max, self.parameters['in_power'])
                 #     LCDs:
-                self.ui.pceLCD.display(pce)
-                self.ui.jscLCD.display(j_sc)
-                self.ui.uocLCD.display(V_oc)
-                self.ui.ffLCD.display(ff)
+                self.ui.pceLCD.setValue(pce)
+                self.ui.jscLCD.setValue(j_sc)
+                self.ui.uocLCD.setValue(V_oc)
+                self.ui.ffLCD.setValue(ff)
                 # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
@@ -243,10 +243,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 pce = getPCE(p_max, self.parameters['in_power'])
                 self.ExperimentInfo('V_oc: '+ str(V_oc) + '\n' +'I_sc: '+str(I_sc)+'\n'+'PCE: '+str(pce)+'\n'+'FF: '+str(ff)+ '\n')
                 #     LCDs:
-                self.ui.pceLCD.display(float(abs(pce)))
-                self.ui.jscLCD.display(float(abs(I_sc)))
-                self.ui.uocLCD.display(V_oc)
-                self.ui.ffLCD.display(ff)
+                self.ui.pceLCD.setValue(pce)
+                self.ui.jscLCD.setValue(j_sc)
+                self.ui.uocLCD.setValue(V_oc)
+                self.ui.ffLCD.setValue(ff)
                 # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
