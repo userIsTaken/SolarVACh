@@ -304,11 +304,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.vach_text.append(str(V)+";"+str(I)+";"+str(j)+";"+str(P)) # there is no need to add newline
         pass
 
-    def add_Chapayev_constant(self):
-        text = ["U"]
-        self.ui.vach_text.append("blah, ha ha ha")
 
-        pass
 
     def draw_JV(self, x, y):
         self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2', x, y)
