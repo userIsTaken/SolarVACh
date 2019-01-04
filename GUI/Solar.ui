@@ -746,7 +746,7 @@
               <bool>true</bool>
              </property>
              <property name="decimals">
-              <number>5</number>
+              <number>7</number>
              </property>
              <property name="minimum">
               <double>-1000.000000000000000</double>
@@ -777,7 +777,7 @@
               <bool>true</bool>
              </property>
              <property name="decimals">
-              <number>5</number>
+              <number>7</number>
              </property>
              <property name="minimum">
               <double>-10000.000000000000000</double>
@@ -808,7 +808,7 @@
               <bool>true</bool>
              </property>
              <property name="decimals">
-              <number>5</number>
+              <number>7</number>
              </property>
              <property name="minimum">
               <double>-10000.000000000000000</double>
@@ -839,7 +839,7 @@
               <bool>true</bool>
              </property>
              <property name="decimals">
-              <number>5</number>
+              <number>7</number>
              </property>
              <property name="minimum">
               <double>-10000.000000000000000</double>
