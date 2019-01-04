@@ -67,13 +67,19 @@ def getClosestValue(array, value):
     :return:
     """
     array = np.asarray(array)
-    idx = None
-    try:
-        idx = (np.abs(array - value)).argmin()
-    except Exception as ex:
-        print(str(ex))
-        idx = 0
+    # idx = None
+    # try:
+    #     idx = (np.abs(array - value)).argmin()
+    # except Exception as ex:
+    #     print(str(ex))
+    #     idx = 0
+    idx = (np.abs(array - value)).argmin()
     return array[idx]
+
+def closestValueIndex(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx
 
 def getPCE(pmax, solarP):
     """

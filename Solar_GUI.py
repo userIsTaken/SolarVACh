@@ -214,9 +214,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             if(fb_scan):
                 #     forward direction
                 self.ui.fbStatusLabel.setText("BW scan")
-                V_oc = getClosestValue(self.voltage_array_analysis, 0)
-                I_sc = getClosestValue(self.curr_array_analysis, 0)
-                j_sc = I_sc/self.parameters['area']
+                V_oc = self.voltage_array_analysis[closestValueIndex(self.curr_array_analysis, 0)]
+                I_sc = self.curr_array_analysis[closestValueIndex(self.voltage_array_analysis, 0)]
+                j_sc = (I_sc/self.parameters['area'])*100
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
@@ -233,17 +233,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 pass
             elif not fb_scan:
                 self.ui.fbStatusLabel.setText("FW scan")
-                V_oc = getClosestValue(self.voltage_array_analysis, 0)
-                I_sc = getClosestValue(self.curr_array_analysis, 0)
-                j_sc = I_sc / self.parameters['area']
+                V_oc = self.voltage_array_analysis[closestValueIndex(self.curr_array_analysis, 0)]
+                I_sc = self.curr_array_analysis[closestValueIndex(self.voltage_array_analysis, 0)]
+                j_sc = (I_sc / self.parameters['area'])*100
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
                 ff = getFF(p_max, V_oc, I_sc)
                 pce = getPCE(p_max, self.parameters['in_power'])
+                self.ExperimentInfo('V_oc: '+ str(V_oc) + '\n' +'I_sc: '+str(I_sc)+'\n'+'PCE: '+str(pce)+'\n'+'FF: '+str(ff)+ '\n')
                 #     LCDs:
-                self.ui.pceLCD.display(pce)
-                self.ui.jscLCD.display(j_sc)
+                self.ui.pceLCD.display(float(abs(pce)))
+                self.ui.jscLCD.display(float(abs(I_sc)))
                 self.ui.uocLCD.display(V_oc)
                 self.ui.ffLCD.display(ff)
                 # clearing of arrays
@@ -283,7 +284,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.voltage_arr.append(totalV)
             self.voltage_array_analysis.append(totalV)
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
-            self.density_arr = [x / self.parameters['area'] for x in self.current_arr]
+            self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
             self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
             self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr)
@@ -344,7 +345,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         palette.setColor(palette.Dark, QtGui.QColor(0, 255, 0))
         # set the palette
         lcd.setPalette(palette)
-        lcd.display(value)
+        lcd.display(abs(value))
 
     def pop_dialog(self, params):
         self.dialog = PopUp(params)
