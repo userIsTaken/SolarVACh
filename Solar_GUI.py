@@ -47,9 +47,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.quit_shortcut.activated.connect(self.quit)
     #     relay combos:
         self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
-    #     Plots:
-        self.density_graph = self.ui.density_graph.plot()
-        self.current_graph = self.ui.current_graph.plot()
+        self.setupUI()
+
+    def setupUI(self):
+        self.ui.params_field.setPlainText(
+            'SC ; F/B ; Uoc ; jsc ; FF ; Umax ; jmax ; Pmax ; PCE; S')
+        self.ui.params_field.append(" [?] ; [?] ; [V] ; [mA/cm^2] ; [%] ; [V] ; [mA/cm^2] ; [mW/cm^2] ; [%] ; [cm^2]")
+        pass
 
     def select_path(self):
         dialog = QtWidgets.QFileDialog(self, "Select a directory to save files to")
@@ -57,7 +61,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if dialog.exec_():
             paths = dialog.selectedUrls()
             self.ui.directory_path.setPlainText(paths[0].path())
-            pass
         pass
 
     def save_results(self):
@@ -145,7 +148,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
-        self.ui.params_field.setPlainText('SC name ; Dir ; Uoc[V] ; jsc[mA/cm^2] ; FF[%] ; Umax[V] ; jmax[...] ; Pmax ; PCE[%]; S[cm^2]')
+
         # TODO: here is a mistake - we need to reorder the logic how we retrieve all
         #  TODO: necessary parameters
         # self.parameters = {} # DO not clear dict!
