@@ -135,6 +135,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
+        self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
         # TODO: here is a mistake - we need to reorder the logic how we retrieve all
         #  TODO: necessary parameters
         # self.parameters = {} # DO not clear dict!
@@ -310,7 +311,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         j = I*1000 / (area/100) # mm^2 => cm^2, A => mA
         P = I*V
-        self.ui.vach_text.append(str(round(V, 7))+";"+str(round(I,7))+";"+str(round(j,7))+";"+str(round(P,7))) # there is no need to add newline
+        self.ui.vach_text.append(str(round(V, 7))+" ; "+str(round(I,7))+" ; "+str(round(j,7))+" ; "+str(round(P,7))) # there is no need to add newline
         pass
 
 
