@@ -137,6 +137,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
+        self.ui.params_field.setPlainText('SC name ; Dir ; Uoc[V] ; jsc[mA/cm^2] ; FF[%] ; Umax[V] ; jmax[...] ; Pmax ; PCE[%]; S[cm^2]')
         # TODO: here is a mistake - we need to reorder the logic how we retrieve all
         #  TODO: necessary parameters
         # self.parameters = {} # DO not clear dict!
@@ -232,6 +233,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
+                params_dict = {
+                    'v_oc':V_oc,
+                    'j_sc':j_sc,
+                    'I_sc':I_sc,
+                    'Imax':I_max,
+                    'ff':ff,
+                    'pce':pce,
+                    'pmax':p_max*1000*100,
+                    'vmax':U_max,
+                    'fb_scan':fb_scan
+                }
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
                 self.ui.uocLCD.setValue(V_oc)
@@ -255,6 +267,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
+                params_dict = {
+                    'v_oc': V_oc,
+                    'j_sc': j_sc,
+                    'I_sc': I_sc,
+                    'Imax': I_max,
+                    'ff': ff,
+                    'pce': pce,
+                    'pmax': p_max/self.parameters['area'] * 1000 * 100, # P max in mW/cm^2
+                    'vmax': U_max,
+                    'fb_scan':fb_scan
+                }
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -270,6 +293,32 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
+        pass
+
+    def upload_values(self, params_dict):
+        # params_dict = {
+        #     'v_oc': V_oc,
+        #     'j_sc': j_sc,
+        #     'I_sc': I_sc,
+        #     'Imax': I_max,
+        #     'ff': ff,
+        #     'pce': pce,
+        #     'pmax': p_max / self.parameters['area'] * 1000 * 100,  # P max in mW/cm^2
+        #     'vmax': U_max,
+        #     'fb_scan': fb_scan
+        # }
+        fb = "FW"
+        if params_dict['fb_scan']:
+            fb = "BW"
+        elif not params_dict['fb_scan']:
+            fb="FW"
+        sc_name = self.ui.name_of_cell.toPlainText()
+        # contruct strings to write down:
+        a1 = sc_name+" ; "+fb+" ; "+str(params_dict['v_oc'])+" ; "
+        a2 = str(params_dict['j_sc'])+ " ; "+str(params_dict['ff'])+ " ; "+str(params_dict['vmax'])+" ; "
+        a3 = str(params_dict['Imax']*1000*100/self.parameters['area'])+ " ; "+str(params_dict['pmax'])+" ; "
+        a4 = str(params_dict['pce'])+" ; "+str(self.parameters['area']/100)
+        self.ui.params_field.append(a1+a2+a3+a4)
         pass
 
     def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):

@@ -1138,7 +1138,7 @@ p, li { white-space: pre-wrap; }
          <widget class="QTextEdit" name="vach_text"/>
         </item>
         <item row="1" column="1">
-         <widget class="QTextEdit" name="textEdit_2"/>
+         <widget class="QTextEdit" name="params_field"/>
         </item>
        </layout>
       </widget>
