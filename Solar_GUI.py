@@ -225,8 +225,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo("========STATS=========")
                 self.ExperimentInfo('V_oc: ' + str(V_oc) + '\n' + 'I_sc: ' + str(I_sc) + '\n' + 'PCE: ' + str(
                     pce) + '\n' + 'FF: ' + str(ff) + '\n')
+                self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
                 self.ui.uocLCD.setValue(V_oc)
@@ -247,6 +247,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 pce = getPCE(p_max, self.parameters['in_power'])
                 self.ExperimentInfo("========STATS=========")
                 self.ExperimentInfo('V_oc: '+ str(V_oc) + '\n' +'I_sc: '+str(I_sc)+'\n'+'PCE: '+str(pce)+'\n'+'FF: '+str(ff)+ '\n')
+                self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -307,7 +308,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         j = I / (area/100) # mm^2 => cm^2
         P = I*V
-        self.ui.vach_text.append(str(round(V, 5))+";"+str(round(I,5))+";"+str(j)+";"+str(P)) # there is no need to add newline
+        self.ui.vach_text.append(str(round(V, 7))+";"+str(round(I,7))+";"+str(round(j,7))+";"+str(round(P,7))) # there is no need to add newline
         pass
 
 
