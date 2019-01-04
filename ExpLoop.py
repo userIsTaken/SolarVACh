@@ -181,7 +181,7 @@ class LoopWorker(QObject):
                     # print('totalV', totalV)
                     # print('step', step)
                 if not self._require_stop:
-                    self.trigger.emit(True, False)
+                    self.trigger.emit(True, True)
                 self.stop_measurement()
             else:
                 print("ERR.CODE.SHIT")
