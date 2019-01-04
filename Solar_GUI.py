@@ -220,8 +220,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
-                ff = getFF(p_max, V_oc, I_sc)
+                ff = getFF(p_max, V_oc, j_sc)
                 pce = getPCE(p_max, self.parameters['in_power'])
+                self.ExperimentInfo("========STATS=========")
+                self.ExperimentInfo('V_oc: ' + str(V_oc) + '\n' + 'I_sc: ' + str(I_sc) + '\n' + 'PCE: ' + str(
+                    pce) + '\n' + 'FF: ' + str(ff) + '\n')
+                self.ExperimentInfo("===END OF STATS===")
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -239,9 +243,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
-                ff = getFF(p_max, V_oc, I_sc)
+                ff = getFF(p_max, V_oc, j_sc)
                 pce = getPCE(p_max, self.parameters['in_power'])
+                self.ExperimentInfo("========STATS=========")
                 self.ExperimentInfo('V_oc: '+ str(V_oc) + '\n' +'I_sc: '+str(I_sc)+'\n'+'PCE: '+str(pce)+'\n'+'FF: '+str(ff)+ '\n')
+                self.ExperimentInfo("===END OF STATS===")
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
