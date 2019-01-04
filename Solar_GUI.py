@@ -11,7 +11,6 @@ from ExpLoop import *
 class ApplicationWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(ApplicationWindow, self).__init__()
-
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         # self.ThreadPool = QThreadPool()
