@@ -54,8 +54,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.params_field.setPlainText(
             'SC ; F/B ; Uoc ; jsc ; FF ; Umax ; jmax ; Pmax ; PCE; S')
         self.ui.params_field.append(" [?] ; [?] ; [V] ; [mA/cm^2] ; [%] ; [V] ; [mA/cm^2] ; [mW/cm^2] ; [%] ; [cm^2]")
-        ip = get_ip()
-        path = get_path()
+        path, ip = get_path_ip()
         if ip is not None:
             self.ui.ip_address.setPlainText(ip)
         if path is not None:
@@ -122,9 +121,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
             path = self.ui.directory_path.toPlainText()
-            write_path(path)
             ip = self.ui.ip_address.toPlainText()
-            write_ip(ip)
+            write_path_ip(path, ip)
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
