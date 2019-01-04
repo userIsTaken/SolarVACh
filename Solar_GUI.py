@@ -349,7 +349,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # print('current_mean', data_mean)
         # print('err_rate', err_rate)
         # print('totalV', totalV)
-        self.ExperimentInfo('status'+str(status)+"\n"+'current_mean'+ str( data_mean)+"\n"+'totalV'+str(totalV))
+        self.ExperimentInfo('Current '+ str(abs(data_mean, 4))+"\n"+'U : '+str(abs(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)

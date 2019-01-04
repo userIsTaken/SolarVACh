@@ -78,7 +78,7 @@ class LoopWorker(QObject):
                             status=True
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             # print("counter is 16, ", data_mean)
-                            self.progress.emit("Counter : 16, "+str(data_mean))
+                            self.progress.emit("Counter : 16, "+str(round(data_mean, 4)))
                             self.current_array_counter.clear()
                         self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
@@ -124,7 +124,7 @@ class LoopWorker(QObject):
                             status=True
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             # print("counter is 16, ", data_mean)
-                            self.progress.emit("Counter : 16, " + str(data_mean))
+                            self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                             self.current_array_counter.clear()
                         self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
@@ -167,7 +167,7 @@ class LoopWorker(QObject):
                             status=True
                             data_mean = np.mean(np.asarray(self.current_array_counter))
                             # print("counter is 16, ", data_mean)
-                            self.progress.emit("Counter : 16, " + str(data_mean))
+                            self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                             self.current_array_counter.clear()
                         self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
                         self.err_ok = status
