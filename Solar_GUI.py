@@ -33,6 +33,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         # save button
         self.ui.save_as_button.clicked.connect(self.save_results)
+        self.ui.directory_button.clicked.connect(self.select_path)
 
         self.parameters = {}
         self.current_arr = []
@@ -50,7 +51,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.density_graph = self.ui.density_graph.plot()
         self.current_graph = self.ui.current_graph.plot()
 
-
+    def select_path(self):
+        dialog = QtWidgets.QFileDialog(self, "Select a directory to save files to")
+        dialog.setFileMode(QtWidgets.QFileDialog.DirectoryOnly)
+        if dialog.exec_():
+            paths = dialog.selectedUrls()
+            self.ui.directory_path.setPlainText(paths[0].path())
+            pass
+        pass
 
     def save_results(self):
         suffix = ".dat"
