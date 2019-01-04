@@ -95,9 +95,9 @@ def getPCE(pmax, solarP):
 def getMaxPJV(current, voltage):
     """
 
-    :param current: array of current
-    :param voltage: array of voltage
-    :return:
+    :param current:
+    :param voltage:
+    :return: p_max, curr_max, volt_max => W, A, V !
     """
     P = np.asarray([a * b for a,b in zip(current, voltage)])
     p_idx = P.argmin()
