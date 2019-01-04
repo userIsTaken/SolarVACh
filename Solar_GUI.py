@@ -5,6 +5,7 @@ import sys, os
 from PyQt5.QtCore import *
 from HardwareAccess.KeysightWrapper import SourceMeter
 from ExpLoop import *
+from pyqtgraph import mkPen
 
 
 
@@ -287,7 +288,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ExperimentInfo('status'+str(status)+"\n"+'current_mean'+ str( data_mean)+"\n"+'totalV'+str(totalV))
         self.ui.live_error.setText(str(round(err_rate, 3)))
         array = np.arange(0, self.parameters['array_size'], 1)
-        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array)
+        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
         if status:
             self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
@@ -296,8 +297,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr)
-            self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr)
+            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr, True)
+            self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr, True)
         pass
 
     def append_jV_values(self, I, V, area):
@@ -315,21 +316,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
 
-
-    def draw_JV(self, x, y):
-        self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current density', 'A/cm^2', x, y)
-        pass
-
-    def draw_I(self, x, y):
-        array = np.arange(0, x, 1)
-        self.draw_method(self.ui.current_graph,  '6th dimension', 'a.u.', 'Current', 'A' , array, y)
-        pass
-
-    def draw_P(self, x ,y):
-        self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', x, y)
-        pass
-
-    def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y):
+    def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y, xy00):
         graph.clear()
         graph.setBackground((47,79,79))
         graph.setLabel('bottom', x_title, x_scale)
@@ -338,6 +325,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         graph.getAxis('left').setPen((255, 255, 255))
         graph.plot(x, y, pen=(255,255,102), symbol='o')
         graph.showGrid(x=True,y=True)
+        if xy00:
+            y0 = graph.addLine(None, 0, None)
+            x0 = graph.addLine(0, None, None)
+            y0.setPen(mkPen('y', width=3))
+            x0.setPen(mkPen('y', width=3))
 
     def updateQLCD(self, lcd, value):
         palette = self.ui.lcdNumber.palette()
