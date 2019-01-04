@@ -195,7 +195,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         wait = self.ui.wait_box.value()
         array_size = self.ui.array_size_box.value()
         x_mean = self.ui.x_mean_box.value()
-        el_area = self.ui.area_box.value()
+        el_area = self.ui.area_box.value() # in mm^2 !!!!
         in_power = self.ui.power_input_box.value()
         fb_scan = self.ui.fb_scan.checkState()
         relay_combo = self.ui.relay_combo.currentIndex()
