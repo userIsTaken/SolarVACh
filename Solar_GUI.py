@@ -62,7 +62,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def select_path(self):
-        dialog = QtWidgets.QFileDialog(self, "Select a directory to save files to")
+        dialog = QtWidgets.QFileDialog(self, "Select a directory to save files to:")
         dialog.setFileMode(QtWidgets.QFileDialog.DirectoryOnly)
         if dialog.exec_():
             paths = dialog.selectedUrls()
