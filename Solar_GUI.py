@@ -305,9 +305,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :param area:
         :return:
         """
-        j = I / area
+        j = I / (area/100) # mm^2 => cm^2
         P = I*V
-        self.ui.vach_text.append(str(V)+";"+str(I)+";"+str(j)+";"+str(P)) # there is no need to add newline
+        self.ui.vach_text.append(str(round(V, 5))+";"+str(round(I,5))+";"+str(j)+";"+str(P)) # there is no need to add newline
         pass
 
 
