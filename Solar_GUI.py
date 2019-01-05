@@ -68,12 +68,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def select_path(self):
-        dialog = QtWidgets.QFileDialog(self, "Select a directory to save files to:")
-        dialog.setFileMode(QtWidgets.QFileDialog.DirectoryOnly)
-        if dialog.exec_():
-            paths = dialog.selectedUrls()
-            self.ui.directory_path.setPlainText(paths[0].path())
+        file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))
+        if file is not None and file:
+            self.ui.directory_path.setPlainText(file)
         pass
+
 
     def save_results(self):
         suffix = ".dat"
