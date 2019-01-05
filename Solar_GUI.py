@@ -7,6 +7,7 @@ from HardwareAccess.KeysightWrapper import SourceMeter
 from ExpLoop import *
 from pyqtgraph import mkPen
 from Config.confparser import *
+import datetime
 
 
 
@@ -60,6 +61,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.ip_address.setPlainText(ip)
         if path is not None:
             self.ui.directory_path.setPlainText(path)
+        # file names:
+        now = datetime.datetime.now()
+        st = now.strftime('%Y_%m_%d_%Hval%Mmin')
+        self.ui.params_file_name.setText(st)
         pass
 
     def select_path(self):
