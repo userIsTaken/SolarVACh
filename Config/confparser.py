@@ -29,3 +29,6 @@ def get_previous_values():
         print(str(ex))
         pass
     pass
+
+def set_previous_values(dct):
+    pass
