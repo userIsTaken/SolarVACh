@@ -504,7 +504,3 @@ class PopUp(QtWidgets.QDialog):
                       'sc_name':sc_name}
         return parameters
         pass
-
-
-
-
