@@ -72,14 +72,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def save_results(self):
         suffix = ".dat"
         file_name = self.ui.name_of_cell.toPlainText()
+        params_name = self.ui.params_file_name.text()
         file_path = self.ui.directory_path.toPlainText()
         full_file = os.path.join(file_path, file_name+suffix)
+        params_file = os.path.join(file_path, params_name)
         print(full_file)
+        print(params_file)
         text = self.ui.vach_text.toPlainText() # all data in one big string
+        params_text= self.ui.params_field.toPlainText()
         try:
             fData = open(full_file, 'w')
             fData.write(text)
             fData.close()
+            pData= open(params_file, 'w')
+            pData.write(params_text)
+            pData.close()
         except Exception as ex:
             print("ERR:FILE:SAVE")
             print(str(ex))
