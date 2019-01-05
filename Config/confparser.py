@@ -18,3 +18,14 @@ def write_path_ip(path, ip):
     cp[section]["ip"] = ip
     with open(cfpath, 'w') as cfg:
         cp.write(cfg)
+
+
+def get_previous_values():
+    """Still not used anywhere"""
+    section="VALUES"
+    try:
+        pass
+    except Exception as ex:
+        print(str(ex))
+        pass
+    pass
