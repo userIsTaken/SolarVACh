@@ -131,6 +131,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :return:
         """
         self._worker.stop()
+        self.ExpensiveMeter.close()
         self.ui.startButton.setEnabled(True)
         self.ui.stopButton.setEnabled(False)
         self._threads = []
