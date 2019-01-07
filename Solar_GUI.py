@@ -305,7 +305,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 # TODO: save measurement data
-                file_name = self.ui.name_of_cell.toPlainText()+'_FW.dat'
+                file_name = self.ui.name_of_cell.toPlainText()+'_BW.dat'
                 file_path = self.ui.directory_path.toPlainText()
                 file = os.path.join(file_path, file_name)
                 text = self.ui.vach_text.toPlainText()
@@ -356,7 +356,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 # TODO: save measurement data
-                file_name = self.ui.name_of_cell.toPlainText() + '_BW.dat'
+                file_name = self.ui.name_of_cell.toPlainText() + '_FW.dat'
                 file_path = self.ui.directory_path.toPlainText()
                 file = os.path.join(file_path, file_name)
                 text = self.ui.vach_text.toPlainText()
