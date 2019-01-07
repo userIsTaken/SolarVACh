@@ -132,6 +132,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         self._worker.stop()
         self.ExpensiveMeter.close()
+        self._worker = None
         self.ui.startButton.setEnabled(True)
         self.ui.stopButton.setEnabled(False)
         self._threads = []
