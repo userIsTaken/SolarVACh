@@ -51,7 +51,7 @@ class LoopWorker(QObject):
             # print(fb_scan)
             #self.curr_array.append(totalV) # what the hell is this?
             if 0 == fb_scan:
-                while (totalV >= (endV+step) and not self._require_stop):
+                while (totalV > (endV+step) and not self._require_stop):
                     while not self.err_ok and not self._require_stop:
                         curr_array = self.sample_measurement(totalV)
                         status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
@@ -97,7 +97,7 @@ class LoopWorker(QObject):
             #     TODO this part is incomplete!
             #     TODO: This part needs to be checked again, seems to be working
             elif fb_scan == 2:
-                while (totalV >= (endV+step) and not self._require_stop):
+                while (totalV > (endV+step) and not self._require_stop):
                     while not self.err_ok and not self._require_stop:
                         curr_array = self.sample_measurement(totalV)
                         status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit, self.current_scale)
