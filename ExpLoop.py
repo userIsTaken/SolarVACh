@@ -238,6 +238,7 @@ class LoopWorker(QObject):
         try:
             self.meter.enableAmmeterInput(self.meter.bOFF)
             self.meter.enableVoltageOutput(self.meter.bOFF)
+            self.meter.setVoltOutValue(0)
             self.final.emit(True)
         except Exception as ex:
             print("ERR.CODE.004")
