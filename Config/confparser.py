@@ -26,11 +26,12 @@ def get_previous_values():
     cp.read(cfpath)
     startV, endV, points, array_size = None, None, None, None
     try:
-        startV = cp[section]['startV']
-        endV = cp[section]['endV']
+        startV = cp[section]['startv']
+        endV = cp[section]['endv']
         points = cp[section]['points']
         array_size = cp[section]['array_size']
     except Exception as ex:
+        print('ERR:CONF:00B')
         print(str(ex))
         pass
     return startV, endV, points, array_size
@@ -39,10 +40,10 @@ def get_previous_values():
 def set_previous_values(dct):
     section="VALUES"
     try:
-        cp[section]['startV']=dct['startV']
-        cp[section]['endV']=dct['endV']
-        cp[section]['points']=dct['points']
-        cp[section]['array_size']=dct['array_size']
+        cp[section]['startv']=str(dct['startV'])
+        cp[section]['endv']=str(dct['endV'])
+        cp[section]['points']=str(dct['points'])
+        cp[section]['array_size']=str(dct['array_size'])
         with open(cfpath, 'w') as cfg:
             cp.write(cfg)
     except Exception as ex:
