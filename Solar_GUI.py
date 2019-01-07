@@ -65,6 +65,19 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         now = datetime.datetime.now()
         st = now.strftime('%Y_%m_%d_%Hval%Mmin')
         self.ui.params_file_name.setText(st)
+        startV, endV, points, array_size = get_previous_values()
+        if startV is not None and startV:
+            self.ui.startV_box.setValue(float(startV))
+            pass
+        if endV is not None and endV:
+            self.ui.endV_box.setValue(float(endV))
+            pass
+        if points is not None and points:
+            self.ui.points_box.setValue(float(points))
+            pass
+        if array_size is not None and array_size:
+            self.ui.array_size_box.setValue(float(array_size))
+            pass
         pass
 
     def select_path(self):
@@ -132,21 +145,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self._worker.stop()
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
-            path = self.ui.directory_path.toPlainText()
-            ip = self.ui.ip_address.toPlainText()
-            write_path_ip(path, ip)
-            # startV = self.ui.startV_box.value()
-            # endV = self.ui.endV_box.value()
-            # points = self.ui.points_box.value()
-            # current_limit = self.ui.limitA_box.value()
-            # wait = self.ui.wait_box.value()
-            # array_size = self.ui.array_size_box.value()
-            #
-            # el_area = self.ui.area_box.value()  # in mm^2 !!!!
-            # in_power = self.ui.power_input_box.value()
-            # fb_scan = self.ui.fb_scan.checkState()
-            # relay_combo = self.ui.relay_combo.currentIndex()
-            # el_combo = self.ui.electrode_combo.currentIndex()
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
@@ -174,12 +172,37 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def hell(self):
         params = self.GetAllParameters()
+        # defaults
+        path = self.ui.directory_path.toPlainText()
+        ip = self.ui.ip_address.toPlainText()
+        write_path_ip(path, ip)
+        startV = self.ui.startV_box.value()
+        endV = self.ui.endV_box.value()
+        points = self.ui.points_box.value()
+        # current_limit = self.ui.limitA_box.value()
+        # wait = self.ui.wait_box.value()
+        array_size = self.ui.array_size_box.value()
+        #
+        # el_area = self.ui.area_box.value()  # in mm^2 !!!!
+        # in_power = self.ui.power_input_box.value()
+        # fb_scan = self.ui.fb_scan.checkState()
+        # relay_combo = self.ui.relay_combo.currentIndex()
+        # el_combo = self.ui.electrode_combo.currentIndex()
+        # end of defaults
+        dct = {
+            'startV':startV,
+            'endV':endV,
+            'points':points,
+            'array_size':array_size
+        }
+        set_previous_values(dct)
         self.pop_dialog(params)
         pass
 
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
+
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
         # clear all graph arrays:
         self.curr_array_analysis = []
