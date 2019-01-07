@@ -207,8 +207,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._thread.setObjectName("WLoop")
         self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
         self._worker.moveToThread(self._thread)
-        # self._threads.append((self._thread, self._worker))
-        # self._worker.results.connect(self.draw_I)
         self._worker.current_results.connect(self.draw_graph)
         self._worker.final.connect(self.loop_stopped)
         self._worker.trigger.connect(self.calculate_param)
@@ -306,6 +304,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
+                # TODO: save measurement data
+                file_name = self.ui.name_of_cell.toPlainText()+'_FW.dat'
+                file_path = self.ui.directory_path.toPlainText()
+                file = os.path.join(file_path, file_name)
+                text = self.ui.vach_text.toPlainText()
+                try:
+                    writer = open(file, 'w')
+                    writer.write(text)
+                    writer.close()
+                except Exception as ex:
+                    print("ERR:WRITE FW")
+                    print(str(ex))
+                    pass
+                # todo: clear data:
+                self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
                 pass
             elif not fb_scan:
                 self.ui.fbStatusLabel.setText("FW scan")
@@ -342,6 +355,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # clearing of arrays
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
+                # TODO: save measurement data
+                file_name = self.ui.name_of_cell.toPlainText() + '_BW.dat'
+                file_path = self.ui.directory_path.toPlainText()
+                file = os.path.join(file_path, file_name)
+                text = self.ui.vach_text.toPlainText()
+                try:
+                    writer = open(file, 'w')
+                    writer.write(text)
+                    writer.close()
+                except Exception as ex:
+                    print("ERR:WRITE BW")
+                    print(str(ex))
+                    pass
+                # todo: clear data:
+                self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
                 pass
             else:
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
