@@ -140,6 +140,7 @@ class LoopWorker(QObject):
                 if not self._require_stop:
                     self.trigger.emit(True, False)
                 #     second loop:
+                totalV = endV
                 while (totalV <= (startV) and not self._require_stop): #+/- step?
                     while not self.err_ok and not self._require_stop:
                         curr_array = self.sample_measurement(totalV)
