@@ -135,6 +135,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             path = self.ui.directory_path.toPlainText()
             ip = self.ui.ip_address.toPlainText()
             write_path_ip(path, ip)
+            # startV = self.ui.startV_box.value()
+            # endV = self.ui.endV_box.value()
+            # points = self.ui.points_box.value()
+            # current_limit = self.ui.limitA_box.value()
+            # wait = self.ui.wait_box.value()
+            # array_size = self.ui.array_size_box.value()
+            #
+            # el_area = self.ui.area_box.value()  # in mm^2 !!!!
+            # in_power = self.ui.power_input_box.value()
+            # fb_scan = self.ui.fb_scan.checkState()
+            # relay_combo = self.ui.relay_combo.currentIndex()
+            # el_combo = self.ui.electrode_combo.currentIndex()
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))

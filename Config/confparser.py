@@ -31,4 +31,10 @@ def get_previous_values():
     pass
 
 def set_previous_values(dct):
+    section="VALUES"
+    try:
+        pass
+    except Exception as ex:
+        print("ERR:CONF:00A")
+        print(str(ex))
     pass
