@@ -179,15 +179,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         startV = self.ui.startV_box.value()
         endV = self.ui.endV_box.value()
         points = self.ui.points_box.value()
-        # current_limit = self.ui.limitA_box.value()
-        # wait = self.ui.wait_box.value()
         array_size = self.ui.array_size_box.value()
-        #
-        # el_area = self.ui.area_box.value()  # in mm^2 !!!!
-        # in_power = self.ui.power_input_box.value()
-        # fb_scan = self.ui.fb_scan.checkState()
-        # relay_combo = self.ui.relay_combo.currentIndex()
-        # el_combo = self.ui.electrode_combo.currentIndex()
         # end of defaults
         dct = {
             'startV':startV,
@@ -202,7 +194,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
-
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
         # clear all graph arrays:
         self.curr_array_analysis = []
