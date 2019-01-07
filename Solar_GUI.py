@@ -169,10 +169,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
-
-        # TODO: here is a mistake - we need to reorder the logic how we retrieve all
-        #  TODO: necessary parameters
-        # self.parameters = {} # DO not clear dict!
         # clear all graph arrays:
         self.curr_array_analysis = []
         self.voltage_array_analysis = []
@@ -330,17 +326,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def upload_values(self, params_dict):
-        # params_dict = {
-        #     'v_oc': V_oc,
-        #     'j_sc': j_sc,
-        #     'I_sc': I_sc,
-        #     'Imax': I_max,
-        #     'ff': ff,
-        #     'pce': pce,
-        #     'pmax': p_max / self.parameters['area'] * 1000 * 100,  # P max in mW/cm^2
-        #     'vmax': U_max,
-        #     'fb_scan': fb_scan
-        # }
         fb = "FW"
         if params_dict['fb_scan']:
             fb = "BW"
@@ -366,10 +351,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :param curr_array:
         :return:
         """
-        # print('status', status)
-        # print('current_mean', data_mean)
-        # print('err_rate', err_rate)
-        # print('totalV', totalV)
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
@@ -440,6 +421,3 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.name_of_cell.setPlainText(parameters['sc_name'])
             # print("done")
             self.startExp()
-        # self.dialog.show()
-        # # self.parameters = {''}
-        # self.dialog.ui.buttonBox.accepted.connect(self.startExp)
