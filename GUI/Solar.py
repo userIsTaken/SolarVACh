@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -462,7 +462,6 @@ class Ui_MainWindow(object):
         self.widget.setMaximumSize(QtCore.QSize(300, 160))
         self.widget.setObjectName("widget")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.electrode_combo = QtWidgets.QComboBox(self.widget)
         self.electrode_combo.setObjectName("electrode_combo")
@@ -527,7 +526,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 2, 0, 3, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 27))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -580,8 +579,8 @@ class Ui_MainWindow(object):
         self.ip_address.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:12pt;\">192.168.0.100</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">192.168.0.100</span></p></body></html>"))
         self.label_23.setText(_translate("MainWindow", "Device IP :"))
         self.connect_button.setText(_translate("MainWindow", "Connect"))
         self.label_22.setText(_translate("MainWindow", "DEVICE CONFIGURATION"))
@@ -601,7 +600,7 @@ class Ui_MainWindow(object):
         self.fb_scan.setText(_translate("MainWindow", "Forward-Backward Scan"))
         self.label_19.setText(_translate("MainWindow", "<html><head/><body><p>Number of electrodes:</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.opt_tab), _translate("MainWindow", "Options"))
-        self.save_as_button.setText(_translate("MainWindow", "Save all results"))
+        self.save_as_button.setText(_translate("MainWindow", "Save parameters"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.result_tab), _translate("MainWindow", "Results"))
         self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
