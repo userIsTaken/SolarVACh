@@ -222,8 +222,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.errors.connect(self.ErrorHasBeenGot)
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 1:
+            print("TIME MODE")
             pass
         elif mode == 2:
+            print("RELAY MODE")
             pass
         else:
             print("WTF IN THIS LINE?")
