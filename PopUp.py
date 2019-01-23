@@ -34,6 +34,42 @@ class PopUp(QtWidgets.QDialog):
         self.ui.electrode_combo.setCurrentIndex(params['el_combo'])
         self.ui.relay_combo.setCurrentIndex(params['el_combo'])
         self.ui.sc_name.setPlainText(params['sc_name'])
+        self.setMode(params['mode'])
+        pass
+
+    def setMode(self, mode):
+        """
+        Sets measurement mode
+
+
+        :param mode:
+        :return:
+        """
+        if mode == 0:
+            self.ui.oneShotMode.setChecked(True)
+        elif mode == 1:
+            self.ui.timeMode.setChecked(True)
+            pass
+        elif mode == 2:
+            self.ui.relayMode.setChecked(True)
+            pass
+        pass
+
+    def getMode(self):
+        """
+
+        :return: one contact mode 0, time mode 1, relay mode 2
+        """
+        mode = 0  # default 0, time mode 1, relay mode 2
+        if self.ui.timeMode.isChecked():
+            mode = 1
+        elif self.ui.relayMode.isChecked():
+            mode = 2
+        elif self.ui.oneShotMode.isChecked():
+            mode = 0
+        else:
+            mode = 0
+        return mode
         pass
 
     def GetAllParameters(self):
@@ -50,7 +86,7 @@ class PopUp(QtWidgets.QDialog):
         relay_combo = self.ui.relay_combo.currentIndex()
         el_combo = self.ui.electrode_combo.currentIndex()
         sc_name = self.ui.sc_name.toPlainText()
-
+        mode = self.getMode()
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
@@ -63,6 +99,7 @@ class PopUp(QtWidgets.QDialog):
                       'fb_scan': fb_scan,
                       'relay_combo':relay_combo,
                       'el_combo': el_combo,
-                      'sc_name':sc_name}
+                      'sc_name':sc_name,
+                      'mode':mode}
         return parameters
         pass
