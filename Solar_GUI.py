@@ -210,15 +210,24 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # self._thread = None
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
+        mode = self.parameters['mode'] # we will start a particular thread
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
-        self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
-        self._worker.moveToThread(self._thread)
-        self._worker.current_results.connect(self.draw_graph)
-        self._worker.final.connect(self.loop_stopped)
-        self._worker.trigger.connect(self.calculate_param)
-        self._worker.errors.connect(self.ErrorHasBeenGot)
-        self._worker.progress.connect(self.ExperimentInfo)
+        if mode == 0:
+            self._worker = LoopWorker(self.ExpensiveMeter, **self.parameters)
+            self._worker.moveToThread(self._thread)
+            self._worker.current_results.connect(self.draw_graph)
+            self._worker.final.connect(self.loop_stopped)
+            self._worker.trigger.connect(self.calculate_param)
+            self._worker.errors.connect(self.ErrorHasBeenGot)
+            self._worker.progress.connect(self.ExperimentInfo)
+        elif mode == 1:
+            pass
+        elif mode == 2:
+            pass
+        else:
+            print("WTF IN THIS LINE?")
+            print('mode', mode)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
         pass
@@ -517,5 +526,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             # el_combo = self.ui.electrode_combo.currentText()
             self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
             self.ui.name_of_cell.setPlainText(parameters['sc_name'])
+            self.setMode(parameters['mode'])
             # print("done")
             self.startExp()
