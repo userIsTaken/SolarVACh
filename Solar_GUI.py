@@ -230,6 +230,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         else:
             print("WTF IN THIS LINE?")
             print('mode', mode)
+            sys.exit(-127)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
         pass
