@@ -3,6 +3,8 @@ from GUI.Solar import Ui_MainWindow
 from PopUp import PopUp
 from HardwareAccess.KeysightWrapper import SourceMeter
 from ExpLoops.ExpLoop import *
+from ExpLoops.CObservation import *
+from ExpLoops.RelayObservation import *
 from pyqtgraph import mkPen
 from Config.confparser import *
 import datetime
