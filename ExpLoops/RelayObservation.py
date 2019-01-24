@@ -11,3 +11,4 @@ class RelayObserver(QObject):
     def __init__(self):
         super(RelayObserver, self).__init__()
         pass
+
