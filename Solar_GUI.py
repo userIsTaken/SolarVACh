@@ -1,10 +1,8 @@
 from PyQt5 import QtWidgets, QtGui
 from GUI.Solar import Ui_MainWindow
 from PopUp import PopUp
-import sys, os
-from PyQt5.QtCore import *
 from HardwareAccess.KeysightWrapper import SourceMeter
-from ExpLoop import *
+from ExpLoops.ExpLoop import *
 from pyqtgraph import mkPen
 from Config.confparser import *
 import datetime
