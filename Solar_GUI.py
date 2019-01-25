@@ -472,10 +472,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time.append(V_oc)
                     self.ff_time.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, "t", 'min.', 'PCE', '%', self.t_time, self.PCE_time, False)
-                    self.draw_method(self.ui.jscVsTime, "t", 'min.', 'jsc', 'A/cm^2', self.t_time, self.jsc_time, False)
-                    self.draw_method(self.ui.UocVsTime, "t", 'min.', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
-                    self.draw_method(self.ui.FFVsTime, "t", 'min.', 'FF', '%', self.t_time, self.ff_time, False)
+                    self.draw_method(self.ui.PCEVsTime, "t", 'minute', 'PCE', '%', self.t_time, self.PCE_time, False)
+                    self.draw_method(self.ui.jscVsTime, "t", 'minute', 'jsc', 'mA/cm**2', self.t_time, self.jsc_time, False)
+                    self.draw_method(self.ui.UocVsTime, "t", 'minute', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
+                    self.draw_method(self.ui.FFVsTime, "t", 'minute', 'FF', '%', self.t_time, self.ff_time, False)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
