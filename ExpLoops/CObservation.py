@@ -145,7 +145,7 @@ class ContinuousObserver(QObject):
                             pass
                         # print('++++++++++++++++++++++++++++')
                         # self.meter.setMeasurementRange(0.03)
-                        time.sleep(1)
+                        time.sleep(0.25)
                         counter = 0
                         totalV = totalV + step
                         self.err_ok = False
@@ -190,7 +190,7 @@ class ContinuousObserver(QObject):
                             pass
                         # print('++++++++++++++++++++++++++++')
                         # self.meter.setMeasurementRange(0.03)
-                        time.sleep(1)
+                        time.sleep(0.25)
                         counter = 0
                         totalV = totalV - step
                         self.err_ok = False
@@ -254,7 +254,7 @@ class ContinuousObserver(QObject):
             self.meter.enableAmmeterInput(self.meter.bON)
             self.meter.initAcquire()
             # Give enough time for this action
-            time.sleep(1)  # one second is enough?
+            time.sleep(1.0)  # one second is enough?
             data = self.meter.fetchArrayData(self.meter.CURR)  #
             data_np = np.fromstring(data, dtype=float, sep=",")
         except Exception as ex:
