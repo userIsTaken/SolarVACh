@@ -38,12 +38,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.save_as_button.clicked.connect(self.save_results)
         self.ui.directory_button.clicked.connect(self.select_path)
 
-        self.parameters = {}
+        self.parameters = {} # global dictionary
         self.current_arr = []
         self.voltage_arr = []
     #     for analysis
         self.curr_array_analysis= []
         self.voltage_array_analysis = []
+        # for observations over time:
+        self.t_time = []
+        self.ff_time = []
+        self.jsc_time = []
+        self.Uoc_time = []
+        self.PCE_time = []
     #     Shortcuts:
         self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
         # events of shortcuts:
@@ -54,8 +60,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def setupUI(self):
         self.ui.params_field.setPlainText(
-            'SC ; F/B ; Uoc ; jsc ; FF ; Umax ; jmax ; Pmax ; PCE; S')
-        self.ui.params_field.append(" [?] ; [?] ; [V] ; [mA/cm^2] ; [%] ; [V] ; [mA/cm^2] ; [mW/cm^2] ; [%] ; [cm^2]")
+            'SC ; F/B ; Uoc ; jsc ; FF ; Umax ; jmax ; Pmax ; PCE; S; t')
+        self.ui.params_field.append(" [?] ; [?] ; [V] ; [mA/cm^2] ; [%] ; [V] ; [mA/cm^2] ; [mW/cm^2] ; [%] ; [cm^2]; [min.]")
         path, ip = get_path_ip()
         if ip is not None:
             self.ui.ip_address.setPlainText(ip)
@@ -226,7 +232,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker = ContinuousObserver(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
             # TODO: correct all signals!
-            # self._worker.current_results.connect(self.draw_graph)
+            self._worker.current_results.connect(self.draw_time_graph)
             # self._worker.final.connect(self.loop_stopped)
             # self._worker.trigger.connect(self.calculate_param)
             # self._worker.errors.connect(self.ErrorHasBeenGot)
