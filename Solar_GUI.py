@@ -439,17 +439,43 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                params_dict = {
-                    'v_oc': round(V_oc, 5),
-                    'j_sc': round(j_sc,5),
-                    'I_sc': round(I_sc, 5),
-                    'Imax': round(I_max,7),
-                    'ff': round(ff, 4),
-                    'pce': round(pce, 4),
-                    'pmax': round(p_max/self.parameters['area'] * 1000 * 100, 4), # P max in mW/cm^2
-                    'vmax': round(U_max,4),
-                    'fb_scan':fb_scan
-                }
+                if self.parameters['mode'] == 0:
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': counter
+                    }
+                elif self.parameters['mode'] == 1:
+                    t_min = counter*self.ui.timeDelayBox.value()
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': t_min
+                    }
+                    self.t_time.append(t_min)
+                    self.PCE_time.append(pce)
+                    self.jsc_time.append(j_sc)
+                    self.Uoc_time.append(V_oc)
+                    self.ff_time.append(ff)
+                    #Draw graphs:
+                    self.draw_method(self.ui.PCEVsTime, "t", 'min.', 'PCE', '%', self.t_time, self.PCE_time, False)
+                    self.draw_method(self.ui.jscVsTime, "t", 'min.', 'jsc', 'A/cm^2', self.t_time, self.jsc_time, False)
+                    self.draw_method(self.ui.UocVsTime, "t", 'min.', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
+                    self.draw_method(self.ui.FFVsTime, "t", 'min.', 'FF', '%', self.t_time, self.ff_time, False)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -496,6 +522,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         a3 = str(params_dict['Imax']*1000*100/self.parameters['area'])+ " ; "+str(params_dict['pmax'])+" ; "
         a4 = str(params_dict['pce'])+" ; "+str(self.parameters['area']/100)+" ; "+str(params_dict['t_min'])
         self.ui.params_field.append(a1+a2+a3+a4)
+        if self.parameters['mode'] == 1:
+            self.save_results()
+            pass
         pass
 
     def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
