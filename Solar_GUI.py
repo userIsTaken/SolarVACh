@@ -297,6 +297,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         el_combo = self.ui.electrode_combo.currentIndex()
         sc_name =  self.ui.name_of_cell.toPlainText()
         mode = self.getMode()
+        delay_min = self.ui.timeDelayBox.value()
 
 
         parameters = {'startV': startV,
@@ -312,7 +313,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'relay_combo':relay_combo,
                       'el_combo': el_combo,
                       'sc_name':sc_name,
-                      'mode':mode}
+                      'mode':mode,
+                      'delay_min':delay_min}
         return parameters
         pass
 
@@ -530,5 +532,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
             self.ui.name_of_cell.setPlainText(parameters['sc_name'])
             self.setMode(parameters['mode'])
+            self.ui.timeDelayBox.setValue(parameters['delay_min'])
             # print("done")
             self.startExp()

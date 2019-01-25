@@ -35,6 +35,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui.relay_combo.setCurrentIndex(params['el_combo'])
         self.ui.sc_name.setPlainText(params['sc_name'])
         self.setMode(params['mode'])
+        self.ui.timeDelayBox.setValue(params['delay_min'])
         pass
 
     def setMode(self, mode):
@@ -87,6 +88,7 @@ class PopUp(QtWidgets.QDialog):
         el_combo = self.ui.electrode_combo.currentIndex()
         sc_name = self.ui.sc_name.toPlainText()
         mode = self.getMode()
+        delay_min = self.ui.timeDelayBox.value()
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
@@ -100,6 +102,7 @@ class PopUp(QtWidgets.QDialog):
                       'relay_combo':relay_combo,
                       'el_combo': el_combo,
                       'sc_name':sc_name,
-                      'mode':mode}
+                      'mode':mode,
+                      'delay_min':delay_min}
         return parameters
         pass
