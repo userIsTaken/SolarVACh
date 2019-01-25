@@ -223,7 +223,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 1:
             print("TIME MODE")
-            pass
+            self._worker = ContinuousObserver(self.ExpensiveMeter, **self.parameters)
+            self._worker.moveToThread(self._thread)
+            # TODO: correct all signals!
+            # self._worker.current_results.connect(self.draw_graph)
+            # self._worker.final.connect(self.loop_stopped)
+            # self._worker.trigger.connect(self.calculate_param)
+            # self._worker.errors.connect(self.ErrorHasBeenGot)
+            # self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 2:
             print("RELAY MODE")
             pass

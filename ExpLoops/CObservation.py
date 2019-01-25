@@ -58,7 +58,7 @@ class ContinuousObserver(QObject):
             #  START of a counter:
             # ========================================================
             # TODO: Counter iteration has to appear here:
-            while (observation_counter <= self.counts):
+            while (observation_counter <= self.counts and not self._require_stop):
                 # ========================================================
                 #  START of a measurement loop:
                 # ========================================================

@@ -894,22 +894,22 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
-         <widget class="PlotWidget" name="graphicsView"/>
+         <widget class="PlotWidget" name="jUatThisMoment"/>
         </item>
         <item row="0" column="1">
-         <widget class="PlotWidget" name="graphicsView_2"/>
+         <widget class="PlotWidget" name="PUatThisMoment"/>
         </item>
         <item row="1" column="1">
-         <widget class="PlotWidget" name="graphicsView_4"/>
+         <widget class="PlotWidget" name="jscVsTime"/>
         </item>
         <item row="2" column="0">
-         <widget class="PlotWidget" name="graphicsView_5"/>
+         <widget class="PlotWidget" name="UocVsTime"/>
         </item>
         <item row="2" column="1">
-         <widget class="PlotWidget" name="graphicsView_6"/>
+         <widget class="PlotWidget" name="FFVsTime"/>
         </item>
         <item row="1" column="0">
-         <widget class="PlotWidget" name="graphicsView_3"/>
+         <widget class="PlotWidget" name="PCEVsTime"/>
         </item>
        </layout>
       </widget>
