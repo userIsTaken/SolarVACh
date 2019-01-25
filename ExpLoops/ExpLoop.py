@@ -34,7 +34,6 @@ class LoopWorker(QObject):
 
     @pyqtSlot()
     def run(self):
-        # TODO : We need to implement relay control here also
         try:
             # current_scale=None
             counter=0
