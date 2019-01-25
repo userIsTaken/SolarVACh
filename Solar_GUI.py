@@ -487,6 +487,33 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr, True)
         pass
 
+    def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
+        """
+
+        :param status:
+        :param fb_scan:
+        :param data_mean:
+        :param err_rate:
+        :param totalV:
+        :param curr_array:
+        :return:
+        """
+        self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
+        self.ui.live_error.setText(str(round(err_rate, 5)))
+        array = np.arange(0, self.parameters['array_size'], 1)
+        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
+        if status:
+            self.current_arr.append(data_mean)
+            self.curr_array_analysis.append(data_mean)
+            self.voltage_arr.append(totalV)
+            self.voltage_array_analysis.append(totalV)
+            self.append_jV_values(data_mean, totalV, self.parameters['area'])
+            self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
+            self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
+            self.draw_method(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr, True)
+            self.draw_method(self.ui.UocVsTime, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr, True)
+        pass
+
     def append_jV_values(self, I, V, area):
         """
         Appends i, V, j, P values into vach_text field:
