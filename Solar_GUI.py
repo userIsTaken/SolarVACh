@@ -397,7 +397,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.ff_time.append(ff)
                     #Draw graphs:
                     self.draw_method(self.ui.PCEVsTime, "t", 'min.', 'PCE', '%', self.t_time, self.PCE_time, False)
-                    self.draw_method(self.ui.jscVsTime, "t", 'min.', 'jsc', 'A/cm^2', self.t_time, self.jsc_time, False)
+                    self.draw_method(self.ui.jscVsTime, "t", 'min.', 'jsc', 'mA/cm^2', self.t_time, self.jsc_time, False)
                     self.draw_method(self.ui.UocVsTime, "t", 'min.', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
                     self.draw_method(self.ui.FFVsTime, "t", 'min.', 'FF', '%', self.t_time, self.ff_time, False)
                 self.upload_values(params_dict)
@@ -570,14 +570,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         array = np.arange(0, self.parameters['array_size'], 1)
         self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
         if status:
-            self.current_arr.append(data_mean)
+            # self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
-            self.voltage_arr.append(totalV)
+            # self.voltage_arr.append(totalV)
             self.voltage_array_analysis.append(totalV)
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
-            self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
-            self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.draw_method(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr, True)
+            self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
+            self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
+            self.draw_method(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', self.voltage_array_analysis, self.curr_array_analysis, True)
             self.draw_method(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr, True)
         pass
 
