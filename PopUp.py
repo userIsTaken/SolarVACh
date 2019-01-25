@@ -36,6 +36,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui.sc_name.setPlainText(params['sc_name'])
         self.setMode(params['mode'])
         self.ui.timeDelayBox.setValue(params['delay_min'])
+        self.ui.countBox.setValue(params['counts'])
         pass
 
     def setMode(self, mode):
@@ -89,6 +90,7 @@ class PopUp(QtWidgets.QDialog):
         sc_name = self.ui.sc_name.toPlainText()
         mode = self.getMode()
         delay_min = self.ui.timeDelayBox.value()
+        counts = self.ui.countBox.value()
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
@@ -103,6 +105,7 @@ class PopUp(QtWidgets.QDialog):
                       'el_combo': el_combo,
                       'sc_name':sc_name,
                       'mode':mode,
-                      'delay_min':delay_min}
+                      'delay_min':delay_min,
+                      'counts':counts}
         return parameters
         pass

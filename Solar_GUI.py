@@ -298,7 +298,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         sc_name =  self.ui.name_of_cell.toPlainText()
         mode = self.getMode()
         delay_min = self.ui.timeDelayBox.value()
-
+        counts = self.ui.countBox.value()
 
         parameters = {'startV': startV,
                       'endV': endV,
@@ -314,7 +314,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'el_combo': el_combo,
                       'sc_name':sc_name,
                       'mode':mode,
-                      'delay_min':delay_min}
+                      'delay_min':delay_min,
+                      'counts':counts}
         return parameters
         pass
 
@@ -533,5 +534,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.name_of_cell.setPlainText(parameters['sc_name'])
             self.setMode(parameters['mode'])
             self.ui.timeDelayBox.setValue(parameters['delay_min'])
+            self.ui.countBox.setValue(parameters['counts'])
             # print("done")
             self.startExp()

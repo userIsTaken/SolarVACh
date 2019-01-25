@@ -31,11 +31,12 @@ class ContinuousObserver(QObject):
         # Few globals
         self.current_scale = None
         self.current_array_counter = []  # empty list
+        self.time_delay = self.params['delay_min']*60 # delay in seconds
         pass
 
     @pyqtSlot()
     def run(self):
-        # TODO : We need to implement relay control here also
+        # TODO : observation over time
         try:
             # current_scale=None
             counter = 0
