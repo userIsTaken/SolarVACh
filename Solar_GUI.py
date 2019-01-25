@@ -332,13 +332,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def calculate_param(self, trigger, fb_scan):
+    def calculate_param(self, trigger, fb_scan, counter):
         # TODO: implement triggered analysis
 
         """
 
         :return:
         """
+        params_dict = {}
         if(trigger):
             if(fb_scan):
                 #     forward direction
@@ -357,18 +358,32 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                params_dict = {
-                    'v_oc': round(V_oc, 5),
-                    'j_sc': round(j_sc, 5),
-                    'I_sc': round(I_sc, 5),
-                    'Imax': round(I_max, 7),
-                    'ff': round(ff, 4),
-                    'pce': round(pce, 4),
-                    'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
-                    'vmax': round(U_max, 4),
-                    'fb_scan': fb_scan,
-                    't_min':-1
-                }
+                if self.parameters['mode'] == 0:
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': counter
+                    }
+                elif self.parameters['mode'] == 1:
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': counter*self.ui.timeDelayBox.value()
+                    }
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)

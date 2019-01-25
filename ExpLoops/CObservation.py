@@ -13,7 +13,7 @@ class ContinuousObserver(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
-    trigger = pyqtSignal(bool, bool)  # trigger and fb_scan value ( 0 - False, 2 - True)
+    trigger = pyqtSignal(bool, bool, float)  # trigger and fb_scan value ( 0 - False, 2 - True)
     relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float,
                                  np.ndarray)  # err ok, fb_scan, mean, rate, volts, curr_array
@@ -105,7 +105,7 @@ class ContinuousObserver(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, False)
+                        self.trigger.emit(True, False, observation_counter)
                     self.stop_measurement()
                 #     TODO this part is incomplete!
                 #     TODO: This part needs to be checked again, seems to be working
@@ -152,7 +152,7 @@ class ContinuousObserver(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, False)
+                        self.trigger.emit(True, False, observation_counter)
                     #     second loop:
                     totalV = endV
                     while (totalV <= (startV - step) and not self._require_stop):  # +/- step?
@@ -197,7 +197,7 @@ class ContinuousObserver(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, True)
+                        self.trigger.emit(True, True, observation_counter)
                     self.stop_measurement()
                 else:
                     print("ERR.CODE.SHIT")
