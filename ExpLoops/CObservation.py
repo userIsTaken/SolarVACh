@@ -210,6 +210,7 @@ class ContinuousObserver(QObject):
                 observation_counter = observation_counter + 1
             #===========================================================
             # END of counter
+            self.final.emit(True)
             #===========================================================
         except Exception as ex:
             print("ERR.CODE.001")
@@ -261,7 +262,7 @@ class ContinuousObserver(QObject):
             self.meter.enableAmmeterInput(self.meter.bOFF)
             self.meter.enableVoltageOutput(self.meter.bOFF)
             self.meter.setVoltOutValue(0)
-            self.final.emit(True)
+            # self.final.emit(True)
         except Exception as ex:
             print("ERR.CODE.004")
             print(str(ex))

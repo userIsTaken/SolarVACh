@@ -213,6 +213,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.voltage_array_analysis = []
         self.current_arr = []
         self.voltage_arr = []
+        self.t_time = []
+        self.ff_time = []
+        self.jsc_time = []
+        self.Uoc_time = []
+        self.PCE_time = []
         # self._thread = None
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
@@ -233,10 +238,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.moveToThread(self._thread)
             # TODO: correct all signals!
             self._worker.current_results.connect(self.draw_time_graph)
-            # self._worker.final.connect(self.loop_stopped)
-            # self._worker.trigger.connect(self.calculate_param)
-            # self._worker.errors.connect(self.ErrorHasBeenGot)
-            # self._worker.progress.connect(self.ExperimentInfo)
+            self._worker.final.connect(self.loop_stopped)
+            self._worker.trigger.connect(self.calculate_param)
+            self._worker.errors.connect(self.ErrorHasBeenGot)
+            self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 2:
             print("RELAY MODE")
             pass
@@ -372,6 +377,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': counter
                     }
                 elif self.parameters['mode'] == 1:
+                    t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -382,8 +388,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
                         'vmax': round(U_max, 4),
                         'fb_scan': fb_scan,
-                        't_min': counter*self.ui.timeDelayBox.value()
+                        't_min': t_min
                     }
+                    self.t_time.append(t_min)
+                    self.PCE_time.append(pce)
+                    self.jsc_time.append(j_sc)
+                    self.Uoc_time.append(V_oc)
+                    self.ff_time.append(ff)
+                    #Draw graphs:
+                    self.draw_method(self.ui.PCEVsTime, "t", 'min.', 'PCE', '%', self.t_time, self.PCE_time, False)
+                    self.draw_method(self.ui.jscVsTime, "t", 'min.', 'jsc', 'A/cm^2', self.t_time, self.jsc_time, False)
+                    self.draw_method(self.ui.UocVsTime, "t", 'min.', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
+                    self.draw_method(self.ui.FFVsTime, "t", 'min.', 'FF', '%', self.t_time, self.ff_time, False)
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
