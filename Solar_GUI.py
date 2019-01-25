@@ -366,7 +366,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     'pce': round(pce, 4),
                     'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
                     'vmax': round(U_max, 4),
-                    'fb_scan': fb_scan
+                    'fb_scan': fb_scan,
+                    't_min':-1
                 }
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
@@ -462,7 +463,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         a1 = sc_name+" ; "+fb+" ; "+str(params_dict['v_oc'])+" ; "
         a2 = str(params_dict['j_sc'])+ " ; "+str(params_dict['ff'])+ " ; "+str(params_dict['vmax'])+" ; "
         a3 = str(params_dict['Imax']*1000*100/self.parameters['area'])+ " ; "+str(params_dict['pmax'])+" ; "
-        a4 = str(params_dict['pce'])+" ; "+str(self.parameters['area']/100)
+        a4 = str(params_dict['pce'])+" ; "+str(self.parameters['area']/100)+" ; "+str(params_dict['t_min'])
         self.ui.params_field.append(a1+a2+a3+a4)
         pass
 
