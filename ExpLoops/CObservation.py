@@ -206,7 +206,13 @@ class ContinuousObserver(QObject):
                 #===========================================================
                 # END of a measurement loop
                 #===========================================================
+                # Return initial values
+                startV = self.params['startV']
+                endV = self.params['endV']
+                totalV = startV
+                # sleep
                 time.sleep(self.time_delay)
+                # change counter
                 observation_counter = observation_counter + 1
             #===========================================================
             # END of counter
