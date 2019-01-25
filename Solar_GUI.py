@@ -472,7 +472,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time.append(V_oc)
                     self.ff_time.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, "t", 'minute', 'PCE', '%', self.t_time, self.PCE_time, False)
+                    self.draw_method(self.ui.PCEVsTime, "t", 'minute', 'PCE', '', self.t_time, self.PCE_time, False)
                     self.draw_method(self.ui.jscVsTime, "t", 'minute', 'jsc', 'mA/cm**2', self.t_time, self.jsc_time, False)
                     self.draw_method(self.ui.UocVsTime, "t", 'minute', 'Uoc', 'V', self.t_time, self.Uoc_time, False)
                     self.draw_method(self.ui.FFVsTime, "t", 'minute', 'FF', '%', self.t_time, self.ff_time, False)
@@ -599,8 +599,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y, xy00):
         graph.clear()
         graph.setBackground((47,79,79))
-        graph.setLabel('bottom', x_title, x_scale)
-        graph.setLabel('left', y_title, y_scale)
+        graph.setLabel('bottom', x_title, units=str(x_scale))
+        graph.setLabel('left', y_title, units=str(y_scale))
         graph.getAxis('bottom').setPen((255, 255, 255))
         graph.getAxis('left').setPen((255, 255, 255))
         graph.plot(x, y, pen=(255,255,102), symbol='o')
