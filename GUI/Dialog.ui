@@ -390,7 +390,11 @@
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QDoubleSpinBox" name="timeDelayBox"/>
+       <widget class="QDoubleSpinBox" name="timeDelayBox">
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="5" column="1">
        <widget class="QLabel" name="unitLabel">
@@ -443,7 +447,11 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QSpinBox" name="countBox"/>
+       <widget class="QSpinBox" name="countBox">
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+       </widget>
       </item>
       <item row="6" column="1">
        <widget class="QLabel" name="label_10">
