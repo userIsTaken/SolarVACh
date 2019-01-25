@@ -32,6 +32,7 @@ class ContinuousObserver(QObject):
         self.current_scale = None
         self.current_array_counter = []  # empty list
         self.time_delay = self.params['delay_min']*60 # delay in seconds
+        self.counts = self.params['counts']
         pass
 
     @pyqtSlot()
@@ -52,6 +53,12 @@ class ContinuousObserver(QObject):
             # print("(y)")
             # print(fb_scan)
             # self.curr_array.append(totalV) # what the hell is this?
+            # ========================================================
+            #  START of a counter:
+            # ========================================================
+            # ========================================================
+            #  START of a measurement loop:
+            # ========================================================
             if 0 == fb_scan:
                 while (totalV > (endV + step) and not self._require_stop):
                     while not self.err_ok and not self._require_stop:
@@ -193,6 +200,12 @@ class ContinuousObserver(QObject):
                 print("ERR.CODE.SHIT")
                 print(str(fb_scan), " FB SCAN VALUE")
                 self.errors.emit(1, "ERR.CODE.SHIT\n" + str(fb_scan) + " FB SCAN VALUE")
+            #===========================================================
+            # END of a measurement loop
+            #===========================================================
+            #===========================================================
+            # END of counter
+            #===========================================================
         except Exception as ex:
             print("ERR.CODE.001")
             print(str(ex))
