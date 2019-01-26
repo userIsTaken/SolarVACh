@@ -85,7 +85,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if array_size is not None and array_size:
             self.ui.array_size_box.setValue(float(array_size))
             pass
-        pass
+        #setup graphs:
+        self.prepare_graphs(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', True)
+        self.prepare_graphs(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
+        self.prepare_graphs(self.ui.current_graph, 'Counts', None, 'Current', 'A', False)
+        # time observer graphs:
+        self.prepare_graphs(self.ui.jscVsTime, 't (min)', None, 'Jsc (mA/cm^2)', None, False)
+        self.prepare_graphs(self.ui.UocVsTime, 't (min)', None, 'Uoc', 'V', False)
+        self.prepare_graphs(self.ui.FFVsTime, 't (min)', None, 'FF (%)', None, False)
+        self.prepare_graphs(self.ui.PCEVsTime, 't (min)', None, 'PCE (%)', None, False)
+        self.prepare_graphs(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', True)
+        self.prepare_graphs(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
 
     def select_path(self):
         file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))
@@ -397,10 +407,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time.append(V_oc)
                     self.ff_time.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, "t [min.]", None, 'PCE', '', self.t_time, self.PCE_time, False)
-                    self.draw_method(self.ui.jscVsTime, "t [min.]", None, 'jsc', 'mA/cm**2', self.t_time, self.jsc_time, False)
-                    self.draw_method(self.ui.UocVsTime, "t [min.]", None, 'Uoc', 'V', self.t_time, self.Uoc_time, False)
-                    self.draw_method(self.ui.FFVsTime, "t [min.]", None, 'FF', '%', self.t_time, self.ff_time, False)
+                    self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time)
+                    self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time)
+                    self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time)
+                    self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time)
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -473,10 +483,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time.append(V_oc)
                     self.ff_time.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, "t [min.]", None, 'PCE', None, self.t_time, self.PCE_time, False)
-                    self.draw_method(self.ui.jscVsTime, "t [min.]", None, 'jsc', 'mA/cm**2', self.t_time, self.jsc_time, False)
-                    self.draw_method(self.ui.UocVsTime, "t [min.]", None, 'Uoc', 'V', self.t_time, self.Uoc_time, False)
-                    self.draw_method(self.ui.FFVsTime, "t [min.]", None, 'FF', '%', self.t_time, self.ff_time, False)
+                    self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time)
+                    self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time)
+                    self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time)
+                    self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -542,7 +552,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
-        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
+        self.draw_method(self.ui.current_graph,  array, curr_array)
         if status:
             self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
@@ -551,8 +561,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.draw_method(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', self.voltage_arr, self.current_arr, True)
-            self.draw_method(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_arr, self.power_arr, True)
+            self.draw_method(self.ui.density_graph,  self.voltage_arr, self.current_arr)
+            self.draw_method(self.ui.power_graph,  self.voltage_arr, self.power_arr)
         pass
 
     def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
@@ -569,7 +579,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
-        self.draw_method(self.ui.current_graph, '6th dimension', 'a.u.', 'Current', 'A', array, curr_array, False)
+        self.draw_method(self.ui.current_graph,  array, curr_array)
         if status:
             # self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
@@ -578,8 +588,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
-            self.draw_method(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', self.voltage_array_analysis, self.curr_array_analysis, True)
-            self.draw_method(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', self.voltage_array_analysis, self.power_arr, True)
+            self.draw_method(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis)
+            self.draw_method(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr)
         pass
 
     def append_jV_values(self, I, V, area):
@@ -597,8 +607,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
 
-    def draw_method(self, graph:pg.PlotWidget, x_title, x_scale, y_title, y_scale, x, y, xy00):
-        graph.clear()
+    def prepare_graphs(self, graph:pg.PlotWidget, x_title, x_scale, y_title, y_scale, xy00):
+        # graph.clear()
         graph.setBackground((47,79,79))
         if x_scale is not None:
             graph.setLabel('bottom', x_title, units=str(x_scale))
@@ -610,13 +620,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             graph.setLabel('left', y_title)
         graph.getAxis('bottom').setPen((255, 255, 255))
         graph.getAxis('left').setPen((255, 255, 255))
-        graph.plot(x, y, pen=(255,255,102), symbol='o')
+        # graph.plot(x, y, pen=(255,255,102), symbol='o')
         graph.showGrid(x=True,y=True)
         if xy00:
             y0 = graph.addLine(None, 0, None)
             x0 = graph.addLine(0, None, None)
             y0.setPen(mkPen('y', width=3))
             x0.setPen(mkPen('y', width=3))
+
+    def draw_method(self, graph:pg.PlotWidget, x, y):
+        graph.clear()
+        graph.plot(x, y, pen=(255, 255, 102), symbol='o')
 
 
 
