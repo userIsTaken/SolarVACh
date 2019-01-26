@@ -6,6 +6,7 @@ from ExpLoops.ExpLoop import *
 from ExpLoops.CObservation import *
 from ExpLoops.RelayObservation import *
 from pyqtgraph import mkPen
+import pyqtgraph as pg
 from Config.confparser import *
 import datetime
 
@@ -596,7 +597,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
 
-    def draw_method(self, graph, x_title, x_scale, y_title, y_scale, x, y, xy00):
+    def draw_method(self, graph:pg.PlotWidget, x_title, x_scale, y_title, y_scale, x, y, xy00):
         graph.clear()
         graph.setBackground((47,79,79))
         if x_scale is not None:
