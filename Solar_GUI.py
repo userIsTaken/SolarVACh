@@ -225,10 +225,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.current_arr = []
         self.voltage_arr = []
         self.t_time = []
-        self.ff_time = []
-        self.jsc_time = []
-        self.Uoc_time = []
-        self.PCE_time = []
+        self.ff_time_fw = []
+        self.jsc_time_fw = []
+        self.Uoc_time_fw = []
+        self.PCE_time_fw = []
+        self.ff_time_bw = []
+        self.jsc_time_bw = []
+        self.Uoc_time_bw = []
+        self.PCE_time_bw = []
         # self._thread = None
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
@@ -358,6 +362,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         params_dict = {}
         if(trigger):
             if(fb_scan):
+                # BW section
                 #     forward direction
                 self.ui.fbStatusLabel.setText("BW scan")
                 V_oc = self.voltage_array_analysis[closestValueIndex(self.curr_array_analysis, 0)]
@@ -402,15 +407,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': t_min
                     }
                     self.t_time.append(t_min)
-                    self.PCE_time.append(pce)
-                    self.jsc_time.append(j_sc)
-                    self.Uoc_time.append(V_oc)
-                    self.ff_time.append(ff)
+                    self.PCE_time_bw.append(pce)
+                    self.jsc_time_bw.append(j_sc)
+                    self.Uoc_time_bw.append(V_oc)
+                    self.ff_time_bw.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time)
-                    self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time)
-                    self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time)
-                    self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time)
+                    self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time_bw)
+                    self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time_bw)
+                    self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time_bw)
+                    self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time_bw)
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -478,15 +483,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': t_min
                     }
                     self.t_time.append(t_min)
-                    self.PCE_time.append(pce)
-                    self.jsc_time.append(j_sc)
-                    self.Uoc_time.append(V_oc)
-                    self.ff_time.append(ff)
+                    self.PCE_time_fw.append(pce)
+                    self.jsc_time_fw.append(j_sc)
+                    self.Uoc_time_fw.append(V_oc)
+                    self.ff_time_fw.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time)
-                    self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time)
-                    self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time)
-                    self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time)
+                    self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw)
+                    self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw)
+                    self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw)
+                    self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
