@@ -362,6 +362,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         params_dict = {}
         if(trigger):
+            t_min = 0
             if(fb_scan):
                 # BW section
                 #     forward direction
@@ -618,7 +619,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
 
-    def prepare_graphs(self, graph:pg.PlotWidget, x_title, x_scale, y_title, y_scale, xy00):
+    def prepare_graphs(self, graph:pg.PlotWidget, x_title, x_scale, y_title, y_scale, xy00=False):
         # graph.clear()
         graph.setBackground((47,79,79))
         if x_scale is not None:
