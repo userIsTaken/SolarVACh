@@ -9,6 +9,7 @@ from pyqtgraph import mkPen
 import pyqtgraph as pg
 from Config.confparser import *
 import datetime
+from random import randint
 
 
 
@@ -412,10 +413,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time_bw.append(V_oc)
                     self.ff_time_bw.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time_bw)
-                    self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time_bw)
-                    self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time_bw)
-                    self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time_bw)
+                    # self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time_bw)
+                    # self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time_bw)
+                    # self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time_bw)
+                    # self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time_bw)
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -488,10 +489,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.Uoc_time_fw.append(V_oc)
                     self.ff_time_fw.append(ff)
                     #Draw graphs:
-                    self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw)
-                    self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw)
-                    self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw)
-                    self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw)
+                    # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw)
+                    # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw)
+                    # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw)
+                    # self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -520,6 +521,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             else:
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
+            # here we eill plot all time dpendencies:
+            self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
+            self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
+            self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
+            self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw, self.ff_time_bw, clear=True)
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
@@ -557,7 +563,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
-        self.draw_method(self.ui.current_graph,  array, curr_array)
+        self.draw_method(self.ui.current_graph,  array, curr_array, clear=True)
         if status:
             self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
@@ -566,8 +572,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.draw_method(self.ui.density_graph,  self.voltage_arr, self.current_arr)
-            self.draw_method(self.ui.power_graph,  self.voltage_arr, self.power_arr)
+            self.draw_method(self.ui.density_graph,  self.voltage_arr, self.current_arr, clear=True)
+            self.draw_method(self.ui.power_graph,  self.voltage_arr, self.power_arr, clear=True)
         pass
 
     def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
@@ -633,9 +639,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             y0.setPen(mkPen('y', width=3))
             x0.setPen(mkPen('y', width=3))
 
-    def draw_method(self, graph:pg.PlotWidget, x, y):
-        graph.clear()
+    def draw_method(self, graph:pg.PlotWidget, x, y, y1=None, datasets=None, clear = False):
+        if clear:
+            graph.clear()
         graph.plot(x, y, pen=(255, 255, 102), symbol='o')
+        if y1 is not None and len(y1)>0:
+            graph.plot(x, y1, pen=(255,255, 186), symbol='o')
+        if datasets is not None:
+            for i in datasets:
+                graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
+
 
 
 
