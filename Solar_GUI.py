@@ -676,7 +676,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             if i is not None:
                 if i.name() == y_name:
                     graph.removeItem(i)
-        graph.plot(x,y, pen=color, symbol='o')
+        graph.plot(x,y, pen=color, symbol='o', name=y_name)
 
 
 
