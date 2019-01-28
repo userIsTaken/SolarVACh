@@ -591,7 +591,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
-        self.draw_method(self.ui.current_graph,  array, curr_array)
+        self.draw_method(self.ui.current_graph,  array, curr_array, clear=True)
         if status:
             # self.current_arr.append(data_mean)
             self.curr_array_analysis.append(data_mean)
