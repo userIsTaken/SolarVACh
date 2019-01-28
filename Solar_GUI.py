@@ -655,15 +655,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if clear:
             dataItems = graph.listDataItems()
             for i in dataItems:
+                print(i.name())
                 if i is not None:
-                    if i.name == y_name:
+                    if i.name() == y_name:
                         graph.removeItem(i)
                     if y2_name is not None:
-                        if i.name == y2_name:
+                        if i.name() == y2_name:
                             graph.removeItem(i)
-        graph.plot(x, y, pen=(255, 255, 102), symbol='o')
+        graph.plot(x, y, pen=(255, 255, 102), symbol='o', name=y_name)
         if y1 is not None and len(y1)>0:
-            graph.plot(x, y1, pen=(255,255, 186), symbol='o')
+            graph.plot(x, y1, pen=(255,255, 186), symbol='o', name=y2_name)
         if datasets is not None:
             for i in datasets:
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
