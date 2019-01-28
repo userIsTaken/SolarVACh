@@ -672,7 +672,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=None):
         dataItems =  graph.listDataItems()
         for i in dataItems:
-            print(i.name())
+            # print(i.name())
             if i is not None:
                 if i.name() == y_name:
                     graph.removeItem(i)
