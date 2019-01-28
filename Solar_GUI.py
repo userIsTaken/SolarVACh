@@ -600,8 +600,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
-            self.draw_method(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis)
-            self.draw_method(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr)
+            self.draw_method(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, clear=True)
+            self.draw_method(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, clear=True)
         pass
 
     def append_jV_values(self, I, V, area):
