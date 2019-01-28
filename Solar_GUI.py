@@ -600,8 +600,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
-            self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', clear=True)
-            self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', clear=True)
+            self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', color=(255, 255, 102))
+            self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', color=(255, 255, 186))
         pass
 
     def append_jV_values(self, I, V, area):
@@ -651,7 +651,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
 
 
-    def update_graph(self, graph:pg.PlotWidget, x, y, y_name, y1=None, datasets=None, clear = False, y2_name=None, names=None):
+    def update_graph_complex(self, graph:pg.PlotWidget, x, y, y_name, y1=None, datasets=None, clear = False, y2_name=None, names=None):
         if clear:
             dataItems = graph.listDataItems()
             for i in dataItems:
@@ -668,6 +668,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if datasets is not None:
             for i in datasets:
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
+
+    def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=None):
+        dataItems =  graph.listDataItems()
+        for i in dataItems:
+            if i is not None:
+                if i.name() == y_name:
+                    graph.removeItem(i)
+        graph.plot(x,y, pen=color, symbol='o')
+
 
 
 
