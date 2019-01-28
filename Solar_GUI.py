@@ -522,7 +522,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             else:
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
-            # here we eill plot all time dpendencies:
+            # here we will plot all time dpendencies:
             self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
             self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
             self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
