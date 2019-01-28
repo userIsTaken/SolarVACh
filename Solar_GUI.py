@@ -601,7 +601,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
             self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', color=(255, 255, 102))
-            self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', color=(255, 255, 186))
+            self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', color=(255, 255, 12))
         pass
 
     def append_jV_values(self, I, V, area):
@@ -672,6 +672,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=None):
         dataItems =  graph.listDataItems()
         for i in dataItems:
+            print(i.name())
             if i is not None:
                 if i.name() == y_name:
                     graph.removeItem(i)
