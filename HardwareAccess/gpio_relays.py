@@ -9,13 +9,13 @@ class RelayToggle():
 
         :param _ip_address: TCP/IP address of source meter
         """
+        self.gpiozero.Device.pin_factory = PiGPIOFactory(_ip_address)
         self.RELAY_1 = 5
         self.RELAY_2 = 6
         self.RELAY_3 = 13
         self.RELAY_4 = 19
         self.RELAY_5 = 26
         self.RELAY_6 = 12
-        self.factory = PiGPIOFactory(_ip_address)
         self.ON = True
         self.OFF = False
         self.relay = None
