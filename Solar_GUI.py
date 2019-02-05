@@ -417,7 +417,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.t_time_bw.append(t_min)
                     self.PCE_time_bw.append(pce)
                     self.jsc_time_bw.append(j_sc)
-                    self.Uoc_time_bw.append(V_oc)
+                    self.Uoc_time_bw.append(round(V_oc,5))
                     self.ff_time_bw.append(ff)
                     #Draw graphs:
                     # self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time_bw)
@@ -493,7 +493,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.t_time_fw.append(t_min)
                     self.PCE_time_fw.append(pce)
                     self.jsc_time_fw.append(j_sc)
-                    self.Uoc_time_fw.append(V_oc)
+                    self.Uoc_time_fw.append(round(V_oc,5))
                     self.ff_time_fw.append(ff)
                     #Draw graphs:
                     # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw)
