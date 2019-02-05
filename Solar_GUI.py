@@ -693,7 +693,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 if i is not None:
                     if i.name() == y_name:
                         graph.removeItem(i)
-            graph.plot(x,y, pen=color, symbol='o', name=y_name)
+            graph.plot(x,y, pen=color, symbol='o', name=y_name, brush=color)
         else:
             print("Inequality", y_name, " ; ", sizex, " ; ", sizey)
 
