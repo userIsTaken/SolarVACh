@@ -695,7 +695,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         graph.removeItem(i)
             graph.plot(x,y, pen=color, symbol='o', name=y_name)
         else:
-            print("Inequality")
+            print("Inequality", y_name, " ; ", sizex, " ; ", sizey)
 
 
 
