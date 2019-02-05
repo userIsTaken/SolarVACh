@@ -531,13 +531,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
-            self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.CUSTOM)
+            self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.GREEN)
             self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
-            self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC")
+            self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.GREEN)
             self.update_graph(self.ui.jscVsTime, self.t_time_bw, self.jsc_time_bw, "BWJSC", color=self.RED)
-            self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC")
+            self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.GREEN)
             self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
-            self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF")
+            self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
             self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
             # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
             # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
@@ -590,7 +590,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
             self.update_graph(self.ui.density_graph,  self.voltage_arr, self.current_arr, "Density", color=self.BLUE)
-            self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, "Power", color=self.BLUE)
+            self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, "Power", color=self.SKYBLUE)
         pass
 
     def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
@@ -616,7 +616,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.curr_array_analysis]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_array_analysis)]
-            self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', color=self.SKYBLUE)
+            self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', color=self.BLUE)
             self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', color=self.SKYBLUE)
         pass
 
