@@ -536,7 +536,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC")
             self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
             self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF")
-            self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_fw, "BWFF", color=self.RED)
+            self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
             # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
             # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
             # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
