@@ -529,6 +529,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             # here we will plot all time dpendencies:
             self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw, "FWPCE", color=self.CUSTOM)
             self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_bw, "BWPCE", color=self.RED)
+            self.update_graph(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, "FWJSC")
+            self.update_graph(self.ui.jscVsTime, self.t_time, self.jsc_time_bw, "BWJSC", color=self.RED)
+            self.update_graph(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, "FWUOC")
+            self.update_graph(self.ui.UocVsTime, self.t_time, self.Uoc_time_bw, "BWUOC", color=self.RED)
+            self.update_graph(self.ui.FFVsTime, self.t_time, self.ff_time_fw, "FWFF")
+            self.update_graph(self.ui.FFVsTime, self.t_time, self.ff_time_fw, "BWFF", color=self.RED)
             # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
             # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
             # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
@@ -676,13 +682,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
 
     def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=(255, 255, 102)):
-        dataItems =  graph.listDataItems()
-        for i in dataItems:
-            # print(i.name())
-            if i is not None:
-                if i.name() == y_name:
-                    graph.removeItem(i)
-        graph.plot(x,y, pen=color, symbol='o', name=y_name)
+        sizex = len(x)
+        sizey=len(y)
+        if sizex == sizey:
+            dataItems =  graph.listDataItems()
+            for i in dataItems:
+                # print(i.name())
+                if i is not None:
+                    if i.name() == y_name:
+                        graph.removeItem(i)
+            graph.plot(x,y, pen=color, symbol='o', name=y_name)
+        else:
+            print("Inequality")
 
 
 
