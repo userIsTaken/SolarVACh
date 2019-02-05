@@ -58,6 +58,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.quit_shortcut.activated.connect(self.quit)
     #     relay combos:
         self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
+        # Colors:
+        self.RED = (255,0,0)
+        self.CUSTOM=(255, 255, 102)
+        self.GREEN = (0,255,0)
         self.setupUI()
 
     def setupUI(self):
@@ -523,10 +527,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
-            self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
-            self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
-            self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
-            self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw, self.ff_time_bw, clear=True)
+            self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw, "FWPCE", color=self.CUSTOM)
+            self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_bw, "BWPCE", color=self.RED)
+            # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
+            # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
+            # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
+            # self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw, self.ff_time_bw, clear=True)
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
@@ -669,7 +675,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             for i in datasets:
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
 
-    def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=None):
+    def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=(255, 255, 102)):
         dataItems =  graph.listDataItems()
         for i in dataItems:
             # print(i.name())
