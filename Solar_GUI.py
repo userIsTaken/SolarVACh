@@ -573,8 +573,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.draw_method(self.ui.density_graph,  self.voltage_arr, self.current_arr, clear=True)
-            self.draw_method(self.ui.power_graph,  self.voltage_arr, self.power_arr, clear=True)
+            self.update_graph(self.ui.density_graph,  self.voltage_arr, self.current_arr, "Density")
+            self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, "Power")
         pass
 
     def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
