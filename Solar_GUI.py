@@ -47,7 +47,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.curr_array_analysis= []
         self.voltage_array_analysis = []
         # for observations over time:
-        self.t_time = []
+        self.t_time_bw = []
+        self.t_time_fw = []
         self.ff_time = []
         self.jsc_time = []
         self.Uoc_time = []
@@ -229,7 +230,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.voltage_array_analysis = []
         self.current_arr = []
         self.voltage_arr = []
-        self.t_time = []
+        self.t_time_bw = []
+        self.t_time_fw = []
         self.ff_time_fw = []
         self.jsc_time_fw = []
         self.Uoc_time_fw = []
@@ -412,7 +414,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': t_min
                     }
-                    self.t_time.append(t_min)
+                    self.t_time_bw.append(t_min)
                     self.PCE_time_bw.append(pce)
                     self.jsc_time_bw.append(j_sc)
                     self.Uoc_time_bw.append(V_oc)
@@ -488,7 +490,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': t_min
                     }
-                    self.t_time.append(t_min)
+                    self.t_time_fw.append(t_min)
                     self.PCE_time_fw.append(pce)
                     self.jsc_time_fw.append(j_sc)
                     self.Uoc_time_fw.append(V_oc)
@@ -527,14 +529,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
-            self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw, "FWPCE", color=self.CUSTOM)
-            self.update_graph(self.ui.PCEVsTime, self.t_time, self.PCE_time_bw, "BWPCE", color=self.RED)
-            self.update_graph(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, "FWJSC")
-            self.update_graph(self.ui.jscVsTime, self.t_time, self.jsc_time_bw, "BWJSC", color=self.RED)
-            self.update_graph(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, "FWUOC")
-            self.update_graph(self.ui.UocVsTime, self.t_time, self.Uoc_time_bw, "BWUOC", color=self.RED)
-            self.update_graph(self.ui.FFVsTime, self.t_time, self.ff_time_fw, "FWFF")
-            self.update_graph(self.ui.FFVsTime, self.t_time, self.ff_time_fw, "BWFF", color=self.RED)
+            self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.CUSTOM)
+            self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
+            self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC")
+            self.update_graph(self.ui.jscVsTime, self.t_time_bw, self.jsc_time_bw, "BWJSC", color=self.RED)
+            self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC")
+            self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
+            self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF")
+            self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_fw, "BWFF", color=self.RED)
             # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
             # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
             # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
