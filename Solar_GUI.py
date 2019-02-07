@@ -268,6 +268,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 2:
             print("RELAY MODE")
+            self._worker = RelayObserver(self.ExpensiveMeter, **self.parameters)
+            self._worker.moveToThread(self._thread)
+            self._worker.current_results.connect(self.draw_graph)
+            self._worker.final.connect(self.loop_stopped)
+            self._worker.trigger.connect(self.calculate_param)
+            self._worker.errors.connect(self.ErrorHasBeenGot)
+            self._worker.progress.connect(self.ExperimentInfo)
             pass
         else:
             print("WTF IN THIS LINE?")
@@ -389,7 +396,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0:
+                if self.parameters['mode'] == 0 or 2:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -465,7 +472,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0:
+                if self.parameters['mode'] == 0 or 2:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
