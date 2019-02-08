@@ -9,24 +9,6 @@ class SourceMeter_KTHL():
         """
         self.Device = vx.Instrument(_ip_address)
         self.ID = self.Device.ask("*IDN?")
-        # self.ON = "ON"
-        # self.OFF = "OFF"
-        # self.bON = True
-        # self.bOFF = False
-        # self.CURRENT_MODE = 1
-        # self.VOLTAGE_MODE = 2
-        # # Trigger sources:
-        # self.TRIGGER_TIM = 1
-        # self.TRIGGER_AINT = 0
-        # self.TRIGGER_BUS = 2
-        # # end of trigger sources
-        # self.SOURCE_MODE_VOLTS = "VOLT"
-        # self.SOURCE_MODE_CURR = "CURR"
-        # self.MEAS_RANGE_AUTO = "AUTO"
-        # self.MEAS_MODE_CURR = "curr"
-        # self.MEAS_MODE_VOLT = "volt"
-        # self.CURR="curr"
-        # self.VOLT="volt"
         pass
 
     def getIDN(self):
