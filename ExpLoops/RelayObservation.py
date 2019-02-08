@@ -16,7 +16,7 @@ class RelayObserver(QObject):
     trigger = pyqtSignal(bool, bool, float)  # trigger and fb_scan value ( 0 - False, 2 - True)
     relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float,
-                                 np.ndarray)  # err ok, fb_scan, mean, rate, volts, curr_array
+                                 np.ndarray, str, bool, int)  # err ok, fb_scan, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
         super().__init__()  # very new way to call super() method.
@@ -52,10 +52,14 @@ class RelayObserver(QObject):
             rel = self.params['relay_combo'] + 1
             first_rel = self.params['relay_combo'] + 1
             elec = self.params['el_combo'] + 1
+            name = '1 el.'
+            elec_nr = 1
+            color = 1
 
             while (rel < first_rel + elec):
                 self.relay = RelayToggle(str(rel))
                 self.relay.toggle(self.relay.ON)
+                name = str(elec_nr)+' el.'
             # print("(y)")
             # print(fb_scan)
             # self.curr_array.append(totalV) # what the hell is this?
@@ -90,7 +94,7 @@ class RelayObserver(QObject):
                                 # print("counter is 16, ", data_mean)
                                 self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                                 self.current_array_counter.clear()
-                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array, name, False, color)
                             self.err_ok = status
                             pass
                         # print('++++++++++++++++++++++++++++')
@@ -137,7 +141,7 @@ class RelayObserver(QObject):
                                 # print("counter is 16, ", data_mean)
                                 self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                                 self.current_array_counter.clear()
-                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array, name, False, color)
                             self.err_ok = status
                             pass
                         # print('++++++++++++++++++++++++++++')
@@ -182,7 +186,7 @@ class RelayObserver(QObject):
                                 # print("counter is 16, ", data_mean)
                                 self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                                 self.current_array_counter.clear()
-                            self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
+                            self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array, name, False, color)
                             self.err_ok = status
                             pass
                         # print('++++++++++++++++++++++++++++')
@@ -202,10 +206,13 @@ class RelayObserver(QObject):
                     self.errors.emit(1, "ERR.CODE.SHIT\n" + str(fb_scan) + " FB SCAN VALUE")
                 self.relay.toggle(self.relay.OFF)
                 rel = rel + 1
+                elec_nr = elec_nr + 1
                 startV = self.params['startV']
                 endV = self.params['endV']
                 totalV = startV
+                self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array, name, True, color)
                 time.sleep(1)
+                color=color +1
 
             self.final.emit(True)
 
