@@ -223,10 +223,10 @@ class SourceMeter():
         pass
 
     # GET functions:
-    def ask(self, cmd):
-        answer = self.Device.ask(cmd)
-        return answer
-        pass
+    # def ask(self, cmd):
+    #     answer = self.Device.ask(cmd)
+    #     return answer
+    #     pass
 
     def getCurrentSensorRange(self):
         answer = self.Device.ask(":sens:curr:rang?")
