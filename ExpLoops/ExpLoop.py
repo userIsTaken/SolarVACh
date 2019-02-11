@@ -15,7 +15,7 @@ class LoopWorker(QObject):
     progress = pyqtSignal(str)
     trigger = pyqtSignal(bool, bool, float) # trigger and fb_scan value ( 0 - False, 2 - True), counter for time observer
     relay = pyqtSignal(int)
-    current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray) # err ok, fb_scan, mean, rate, volts, curr_array
+    current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray, str) # err ok, fb_scan, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
         super().__init__()# very new way to call super() method.
@@ -46,6 +46,7 @@ class LoopWorker(QObject):
             self.prepare_source_meter(array_size)
             fb_scan = self.params['fb_scan']
             self._require_stop = False
+            name = 'electrode'
             # print("(y)")
             # print(fb_scan)
             #self.curr_array.append(totalV) # what the hell is this?
@@ -79,7 +80,7 @@ class LoopWorker(QObject):
                             # print("counter is 16, ", data_mean)
                             self.progress.emit("Counter : 16, "+str(round(data_mean, 4)))
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array, name)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -125,7 +126,7 @@ class LoopWorker(QObject):
                             # print("counter is 16, ", data_mean)
                             self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array, name)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')
@@ -169,7 +170,7 @@ class LoopWorker(QObject):
                             # print("counter is 16, ", data_mean)
                             self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
                             self.current_array_counter.clear()
-                        self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
+                        self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array, name)
                         self.err_ok = status
                         pass
                     # print('++++++++++++++++++++++++++++')

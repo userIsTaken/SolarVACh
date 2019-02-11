@@ -65,6 +65,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.GREEN = (0,255,0)
         self.BLUE = (0,0,255)
         self.SKYBLUE= (0,191,255)
+        self.YELLOW = (215,215,0)
+        self.VIOLET = (255, 0, 255)
+        self.WHITE = (255,255,255)
+        self.color = {1: self.RED,
+                      2: self.GREEN,
+                      3: self.BLUE,
+                      4: self.WHITE,
+                      5: self.YELLOW,
+                      6: self.VIOLET}
         self.setupUI()
 
     def setupUI(self):
@@ -270,7 +279,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             print("RELAY MODE")
             self._worker = RelayObserver(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
-            self._worker.current_results.connect(self.draw_graph)
+            self._worker.current_results.connect(self.draw_graph_relay)
             self._worker.final.connect(self.loop_stopped)
             self._worker.trigger.connect(self.calculate_param)
             self._worker.errors.connect(self.ErrorHasBeenGot)
@@ -573,7 +582,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             pass
         pass
 
-    def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
+    def draw_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array, name):
         """
 
         :param status:
@@ -584,6 +593,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :param curr_array:
         :return:
         """
+
         self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
         self.ui.live_error.setText(str(round(err_rate, 5)))
         array = np.arange(0, self.parameters['array_size'], 1)
@@ -596,8 +606,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.append_jV_values(data_mean, totalV, self.parameters['area'])
             self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
             self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
-            self.update_graph(self.ui.density_graph,  self.voltage_arr, self.current_arr, "Density", color=self.BLUE)
-            self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, "Power", color=self.SKYBLUE)
+            self.update_graph(self.ui.density_graph,  self.voltage_arr, self.current_arr, name, color=self.BLUE)
+            self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, name, color=self.SKYBLUE)
         pass
 
     def draw_time_graph(self, status, fb_scan, data_mean, err_rate, totalV, curr_array):
@@ -626,6 +636,40 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.update_graph(self.ui.jUatThisMoment,  self.voltage_array_analysis, self.curr_array_analysis, 'Current', color=self.BLUE)
             self.update_graph(self.ui.PUatThisMoment,  self.voltage_array_analysis, self.power_arr, 'Power', color=self.SKYBLUE)
         pass
+
+    def draw_graph_relay(self, status, fb_scan, data_mean, err_rate, totalV, curr_array, name, wipe, c):
+        """
+
+        :param status:
+        :param fb_scan:
+        :param data_mean:
+        :param err_rate:
+        :param totalV:
+        :param curr_array:
+        :return:
+        """
+        if wipe:
+            self.curr_array_analysis = []
+            self.voltage_array_analysis = []
+            self.current_arr = []
+            self.voltage_arr = []
+        else:
+            self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
+            self.ui.live_error.setText(str(round(err_rate, 5)))
+            array = np.arange(0, self.parameters['array_size'], 1)
+            self.draw_method(self.ui.current_graph,  array, curr_array, clear=True)
+            if status:
+                self.current_arr.append(data_mean)
+                self.curr_array_analysis.append(data_mean)
+                self.voltage_arr.append(totalV)
+                self.voltage_array_analysis.append(totalV)
+                self.append_jV_values(data_mean, totalV, self.parameters['area'])
+                self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
+                self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
+                self.update_graph(self.ui.density_graph,  self.voltage_arr, self.current_arr, name, color=self.color[c])
+                self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, name, color=self.color[c])
+            pass
+
 
     def append_jV_values(self, I, V, area):
         """
@@ -698,7 +742,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if sizex == sizey:
             dataItems =  graph.listDataItems()
             for i in dataItems:
-                # print(i.name())
+                print(i.name(), " ", y_name)
                 if i is not None:
                     if i.name() == y_name:
                         graph.removeItem(i)
