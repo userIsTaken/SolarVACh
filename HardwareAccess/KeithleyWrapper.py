@@ -9,6 +9,10 @@ class SourceMeter_KTHL():
         """
         self.Device = vx.Instrument(_ip_address)
         self.ID = self.Device.ask("*IDN?")
+        self.buffer_size=None
+        self.A = 'smua'
+        self.B = 'smub'
+        self.X = None # smu active channel
         pass
 
     def getIDN(self):
@@ -22,10 +26,16 @@ class SourceMeter_KTHL():
         self.Device.write(cmd)
 
     def initAcquire(self):
-
         pass
 
     def fetchArrayData(self, _atype:str):
+        '''
+        Prints buffer.
+
+        :param _atype:
+        :return: buffer
+        '''
+        self.ask('printbuffer(1, )'+str(self.buffer_size)+', smua.nvbuffer1)')
         pass
 
     def enableVoltageOutput(self, _status:bool):
@@ -69,8 +79,6 @@ class SourceMeter_KTHL():
         self.Device.close()
         pass
 
-    # ioObj.WriteString(":sens:curr:rang:auto:llim 2e-9")
-
     def setCurrentAutoRangeLLIM(self, llim):
         pass
 
@@ -80,11 +88,12 @@ class SourceMeter_KTHL():
     def setCurrentSensorRange(self, range):
         pass
 
-    # GET functions:
-    # def ask(self, cmd):
-    #     answer = self.Device.ask(cmd)
-    #     return answer
-    #     pass
-
     def getCurrentSensorRange(self):
+        pass
+
+    def setBufferSize(self, size):
+        self.buffer_size = size
+
+    def setChannel(self, channel):
+        self.X = channel
         pass
