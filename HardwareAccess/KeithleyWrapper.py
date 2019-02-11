@@ -35,7 +35,8 @@ class SourceMeter_KTHL():
         :param _atype:
         :return: buffer
         '''
-        self.ask('printbuffer(1, )'+str(self.buffer_size)+', smua.nvbuffer1)')
+        buffer = self.ask('printbuffer(1, )'+str(self.buffer_size)+', '+self.X+'.nvbuffer1)')
+        return buffer
         pass
 
     def enableVoltageOutput(self, _status:bool):
