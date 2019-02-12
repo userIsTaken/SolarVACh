@@ -279,6 +279,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if 'keithley' in self.ExpensiveMeter.ID.lower():
             self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ExpensiveMeter.setSourceOutputMode('curr')
+            self.ExpensiveMeter.setMeasurementMode(1)
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
         if mode == 0:
@@ -766,7 +767,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if sizex == sizey:
             dataItems =  graph.listDataItems()
             for i in dataItems:
-                print(i.name(), " ", y_name)
+                # print(i.name(), " ", y_name)
                 if i is not None:
                     if i.name() == y_name:
                         graph.removeItem(i)
