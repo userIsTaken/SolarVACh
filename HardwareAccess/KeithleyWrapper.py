@@ -76,6 +76,8 @@ class SourceMeter_KTHL():
         pass
 
     def setTriggerTimerInterval(self, interval):
+        # delay between measurement counts
+        # inconsistency with keysight
         pass
 
     def resetDevice(self):
@@ -97,12 +99,15 @@ class SourceMeter_KTHL():
         pass
 
     def setMeasurementRange(self, range, mode="curr", on="ON"):
+        # always auto:
         pass
 
     def setMeasurementSpeed(self, speed="auto", mode="curr"):
+        # nlpc?
         pass
 
     def setTriggerDelay(self, delay=None):
+        # always zero:
         pass
 
     def close(self):
