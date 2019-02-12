@@ -5,6 +5,7 @@ import time
 from AnalyseScripts.Analyse import *
 import numpy as np
 import scipy as sp
+import traceback
 
 
 class LoopWorker(QObject):
@@ -189,6 +190,7 @@ class LoopWorker(QObject):
                 print(str(fb_scan), " FB SCAN VALUE")
                 self.errors.emit(1, "ERR.CODE.SHIT\n"+str(fb_scan)+" FB SCAN VALUE")
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.001")
             print(str(ex))
             self.errors.emit(1, "ERR.CODE.001"+str(ex))
@@ -214,6 +216,7 @@ class LoopWorker(QObject):
             self.meter.setTriggerTimerInterval(trig_time_int) # hardcoded?
             self.meter.setTriggerCounts(array_size)
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.002")
             print(str(ex))
         pass
@@ -231,6 +234,7 @@ class LoopWorker(QObject):
             data = self.meter.fetchArrayData(self.meter.CURR) #
             data_np = np.fromstring(data, dtype=float, sep=",")
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.003")
             print(str(ex))
         return data_np
@@ -243,6 +247,7 @@ class LoopWorker(QObject):
             self.meter.setVoltOutValue(0)
             self.final.emit(True)
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.004")
             print(str(ex))
             print("ERROR IN: stop_measurement function")

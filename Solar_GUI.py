@@ -11,6 +11,7 @@ from Config.confparser import *
 import datetime
 from random import randint
 from HardwareAccess.KeithleyWrapper import SourceMeter_KTHL
+import traceback
 
 
 
@@ -208,18 +209,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def MeterConnect(self):
         self.ip = self.ui.ip_address.toPlainText()
-
         try:
-            if self.ui.device_box.currentText().lower() == 'keysight':
+            if self.ui.device_box.currentText().lower() in 'keysight':
                 self.ExpensiveMeter = SourceMeter(self.ip)
-            elif self.ui.device_box.currentText().lower() == 'keithley':
+            elif self.ui.device_box.currentText().lower() in 'keithley':
                 self.ExpensiveMeter = SourceMeter_KTHL(self.ip)
                 if self.ui.channel_box.currentText().lower() == 'a':
                     self.ExpensiveMeter.setChannel(self.ExpensiveMeter.A)
-                    self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
+                    # self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
                 elif self.ui.channel_box.currentText().lower() == 'b':
                     self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
-                    self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
+                    # self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)
@@ -227,7 +227,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             # print("ERR.CODE.A")
             # print("wrong IP")
             # print(str(ex))
+            traceback.print_exc()
             self.ui.connectionErrorsBox.setPlainText("ERR.CODE.A\nwrong IP\n"+str(ex))
+
         pass
 
     def hell(self):
@@ -274,6 +276,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         mode = self.parameters['mode'] # we will start a particular thread
+        if 'keithley' in self.ExpensiveMeter.ID.lower():
+            self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
+            self.ExpensiveMeter.setSourceOutputMode('curr')
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
         if mode == 0:
