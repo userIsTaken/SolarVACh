@@ -15,6 +15,7 @@ class SourceMeter_KTHL():
         self.X = None # smu active channel
         self.mode = None # measurement mode - i, v, r ?
         self.source_mode = None # leveli or levelv, i or v?
+        self.buffer = None # nvbuffer1 or nvbuffer2
         pass
 
     def getIDN(self):
@@ -28,6 +29,9 @@ class SourceMeter_KTHL():
         self.Device.write(cmd)
 
     def initAcquire(self):
+        # measurement:
+        # smua.measure.v(smua.nvbuffer1)
+        self.write(self.X+'.measure.'+self.mode+'('+self.buffer+')')
         pass
 
     def fetchArrayData(self, _atype:str):
@@ -55,7 +59,7 @@ class SourceMeter_KTHL():
 
     def setMeasurementMode(self, mode:int):
         if (mode == 1):
-            self.mode = 'i'
+            self.mode = 'i' # CURRENT MODE
         elif (mode == 2):
             self.mode = 'v'  # VOLTAGE MODE
         else:
@@ -79,6 +83,8 @@ class SourceMeter_KTHL():
         pass
 
     def setVoltOutValue(self, value):
+        # smua.source.levelv = 1
+        self.write(self.X+'.source.'+self.source_mode + '='+str(value))
         pass
 
     def setSourceOutputMode(self, mode):
@@ -120,4 +126,8 @@ class SourceMeter_KTHL():
 
     def setChannel(self, channel):
         self.X = channel
+        if channel == 'smua':
+            self.buffer = 'smua.nvbuffer1'
+        elif channel == 'smub':
+            self.buffer = 'smub.nvbuffer2'
         pass
