@@ -13,6 +13,8 @@ class SourceMeter_KTHL():
         self.A = 'smua'
         self.B = 'smub'
         self.X = None # smu active channel
+        self.mode = None # measurement mode - i, v, r ?
+        self.source_mode = None # leveli or levelv, i or v?
         pass
 
     def getIDN(self):
@@ -40,18 +42,33 @@ class SourceMeter_KTHL():
         pass
 
     def enableVoltageOutput(self, _status:bool):
+        if _status:
+            self.write(self.X+'.source.output ='+str(self.X+'.OUTPUT_ON'))
+            pass
+        else:
+            self.write(self.X + '.source.output =' + str(self.X + '.OUTPUT_OFF'))
+            pass
         pass
 
     def enableAmmeterInput(self, _status:bool):
         pass
 
     def setMeasurementMode(self, mode:int):
+        if (mode == 1):
+            self.mode = 'i'
+        elif (mode == 2):
+            self.mode = 'v'  # VOLTAGE MODE
+        else:
+            pass
         pass
 
     def setTriggerSource(self, source:int):
         pass
 
     def setTriggerCounts(self, counts):
+        # inconsistency between keysight and keithley
+        #  smuX.measure.count
+        self.write(self.X+'.measure.count = '+str(counts))
         pass
 
     def setTriggerTimerInterval(self, interval):
@@ -65,6 +82,12 @@ class SourceMeter_KTHL():
         pass
 
     def setSourceOutputMode(self, mode):
+        if str(mode).lower() in 'current':
+            self.source_mode = 'leveli'
+        elif str(mode).lower() in 'voltage':
+            self.source_mode = 'levelv'
+        else:
+            pass
         pass
 
     def setMeasurementRange(self, range, mode="curr", on="ON"):

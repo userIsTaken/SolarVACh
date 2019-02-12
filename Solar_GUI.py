@@ -201,7 +201,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = self.ui.ip_address.toPlainText()
         try:
             self.ExpensiveMeter = SourceMeter(self.ip)
-            self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip))
+            self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)
         except Exception as ex:

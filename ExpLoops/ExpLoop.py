@@ -203,6 +203,7 @@ class LoopWorker(QObject):
         :return:
         """
         try:
+            trig_time_int = self.params['wait']/1000 # convert into seconds
             self.meter.setMeasurementRange(2e-4) # 200 μA range?
             self.current_scale=2e-4 #
             # self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
@@ -210,7 +211,7 @@ class LoopWorker(QObject):
             self.meter.setMeasurementSpeed(10) # 10 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
-            self.meter.setTriggerTimerInterval(0.004) # hardcoded?
+            self.meter.setTriggerTimerInterval(trig_time_int) # hardcoded?
             self.meter.setTriggerCounts(array_size)
         except Exception as ex:
             print("ERR.CODE.002")
