@@ -10,6 +10,7 @@ import pyqtgraph as pg
 from Config.confparser import *
 import datetime
 from random import randint
+from HardwareAccess.KeithleyWrapper import SourceMeter_KTHL
 
 
 
@@ -59,6 +60,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.quit_shortcut.activated.connect(self.quit)
     #     relay combos:
         self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
+        self.ui.device_box.currentIndexChanged.connect(self.updateDevices)
         # Colors:
         self.RED = (255,0,0)
         self.CUSTOM=(255, 255, 102)
@@ -75,6 +77,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       5: self.YELLOW,
                       6: self.VIOLET}
         self.setupUI()
+
+    def updateDevices(self):
+        if self.ui.device_box.currentIndex() == 0:
+            self.ui.channel_box.setEnabled(True)
+        if self.ui.device_box.currentIndex() == 1:
+            self.ui.channel_box.setEnabled(False)
+        pass
 
     def setupUI(self):
         self.ui.params_field.setPlainText(
@@ -199,8 +208,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def MeterConnect(self):
         self.ip = self.ui.ip_address.toPlainText()
+
         try:
-            self.ExpensiveMeter = SourceMeter(self.ip)
+            if self.ui.device_box.currentText().lower() == 'keysight':
+                self.ExpensiveMeter = SourceMeter(self.ip)
+            elif self.ui.device_box.currentText().lower() == 'keithley':
+                self.ExpensiveMeter = SourceMeter_KTHL(self.ip)
+                if self.ui.channel_box.currentText().lower() == 'a':
+                    self.ExpensiveMeter.setChannel(self.ExpensiveMeter.A)
+                elif self.ui.channel_box.currentText().lower() == 'b':
+                    self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)

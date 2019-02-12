@@ -41,7 +41,7 @@ class SourceMeter_KTHL():
         :param _atype:
         :return: buffer
         '''
-        buffer = self.ask('printbuffer(1, )'+str(self.buffer_size)+', '+self.X+'.nvbuffer1)')
+        buffer = self.ask('printbuffer(1, '+str(self.buffer_size)+', '+self.buffer+')')
         return buffer
         pass
 

@@ -50,7 +50,21 @@
         </widget>
        </item>
        <item row="2" column="11">
-        <widget class="QComboBox" name="channel_box"/>
+        <widget class="QComboBox" name="channel_box">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>A</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>B</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="0" column="6" rowspan="3" colspan="2">
         <widget class="Line" name="line">
@@ -114,7 +128,21 @@
         </widget>
        </item>
        <item row="2" column="9">
-        <widget class="QComboBox" name="device_box"/>
+        <widget class="QComboBox" name="device_box">
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>Keithley</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Keysight</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="0" column="2">
         <widget class="QPushButton" name="stopButton">
