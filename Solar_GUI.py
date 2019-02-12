@@ -278,7 +278,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         mode = self.parameters['mode'] # we will start a particular thread
         if 'keithley' in self.ExpensiveMeter.ID.lower():
             self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
-            self.ExpensiveMeter.setSourceOutputMode('curr')
+            self.ExpensiveMeter.setSourceOutputMode('volt')
             self.ExpensiveMeter.setMeasurementMode(1)
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
