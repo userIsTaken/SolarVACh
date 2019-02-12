@@ -132,6 +132,7 @@ class SourceMeter_KTHL():
         pass
 
     def close(self):
+        self.reset()
         self.Device.close()
         pass
 
