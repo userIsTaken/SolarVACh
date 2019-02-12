@@ -216,8 +216,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExpensiveMeter = SourceMeter_KTHL(self.ip)
                 if self.ui.channel_box.currentText().lower() == 'a':
                     self.ExpensiveMeter.setChannel(self.ExpensiveMeter.A)
+                    self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
                 elif self.ui.channel_box.currentText().lower() == 'b':
                     self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
+                    self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)
