@@ -157,3 +157,6 @@ class SourceMeter_KTHL():
         elif channel == 'smub':
             self.buffer = 'smub.nvbuffer2'
         pass
+
+    def reset(self):
+        self.write('reset()')
