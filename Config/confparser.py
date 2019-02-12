@@ -24,17 +24,18 @@ def get_previous_values():
     """Still not used anywhere"""
     section="VALUES"
     cp.read(cfpath)
-    startV, endV, points, array_size = None, None, None, None
+    startV, endV, points, array_size, idx = None, None, None, None, None
     try:
         startV = cp[section]['startv']
         endV = cp[section]['endv']
         points = cp[section]['points']
         array_size = cp[section]['array_size']
+        idx = cp[section]['idx']
     except Exception as ex:
         print('ERR:CONF:00B')
         print(str(ex))
         pass
-    return startV, endV, points, array_size
+    return startV, endV, points, array_size, idx
     pass
 
 def set_previous_values(dct):
@@ -44,6 +45,7 @@ def set_previous_values(dct):
         cp[section]['endv']=str(dct['endV'])
         cp[section]['points']=str(dct['points'])
         cp[section]['array_size']=str(dct['array_size'])
+        cp[section]['idx']=str(dct['idx'])
         with open(cfpath, 'w') as cfg:
             cp.write(cfg)
     except Exception as ex:
