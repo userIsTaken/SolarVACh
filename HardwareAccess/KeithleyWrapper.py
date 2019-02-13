@@ -69,10 +69,10 @@ class SourceMeter_KTHL():
 
     def enableVoltageOutput(self, _status:bool):
         if _status:
-            self.write(self.X+'.source.output ='+str(self.X+'.OUTPUT_ON'))
+            self.write(self.X+'.source.output = '+str(self.X+'.OUTPUT_ON'))
             pass
         else:
-            self.write(self.X + '.source.output =' + str(self.X + '.OUTPUT_OFF'))
+            self.write(self.X + '.source.output = ' + str(self.X + '.OUTPUT_OFF'))
             pass
         pass
 
@@ -129,7 +129,7 @@ class SourceMeter_KTHL():
         if speed == 'auto':
             self.write(self.X + '.measure.nplc = 0.1')
         else:
-            self.write(self.X+'.measure.nplc ='+str(speed))
+            self.write(self.X+'.measure.nplc = '+str(speed))
         pass
 
     def setTriggerDelay(self, delay=None):
@@ -170,7 +170,7 @@ class SourceMeter_KTHL():
     def setCurrentLimit(self, limit):
         # smuX.source.limiti
         # limit in A?
-        self.write(self.X+'.source.limiti ='+str(limit))
+        self.write(self.X+'.source.limiti = '+str(limit))
         pass
 
     def clearBuffer(self):
