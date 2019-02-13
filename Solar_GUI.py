@@ -77,13 +77,19 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       4: self.WHITE,
                       5: self.YELLOW,
                       6: self.VIOLET}
+        self.max_array = None
         self.setupUI()
 
     def updateDevices(self):
         if self.ui.device_box.currentIndex() == 0:
             self.ui.channel_box.setEnabled(True)
+
+            self.max_array = 100
+            self.ui.array_size_box.setMaximum(self.max_array)
         if self.ui.device_box.currentIndex() == 1:
             self.ui.channel_box.setEnabled(False)
+            self.max_array = 1000
+            self.ui.array_size_box.setMaximum(self.max_array)
         pass
 
     def setupUI(self):
@@ -788,6 +794,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def pop_dialog(self, params):
         self.dialog = PopUp(params)
         if self.dialog.exec_():
+            self.dialog.array_size_box.setMaximum(self.max_array)
             parameters = self.dialog.GetAllParameters()
             self.ui.startV_box.setValue(parameters['startV'])
             self.ui.endV_box.setValue(parameters['endV'])
