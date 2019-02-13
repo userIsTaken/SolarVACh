@@ -794,7 +794,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def pop_dialog(self, params):
         self.dialog = PopUp(params)
         if self.dialog.exec_():
-            self.dialog.array_size_box.setMaximum(self.max_array)
+            self.dialog.ui.array_size_box.setMaximum(self.max_array)
             parameters = self.dialog.GetAllParameters()
             self.ui.startV_box.setValue(parameters['startV'])
             self.ui.endV_box.setValue(parameters['endV'])

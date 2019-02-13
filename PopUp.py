@@ -28,6 +28,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui.array_size_box.setValue(float(params['array_size']))
         self.ui.wait_box.setValue(float(params['wait']))
         self.ui.x_mean_box.setValue(float(params['x_mean']))
+        self.ui.limitA_box.setValue(float(params['limitA']))
         # CheckBox: 0 - unchecked,  2- checked
         self.ui.fb_scan.setCheckState(params['fb_scan'])
         # TODO: ComboBoxes:
