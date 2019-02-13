@@ -165,3 +165,8 @@ class SourceMeter_KTHL():
 
     def reset(self):
         self.write('reset()')
+
+    def setCurrentLimit(self, limit):
+        # smuX.source.limiti
+        self.write(self.X+'.source.limiti ='+str(limit))
+        pass
