@@ -125,6 +125,10 @@ class SourceMeter_KTHL():
 
     def setMeasurementSpeed(self, speed="auto", mode="curr"):
         # nlpc?
+        if speed == 'auto':
+            self.write(self.X + '.measure.nplc = 10')
+        else:
+            self.write(self.X+'.measure.nplc ='+str(speed))
         pass
 
     def setTriggerDelay(self, delay=None):
