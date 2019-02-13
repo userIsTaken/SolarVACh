@@ -232,3 +232,6 @@ class SourceMeter():
         answer = self.Device.ask(":sens:curr:rang?")
         return answer
         pass
+
+    def clearBuffer(self):
+        pass

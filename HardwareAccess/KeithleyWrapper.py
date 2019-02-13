@@ -8,7 +8,7 @@ class SourceMeter_KTHL():
         :param _ip_address: TCP/IP address of source meter
         """
         self.Device = vx.Instrument(_ip_address)
-        self.Device.timeout = 1000
+        # self.Device.timeout = 1000
         self.ID = self.Device.ask("*IDN?")
         self.buffer_size=None
         self.A = 'smua'
@@ -171,4 +171,8 @@ class SourceMeter_KTHL():
         # smuX.source.limiti
         # limit in A?
         self.write(self.X+'.source.limiti ='+str(limit))
+        pass
+
+    def clearBuffer(self):
+        self.write(self.buffer+'.clear()')
         pass

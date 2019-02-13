@@ -228,6 +228,7 @@ class LoopWorker(QObject):
             self.meter.setVoltOutValue(voltage)
             self.meter.enableVoltageOutput(self.meter.bON)
             self.meter.enableAmmeterInput(self.meter.bON)
+            self.meter.clearBuffer()
             self.meter.initAcquire()
             # Give enough time for this action
             time.sleep(1) # one second is enough?
