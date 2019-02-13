@@ -8,6 +8,7 @@ class SourceMeter_KTHL():
         :param _ip_address: TCP/IP address of source meter
         """
         self.Device = vx.Instrument(_ip_address)
+        self.Device.timeout = 1000
         self.ID = self.Device.ask("*IDN?")
         self.buffer_size=None
         self.A = 'smua'

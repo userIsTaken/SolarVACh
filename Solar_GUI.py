@@ -284,7 +284,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ExpensiveMeter.setSourceOutputMode('volt')
             self.ExpensiveMeter.setMeasurementMode(1)
-            self.ExpensiveMeter.setCurrentLimit(self.parameters['limitA'])
+            # self.ExpensiveMeter.setCurrentLimit(self.parameters['limitA'])
+            print('limitA', self.parameters['limitA'])
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
         if mode == 0:
