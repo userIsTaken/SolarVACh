@@ -394,6 +394,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         mode = self.getMode()
         delay_min = self.ui.timeDelayBox.value()
         counts = self.ui.countBox.value()
+        nplc = self.ui.nplc_box.currentText()
 
         parameters = {'startV': startV,
                       'endV': endV,
@@ -410,7 +411,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'sc_name':sc_name,
                       'mode':mode,
                       'delay_min':delay_min,
-                      'counts':counts}
+                      'counts':counts,
+                      'nplc': nplc}
         return parameters
         pass
 

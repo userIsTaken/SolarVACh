@@ -210,7 +210,7 @@ class LoopWorker(QObject):
             self.current_scale=2e-4 #
             # self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
             # self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
-            self.meter.setMeasurementSpeed(0.1) # 0.1 NPLC
+            self.meter.setMeasurementSpeed(self.params['nplc']) # 0.1 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
             self.meter.setTriggerTimerInterval(trig_time_int) # hardcoded?
