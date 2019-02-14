@@ -54,10 +54,10 @@ class SourceMeter_KTHL():
         # measurement:
         # smua.measure.v(smua.nvbuffer1)
         cmd_counts = self.X + '.measure.count ='+str(self.buffer_size)
-        print('CMD: ', cmd_counts)
+        # print('CMD: ', cmd_counts)
         self.write(cmd_counts)
         cmd = self.X+'.measure.'+self.mode+'('+self.buffer+')'
-        print('CMD: ', cmd)
+        # print('CMD: ', cmd)
         self.write(cmd)
         pass
 
@@ -69,7 +69,7 @@ class SourceMeter_KTHL():
         :return: buffer
         '''
         cmd = 'printbuffer(1, '+str(self.buffer_size)+', '+self.buffer+')'
-        print('CMD: ',cmd)
+        # print('CMD: ',cmd)
         buffer = self.ask(cmd)
         return buffer
         pass

@@ -266,20 +266,20 @@ class ContinuousObserver(QObject):
         data_np = None
         try:
             self.meter.setVoltOutValue(voltage)
-            print("Voltage")
+            # print("Voltage")
             # time.sleep(20)
             self.meter.enableVoltageOutput(self.meter.bON)
-            print('output on')
+            # print('output on')
             # time.sleep(20)
             self.meter.enableAmmeterInput(self.meter.bON)
             # time.sleep(20)
             self.meter.initAcquire()
-            print('init aquire')
+            # print('init aquire')
             # time.sleep(20)
             # Give enough time for this action
             time.sleep(1)  # one second is enough?
             data = self.meter.fetchArrayData(self.meter.CURR)  #
-            print('data')
+            # print('data')
             # time.sleep(20)
             if data is not None:
                 data_np = np.fromstring(data, dtype=float, sep=",")
