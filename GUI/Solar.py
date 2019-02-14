@@ -174,6 +174,7 @@ class Ui_MainWindow(object):
         self.gridLayout_8.addWidget(self.startV_box, 2, 0, 1, 1)
         self.limitA_box = QtWidgets.QDoubleSpinBox(self.frame_3)
         self.limitA_box.setMinimumSize(QtCore.QSize(0, 25))
+        self.limitA_box.setProperty("value", 0.05)
         self.limitA_box.setObjectName("limitA_box")
         self.gridLayout_8.addWidget(self.limitA_box, 2, 1, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.frame_3)
