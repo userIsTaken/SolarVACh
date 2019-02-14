@@ -83,8 +83,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def updateDevices(self):
         if self.ui.device_box.currentIndex() == 0:
             self.ui.channel_box.setEnabled(True)
-
-            self.max_array = 100
+            self.max_array = 60
             self.ui.array_size_box.setMaximum(self.max_array)
         if self.ui.device_box.currentIndex() == 1:
             self.ui.channel_box.setEnabled(False)

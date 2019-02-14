@@ -53,7 +53,12 @@ class SourceMeter_KTHL():
     def initAcquire(self):
         # measurement:
         # smua.measure.v(smua.nvbuffer1)
-        self.write(self.X+'.measure.'+self.mode+'('+self.buffer+')')
+        cmd_counts = self.X + '.measure.count ='+str(self.buffer_size)
+        print('CMD: ', cmd_counts)
+        self.write(cmd_counts)
+        cmd = self.X+'.measure.'+self.mode+'('+self.buffer+')'
+        print('CMD: ', cmd)
+        self.write(cmd)
         pass
 
     def fetchArrayData(self, _atype:str):
@@ -63,7 +68,9 @@ class SourceMeter_KTHL():
         :param _atype:
         :return: buffer
         '''
-        buffer = self.ask('printbuffer(1, '+str(self.buffer_size)+', '+self.buffer+')')
+        cmd = 'printbuffer(1, '+str(self.buffer_size)+', '+self.buffer+')'
+        print('CMD: ',cmd)
+        buffer = self.ask(cmd)
         return buffer
         pass
 

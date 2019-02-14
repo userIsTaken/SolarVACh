@@ -227,18 +227,23 @@ class LoopWorker(QObject):
         try:
             self.meter.setVoltOutValue(voltage)
             print("Voltage")
+            # time.sleep(20)
             self.meter.enableVoltageOutput(self.meter.bON)
             print('output on')
+            # time.sleep(20)
             self.meter.enableAmmeterInput(self.meter.bON)
-            self.meter.clearBuffer()
-            print('buffer clear')
+            # time.sleep(20)
             self.meter.initAcquire()
             print('init aquire')
+            # time.sleep(20)
             # Give enough time for this action
             time.sleep(1) # one second is enough?
             data = self.meter.fetchArrayData(self.meter.CURR) #
             print('data')
+            # time.sleep(20)
             data_np = np.fromstring(data, dtype=float, sep=",")
+            self.meter.clearBuffer()
+            print('buffer clear')
         except Exception as ex:
             traceback.print_exc()
             print("ERR.CODE.003")
