@@ -284,7 +284,7 @@ class ContinuousObserver(QObject):
             if data is not None:
                 data_np = np.fromstring(data, dtype=float, sep=",")
             self.meter.clearBuffer()
-            print('buffer clear')
+            # print('buffer clear')
         except Exception as ex:
             traceback.print_exc()
             print("ERR.CODE.003")
