@@ -5,6 +5,7 @@ import time
 from AnalyseScripts.Analyse import *
 import numpy as np
 import scipy as sp
+import traceback
 
 
 class ContinuousObserver(QObject):
@@ -66,36 +67,41 @@ class ContinuousObserver(QObject):
                     while (totalV > (endV + step) and not self._require_stop):
                         while not self.err_ok and not self._require_stop:
                             curr_array = self.sample_measurement(totalV)
-                            status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
-                                                                                        self.current_scale)
-                            if overflow:
-                                curr_range = self.meter.getCurrentSensorRange()
-                                new_scale = getBiggerScale(curr_range)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
+                            if curr_array is not None:
                                 pass
-                            if underflow:
-                                new_scale = getLowerScale(self.current_scale)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
-                            counter = counter + 1
-                            # print('counter', counter)
-                            self.progress.emit("Counter: " + str(counter))
-                            if not status and not overflow:
-                                self.current_array_counter.append(data_mean)
+                                status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
+                                                                                            self.current_scale)
+                                if overflow:
+                                    curr_range = self.meter.getCurrentSensorRange()
+                                    new_scale = getBiggerScale(curr_range)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                    pass
+                                if underflow:
+                                    new_scale = getLowerScale(self.current_scale)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                counter = counter + 1
+                                # print('counter', counter)
+                                self.progress.emit("Counter: " + str(counter))
+                                if not status and not overflow:
+                                    self.current_array_counter.append(data_mean)
+                                else:
+                                    self.current_array_counter.clear()
+                                if counter > 15 and not overflow:
+                                    status = True
+                                    data_mean = np.mean(np.asarray(self.current_array_counter))
+                                    # print("counter is 16, ", data_mean)
+                                    self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
+                                    self.current_array_counter.clear()
+                                self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                                self.err_ok = status
+                                pass
                             else:
-                                self.current_array_counter.clear()
-                            if counter > 15 and not overflow:
-                                status = True
-                                data_mean = np.mean(np.asarray(self.current_array_counter))
-                                # print("counter is 16, ", data_mean)
-                                self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
-                                self.current_array_counter.clear()
-                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
-                            self.err_ok = status
-                            pass
+                                self.errors.emit("data is None from source meter")
+                                self._require_stop = True
                         # print('++++++++++++++++++++++++++++')
                         # self.meter.setMeasurementRange(0.03)
                         time.sleep(1)
@@ -113,36 +119,40 @@ class ContinuousObserver(QObject):
                     while (totalV > (endV + step) and not self._require_stop):
                         while not self.err_ok and not self._require_stop:
                             curr_array = self.sample_measurement(totalV)
-                            status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
-                                                                                        self.current_scale)
-                            if overflow:
-                                curr_range = self.meter.getCurrentSensorRange()
-                                new_scale = getBiggerScale(curr_range)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
+                            if curr_array is not None:
+                                status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
+                                                                                            self.current_scale)
+                                if overflow:
+                                    curr_range = self.meter.getCurrentSensorRange()
+                                    new_scale = getBiggerScale(curr_range)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                    pass
+                                if underflow:
+                                    new_scale = getLowerScale(self.current_scale)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                counter = counter + 1
+                                # print('counter', counter)
+                                self.progress.emit("Counter: " + str(counter))
+                                if not status and not overflow:
+                                    self.current_array_counter.append(data_mean)
+                                else:
+                                    self.current_array_counter.clear()
+                                if counter > 15 and not overflow:
+                                    status = True
+                                    data_mean = np.mean(np.asarray(self.current_array_counter))
+                                    # print("counter is 16, ", data_mean)
+                                    self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
+                                    self.current_array_counter.clear()
+                                self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
+                                self.err_ok = status
                                 pass
-                            if underflow:
-                                new_scale = getLowerScale(self.current_scale)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
-                            counter = counter + 1
-                            # print('counter', counter)
-                            self.progress.emit("Counter: " + str(counter))
-                            if not status and not overflow:
-                                self.current_array_counter.append(data_mean)
                             else:
-                                self.current_array_counter.clear()
-                            if counter > 15 and not overflow:
-                                status = True
-                                data_mean = np.mean(np.asarray(self.current_array_counter))
-                                # print("counter is 16, ", data_mean)
-                                self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
-                                self.current_array_counter.clear()
-                            self.current_results.emit(status, False, data_mean, err_rate, totalV, curr_array)
-                            self.err_ok = status
-                            pass
+                                self.errors.emit("data is None from source meter")
+                                self._require_stop = True
                         # print('++++++++++++++++++++++++++++')
                         # self.meter.setMeasurementRange(0.03)
                         time.sleep(0.25)
@@ -158,36 +168,40 @@ class ContinuousObserver(QObject):
                     while (totalV <= (startV - step) and not self._require_stop):  # +/- step?
                         while not self.err_ok and not self._require_stop:
                             curr_array = self.sample_measurement(totalV)
-                            status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
-                                                                                        self.current_scale)
-                            if overflow:
-                                curr_range = self.meter.getCurrentSensorRange()
-                                new_scale = getBiggerScale(curr_range)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
+                            if curr_array is not None:
+                                status, data_mean, err_rate, overflow, underflow = getStats(curr_array, limit,
+                                                                                            self.current_scale)
+                                if overflow:
+                                    curr_range = self.meter.getCurrentSensorRange()
+                                    new_scale = getBiggerScale(curr_range)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                    pass
+                                if underflow:
+                                    new_scale = getLowerScale(self.current_scale)
+                                    self.meter.setCurrentSensorRange(new_scale)
+                                    self.current_scale = new_scale
+                                    status = False
+                                counter = counter + 1
+                                # print('counter', counter)
+                                self.progress.emit("Counter: " + str(counter))
+                                if not status and not overflow:
+                                    self.current_array_counter.append(data_mean)
+                                else:
+                                    self.current_array_counter.clear()
+                                if counter > 15 and not overflow:
+                                    status = True
+                                    data_mean = np.mean(np.asarray(self.current_array_counter))
+                                    # print("counter is 16, ", data_mean)
+                                    self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
+                                    self.current_array_counter.clear()
+                                self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
+                                self.err_ok = status
                                 pass
-                            if underflow:
-                                new_scale = getLowerScale(self.current_scale)
-                                self.meter.setCurrentSensorRange(new_scale)
-                                self.current_scale = new_scale
-                                status = False
-                            counter = counter + 1
-                            # print('counter', counter)
-                            self.progress.emit("Counter: " + str(counter))
-                            if not status and not overflow:
-                                self.current_array_counter.append(data_mean)
                             else:
-                                self.current_array_counter.clear()
-                            if counter > 15 and not overflow:
-                                status = True
-                                data_mean = np.mean(np.asarray(self.current_array_counter))
-                                # print("counter is 16, ", data_mean)
-                                self.progress.emit("Counter : 16, " + str(round(data_mean, 4)))
-                                self.current_array_counter.clear()
-                            self.current_results.emit(status, True, data_mean, err_rate, totalV, curr_array)
-                            self.err_ok = status
-                            pass
+                                self.errors.emit("data is None from source meter")
+                                self._require_stop = True
                         # print('++++++++++++++++++++++++++++')
                         # self.meter.setMeasurementRange(0.03)
                         time.sleep(0.25)
@@ -232,16 +246,18 @@ class ContinuousObserver(QObject):
         :return:
         """
         try:
-            self.meter.setMeasurementRange(2e-4)  # 200 μA range?
-            self.current_scale = 2e-4  #
+            trig_time_int = self.params['wait']/1000 # convert into seconds
+            self.meter.setMeasurementRange(2e-4) # 200 μA range?
+            self.current_scale=2e-4 #
             # self.meter.setCurrentAutoRangeLLIM(2e-9) # 2 nA lower limit
             # self.meter.setCurrentAutoRangeULIM(1e-6) # 1 μA upper limit
-            self.meter.setMeasurementSpeed(10)  # 10 NPLC
+            self.meter.setMeasurementSpeed(self.params['nplc']) # 0.1 NPLC
             self.meter.setTriggerDelay()  # no parameter is used for zero delay
             self.meter.setTriggerSource(self.meter.TRIGGER_TIM)
-            self.meter.setTriggerTimerInterval(0.004)  # hardcoded?
+            self.meter.setTriggerTimerInterval(trig_time_int) # hardcoded?
             self.meter.setTriggerCounts(array_size)
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.002")
             print(str(ex))
         pass
@@ -250,14 +266,27 @@ class ContinuousObserver(QObject):
         data_np = None
         try:
             self.meter.setVoltOutValue(voltage)
+            print("Voltage")
+            # time.sleep(20)
             self.meter.enableVoltageOutput(self.meter.bON)
+            print('output on')
+            # time.sleep(20)
             self.meter.enableAmmeterInput(self.meter.bON)
+            # time.sleep(20)
             self.meter.initAcquire()
+            print('init aquire')
+            # time.sleep(20)
             # Give enough time for this action
-            time.sleep(1.0)  # one second is enough?
+            time.sleep(1)  # one second is enough?
             data = self.meter.fetchArrayData(self.meter.CURR)  #
-            data_np = np.fromstring(data, dtype=float, sep=",")
+            print('data')
+            # time.sleep(20)
+            if data is not None:
+                data_np = np.fromstring(data, dtype=float, sep=",")
+            self.meter.clearBuffer()
+            print('buffer clear')
         except Exception as ex:
+            traceback.print_exc()
             print("ERR.CODE.003")
             print(str(ex))
         return data_np
