@@ -578,14 +578,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
-            self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.GREEN)
-            self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
-            self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.GREEN)
-            self.update_graph(self.ui.jscVsTime, self.t_time_bw, self.jsc_time_bw, "BWJSC", color=self.RED)
-            self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.GREEN)
-            self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
-            self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
-            self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
+            if self.parameters['mode'] == 1:
+                self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.GREEN)
+                self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
+                self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.GREEN)
+                self.update_graph(self.ui.jscVsTime, self.t_time_bw, self.jsc_time_bw, "BWJSC", color=self.RED)
+                self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.GREEN)
+                self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
+                self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
+                self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
