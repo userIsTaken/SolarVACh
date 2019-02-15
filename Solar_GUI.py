@@ -416,8 +416,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def calculate_param(self, trigger, fb_scan, counter):
-        # TODO: implement triggered analysis
-
         """
 
         :return:
@@ -443,7 +441,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0 or 2:
+                if self.parameters['mode'] == 0:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -475,11 +473,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_bw.append(j_sc)
                     self.Uoc_time_bw.append(round(V_oc,5))
                     self.ff_time_bw.append(ff)
-                    #Draw graphs:
-                    # self.draw_method(self.ui.PCEVsTime,  self.t_time, self.PCE_time_bw)
-                    # self.draw_method(self.ui.jscVsTime,  self.t_time, self.jsc_time_bw)
-                    # self.draw_method(self.ui.UocVsTime,  self.t_time, self.Uoc_time_bw)
-                    # self.draw_method(self.ui.FFVsTime,  self.t_time, self.ff_time_bw)
                 self.upload_values(params_dict)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -519,7 +512,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0 or 2:
+                if self.parameters['mode'] == 0:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -593,10 +586,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
             self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
             self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
-            # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw,self.PCE_time_bw, clear=True )
-            # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw, self.jsc_time_bw, clear=True)
-            # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw, self.Uoc_time_bw, clear=True)
-            # self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw, self.ff_time_bw, clear=True)
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
@@ -777,6 +766,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=(255, 255, 102)):
         sizex = len(x)
         sizey=len(y)
+        # print("Upd. graph triggered")
         if sizex == sizey:
             dataItems =  graph.listDataItems()
             for i in dataItems:
