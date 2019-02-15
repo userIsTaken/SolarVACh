@@ -420,6 +420,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         :return:
         """
+        print(self.parameters['mode'], ' : MODE')
         params_dict = {}
         if(trigger):
             t_min = 0
