@@ -400,7 +400,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         delay_min = self.ui.timeDelayBox.value()
         counts = self.ui.countBox.value()
         nplc = self.ui.nplc_box.currentText()
-
+        print('NPLC: ', nplc)
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
