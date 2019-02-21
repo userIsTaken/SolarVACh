@@ -1,6 +1,6 @@
 import os
 import platform
-if 'arm' in platform.machine():
+if 'farm' in platform.machine():
     os.environ['GPIOZERO_PIN_FACTORY']="pigpio"
     os.environ['PIGPIO_ADDR']="192.168.0.104"
     import gpiozero
