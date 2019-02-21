@@ -231,10 +231,10 @@ class SourceMeter():
     def setCurrentLimit(self, limit):
         # smuX.source.limiti
         # limit in A?
-        if float(limit) <= 0:
-            self.write(':SOUR:VOLT:RLIM:STAT 0')
-        else:
-            self.write(':SOUR:VOLT:RLIM:STAT 1')
+        # if float(limit) <= 0:
+        #     self.write(':SOUR:VOLT:RLIM:STAT 0')
+        # else:
+        #     self.write(':SOUR:VOLT:RLIM:STAT 1')
         pass
 
     def getCurrentSensorRange(self):
