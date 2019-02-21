@@ -77,7 +77,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       4: self.WHITE,
                       5: self.YELLOW,
                       6: self.VIOLET}
-        self.max_array = None
+        self.max_array = 45
         self.setupUI()
 
     def updateDevices(self):
@@ -89,6 +89,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.channel_box.setEnabled(False)
             self.max_array = 1000
             self.ui.array_size_box.setMaximum(self.max_array)
+        print(self.max_array, " : MAX ARRAY")
         pass
 
     def setupUI(self):
@@ -232,6 +233,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)
+            self.updateDevices()
         except Exception as ex:
             # print("ERR.CODE.A")
             # print("wrong IP")
