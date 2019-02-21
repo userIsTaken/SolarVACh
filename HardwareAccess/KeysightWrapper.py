@@ -182,6 +182,7 @@ class SourceMeter():
         :param mode: curr. volt
         :return:
         """
+        print('keysight nplc ', speed)
         if speed is not None:
             if (str(speed).lower() in "auto"):
                 self.write(":sens:"+mode+":nplc:auto on")
