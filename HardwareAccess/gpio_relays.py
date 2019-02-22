@@ -4,7 +4,7 @@ if 'arm' in platform.machine():
     # os.environ['GPIOZERO_PIN_FACTORY'] = "pigpio"
     # os.environ['PIGPIO_ADDR'] = "192.168.0.104"
     import gpiozero
-    from gpiozero.pins.pigpio import PiGPIOFactory
+    from pigpio import PiGPIOFactory
 
 
 
