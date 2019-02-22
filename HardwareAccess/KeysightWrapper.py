@@ -223,11 +223,7 @@ class SourceMeter():
         self.write(":sens:curr:rang " + str(range))
         pass
 
-    # GET functions:
-    # def ask(self, cmd):
-    #     answer = self.Device.ask(cmd)
-    #     return answer
-    #     pass
+
     def setCurrentLimit(self, limit):
         # smuX.source.limiti
         # limit in A?
