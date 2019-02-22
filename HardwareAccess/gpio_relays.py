@@ -1,15 +1,22 @@
 import os
 import platform
+from configparser import getGPIOip
+IP = IP = getGPIOip()
 if 'arm' in platform.machine():
     # os.environ['GPIOZERO_PIN_FACTORY'] = "pigpio"
     # os.environ['PIGPIO_ADDR'] = "192.168.0.104"
     import gpiozero
-    from pigpio import PiGPIOFactory
+    # from pigpio import PiGPIOFactory
+else:
+    os.environ['GPIOZERO_PIN_FACTORY'] = "pigpio"
+    os.environ['PIGPIO_ADDR'] = IP
+    import gpiozero
+    from gpiozero.pins.pigpio import PiGPIOFactory
 
 
 
 class RelayToggle():
-    def __init__(self, RELAY:str, _ip_address:str = '192.168.0.104'):
+    def __init__(self, RELAY:str, _ip_address:str = IP):
         """
         :param _ip_address: TCP/IP address of source meter
         """

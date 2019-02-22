@@ -54,3 +54,13 @@ def set_previous_values(dct):
         print("ERR:CONF:00A")
         print(str(ex))
     pass
+
+def getGPIOip():
+    section = 'RPGPIO'
+    ip = None
+    try:
+        ip = cp[section]['ip']
+    except Exception as ex:
+        print(ex)
+        pass
+    return ip
