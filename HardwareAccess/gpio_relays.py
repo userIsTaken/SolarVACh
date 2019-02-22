@@ -12,6 +12,7 @@ else:
     os.environ['PIGPIO_ADDR'] = IP
     import gpiozero
     from gpiozero.pins.pigpio import PiGPIOFactory
+    gpiozero.Device.pin_factory = PiGPIOFactory(_ip_address)
 
 
 
@@ -26,7 +27,7 @@ class RelayToggle():
                     '4': 19,
                     '5': 26,
                     '6': 12}
-        gpiozero.Device.pin_factory = PiGPIOFactory(_ip_address)
+
         self.ON = True
         self.OFF = False
         self.relay = gpiozero.OutputDevice(self.pin[RELAY], active_high=False, initial_value=False)
