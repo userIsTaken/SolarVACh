@@ -56,11 +56,13 @@ def set_previous_values(dct):
     pass
 
 def getGPIOip():
-    section = 'RPGPIO'
+    section = "RPGPIO"
+    cp.read(cfpath)
     ip = None
-    try:
-        ip = cp[section]['ip']
-    except Exception as ex:
-        print(ex)
-        pass
+    # try:
+    ip = cp[section]['ip']
+    print(ip, ' IP')
+    # except Exception as ex:
+    #     print(ex, ' ERR')
+    #     pass
     return ip
