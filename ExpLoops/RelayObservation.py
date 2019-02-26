@@ -6,6 +6,7 @@ from AnalyseScripts.Analyse import *
 import numpy as np
 import scipy as sp
 from HardwareAccess.gpio_relays import *
+import traceback as tcbk
 
 class RelayObserver(QObject):
     # TODO: delete all unnecessary signals:
@@ -201,6 +202,7 @@ class RelayObserver(QObject):
                         self.trigger.emit(True, True, -1)
                     self.stop_measurement()
                 else:
+                    # tcbk.print_exc()
                     print("ERR.CODE.SHIT")
                     print(str(fb_scan), " FB SCAN VALUE")
                     self.errors.emit(1, "ERR.CODE.SHIT\n" + str(fb_scan) + " FB SCAN VALUE")
@@ -217,7 +219,8 @@ class RelayObserver(QObject):
             self.final.emit(True)
 
         except Exception as ex:
-            print("ERR.CODE.001")
+            print("ERR.CODE.005 RELAY")
+            tcbk.print_exc()
             print(str(ex))
             self.errors.emit(1, "ERR.CODE.001" + str(ex))
         pass
@@ -241,6 +244,7 @@ class RelayObserver(QObject):
             self.meter.setTriggerCounts(array_size)
         except Exception as ex:
             print("ERR.CODE.002")
+            tcbk.print_exc()
             print(str(ex))
         pass
 
@@ -257,6 +261,7 @@ class RelayObserver(QObject):
             data_np = np.fromstring(data, dtype=float, sep=",")
         except Exception as ex:
             print("ERR.CODE.003")
+            tcbk.print_exc()
             print(str(ex))
         return data_np
 
@@ -270,6 +275,7 @@ class RelayObserver(QObject):
             #self.final.emit(True)
         except Exception as ex:
             print("ERR.CODE.004")
+            tcbk.print_exc()
             print(str(ex))
             print("ERROR IN: stop_measurement function")
         pass
