@@ -4,10 +4,7 @@ from Config.confparser import getGPIOip
 IP = getGPIOip()
 print(IP)
 if 'arm' in platform.machine():
-    # os.environ['GPIOZERO_PIN_FACTORY'] = "pigpio"
-    # os.environ['PIGPIO_ADDR'] = "192.168.0.104"
     import gpiozero
-    # from pigpio import PiGPIOFactory
 else:
     os.environ['GPIOZERO_PIN_FACTORY'] = "pigpio"
     os.environ['PIGPIO_ADDR'] = IP
