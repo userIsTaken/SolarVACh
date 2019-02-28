@@ -37,3 +37,4 @@ class RelayToggle():
         else:
             self.relay.off()
         pass
+

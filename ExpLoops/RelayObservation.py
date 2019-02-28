@@ -7,6 +7,12 @@ import numpy as np
 import scipy as sp
 from HardwareAccess.gpio_relays import *
 import traceback as tcbk
+from Config.confparser import getGPIOip
+import platform
+try:
+    import spur
+except:
+    spur = None
 
 class RelayObserver(QObject):
     # TODO: delete all unnecessary signals:
@@ -285,4 +291,17 @@ class RelayObserver(QObject):
         self._require_stop = True
         self.stop_measurement()
         pass
-        pass
+
+    # def moveMotor(self, direction):
+    #     d = None
+    #     if 'arm' in platform.machine():
+    #         pass
+    #     else:
+    #         if spur is not None:
+    #             shell = spur.SshShell(IP, 'a310', 'a310')
+    #             if 'cc' in direction:
+    #                 d = shell.run(['python3', 'stp_mot.py', '-s 256', '-cc'])
+    #             else:
+    #                 d = shell.run(['python3', 'stp_mot.py', '-s 256', '-cc'])
+    #     return d
+    #     pass
