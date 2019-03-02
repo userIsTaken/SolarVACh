@@ -18,8 +18,8 @@ else:
 class Motor():
     def __init__(self):
         self.IP = None
-        self.GpioPins = [4, 17, 27, 22]
-        self.self.StepSequence = list(range(0, 8))
+        self.GpioPins = [4, 17, 27, 22] # pinout
+        self.StepSequence = list(range(0, 8))
         self.wait_time = 0.001
         self.Shell = None
 
@@ -101,4 +101,5 @@ class Motor():
         return status
 
     def low_pins(self):
-        pass
+        for i in self.GpioPins:
+            GPIO.output(i, False)
