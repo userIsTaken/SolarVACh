@@ -60,9 +60,10 @@ class Motor():
                 status = True
         elif self.Local:
             stepsRemaining = steps
-            seq = self.StepSequence
+            self.StepSequence.reverse()
+            #seq = seq.reverse()
             while stepsRemaining > 0:
-                for pinList in seq.reverse():
+                for pinList in self.StepSequence:
                     for pin in self.GpioPins:
                         if pin in pinList:
                             GPIO.output(pin, True)
