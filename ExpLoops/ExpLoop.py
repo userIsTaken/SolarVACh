@@ -16,7 +16,7 @@ class LoopWorker(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
-    trigger = pyqtSignal(bool, bool, float) # trigger and fb_scan value ( 0 - False, 2 - True), counter for time observer
+    trigger = pyqtSignal(bool, bool, float, str) # trigger and fb_scan value ( 0 - False, 2 - True), counter for time observer, name(dark light)
     relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray, str) # err ok, fb_scan, mean, rate, volts, curr_array
 
@@ -33,6 +33,7 @@ class LoopWorker(QObject):
         # Few globals
         self.current_scale=None
         self.current_array_counter=[] # empty list
+        self.name = None
         pass
 
     @pyqtSlot()
@@ -59,10 +60,12 @@ class LoopWorker(QObject):
                     motor.move_motor_ccw()
                     motor.Status = True
                     name = 'dark'
+                    self.name = name
                 elif dark == 0 and motor.Status:
                     motor.move_motor_cw()
                     motor.Status = False
                     name = 'light'
+                    self.name = name
                 if 0 == fb_scan:
                     while (totalV > (endV+step) and not self._require_stop):
                         while not self.err_ok and not self._require_stop:
@@ -109,7 +112,7 @@ class LoopWorker(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, False, -1)
+                        self.trigger.emit(True, False, -1, self.name)
                     self.stop_measurement()
                 #     TODO this part is incomplete!
                 #     TODO: This part needs to be checked again, seems to be working
@@ -160,7 +163,7 @@ class LoopWorker(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, False, -1)
+                        self.trigger.emit(True, False, -1, self.name)
                     #     second loop:
                     totalV = endV
                     while (totalV <= (startV-step) and not self._require_stop): #+/- step?
@@ -208,7 +211,7 @@ class LoopWorker(QObject):
                         # print('totalV', totalV)
                         # print('step', step)
                     if not self._require_stop:
-                        self.trigger.emit(True, True, -1)
+                        self.trigger.emit(True, True, -1, self.name)
                     self.stop_measurement()
                 else:
                     print("ERR.CODE.SHIT")

@@ -423,7 +423,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def calculate_param(self, trigger, fb_scan, counter):
+    def calculate_param(self, trigger, fb_scan, counter, name=''):
         """
 
         :return:
@@ -491,7 +491,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 # TODO: save measurement data
-                file_name = self.ui.name_of_cell.toPlainText()+'_BW_'+str(t_min)+'.dat'
+                file_name = self.ui.name_of_cell.toPlainText()+'_BW_'+str(t_min)+name+'.dat'
                 file_path = self.ui.directory_path.toPlainText()
                 file = os.path.join(file_path, file_name)
                 text = self.ui.vach_text.toPlainText()
@@ -553,11 +553,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_fw.append(j_sc)
                     self.Uoc_time_fw.append(round(V_oc,5))
                     self.ff_time_fw.append(ff)
-                    #Draw graphs:
-                    # self.draw_method(self.ui.PCEVsTime, self.t_time, self.PCE_time_fw)
-                    # self.draw_method(self.ui.jscVsTime, self.t_time, self.jsc_time_fw)
-                    # self.draw_method(self.ui.UocVsTime, self.t_time, self.Uoc_time_fw)
-                    # self.draw_method(self.ui.FFVsTime, self.t_time, self.ff_time_fw)
                 self.upload_values(params_dict)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -568,7 +563,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.curr_array_analysis = []
                 self.voltage_array_analysis = []
                 # TODO: save measurement data
-                file_name = self.ui.name_of_cell.toPlainText() + '_FW_'+str(t_min)+'.dat'
+                file_name = self.ui.name_of_cell.toPlainText() + '_FW_'+str(t_min)+name+'.dat'
                 file_path = self.ui.directory_path.toPlainText()
                 file = os.path.join(file_path, file_name)
                 text = self.ui.vach_text.toPlainText()
