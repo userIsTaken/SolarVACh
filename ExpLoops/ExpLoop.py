@@ -57,7 +57,7 @@ class LoopWorker(QObject):
             name = 'electrode'
             while dark >= 0:
                 if dark == 2:
-                    motor.move_motor_ccw()
+                    motor.move_motor_cw()
                     motor.Status = True
                     name = 'dark'
                     self.name = name
