@@ -1071,19 +1071,6 @@
              </item>
             </widget>
            </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QCheckBox" name="fb_scan">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Forward-Backward Scan</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_19">
              <property name="minimumSize">
@@ -1142,6 +1129,26 @@
             <widget class="QLabel" name="label_16">
              <property name="text">
               <string>t [min] and counts</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="fb_scan">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Forward-Backward Scan</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
+            <widget class="QCheckBox" name="darkBox">
+             <property name="text">
+              <string>Measure dark?</string>
              </property>
             </widget>
            </item>

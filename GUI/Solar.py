@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -469,10 +470,6 @@ class Ui_MainWindow(object):
         self.relay_combo.addItem("")
         self.relay_combo.addItem("")
         self.gridLayout_5.addWidget(self.relay_combo, 1, 1, 1, 1)
-        self.fb_scan = QtWidgets.QCheckBox(self.widget)
-        self.fb_scan.setMaximumSize(QtCore.QSize(16777215, 24))
-        self.fb_scan.setObjectName("fb_scan")
-        self.gridLayout_5.addWidget(self.fb_scan, 2, 0, 1, 2)
         self.label_19 = QtWidgets.QLabel(self.widget)
         self.label_19.setMinimumSize(QtCore.QSize(200, 0))
         self.label_19.setAlignment(QtCore.Qt.AlignCenter)
@@ -499,6 +496,13 @@ class Ui_MainWindow(object):
         self.label_16 = QtWidgets.QLabel(self.widget)
         self.label_16.setObjectName("label_16")
         self.gridLayout_5.addWidget(self.label_16, 4, 1, 1, 1)
+        self.fb_scan = QtWidgets.QCheckBox(self.widget)
+        self.fb_scan.setMaximumSize(QtCore.QSize(16777215, 24))
+        self.fb_scan.setObjectName("fb_scan")
+        self.gridLayout_5.addWidget(self.fb_scan, 2, 0, 1, 1)
+        self.darkBox = QtWidgets.QCheckBox(self.widget)
+        self.darkBox.setObjectName("darkBox")
+        self.gridLayout_5.addWidget(self.darkBox, 2, 1, 1, 2)
         self.gridLayout_4.addWidget(self.widget, 0, 1, 1, 1)
         self.frame_7 = QtWidgets.QFrame(self.opt_tab)
         self.frame_7.setMaximumSize(QtCore.QSize(350, 250))
@@ -636,12 +640,13 @@ class Ui_MainWindow(object):
         self.relay_combo.setItemText(3, _translate("MainWindow", "4"))
         self.relay_combo.setItemText(4, _translate("MainWindow", "5"))
         self.relay_combo.setItemText(5, _translate("MainWindow", "6"))
-        self.fb_scan.setText(_translate("MainWindow", "Forward-Backward Scan"))
         self.label_19.setText(_translate("MainWindow", "<html><head/><body><p>Number of electrodes:</p></body></html>"))
         self.timeMode.setText(_translate("MainWindow", "Continuous observation over time"))
         self.oneShotMode.setText(_translate("MainWindow", "O&ne contact"))
         self.relayMode.setText(_translate("MainWindow", "Relay &mode"))
         self.label_16.setText(_translate("MainWindow", "t [min] and counts"))
+        self.fb_scan.setText(_translate("MainWindow", "Forward-Backward Scan"))
+        self.darkBox.setText(_translate("MainWindow", "Measure dark?"))
         self.label_23.setText(_translate("MainWindow", "Device IP :"))
         self.ip_address.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -664,5 +669,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.result_tab), _translate("MainWindow", "Results"))
         self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
+
 
 from pyqtgraph import PlotWidget

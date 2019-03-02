@@ -2,16 +2,17 @@
 
 # Form implementation generated from reading ui file 'Dialog.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
         SettingsDialog.setObjectName("SettingsDialog")
-        SettingsDialog.resize(528, 550)
+        SettingsDialog.resize(528, 595)
         self.gridLayout = QtWidgets.QGridLayout(SettingsDialog)
         self.gridLayout.setObjectName("gridLayout")
         self.frame_2 = QtWidgets.QFrame(SettingsDialog)
@@ -178,14 +179,14 @@ class Ui_SettingsDialog(object):
         self.oneShotMode = QtWidgets.QRadioButton(self.frame_3)
         self.oneShotMode.setChecked(True)
         self.oneShotMode.setObjectName("oneShotMode")
-        self.gridLayout_5.addWidget(self.oneShotMode, 3, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.oneShotMode, 4, 0, 1, 1)
         self.timeDelayBox = QtWidgets.QDoubleSpinBox(self.frame_3)
         self.timeDelayBox.setMaximum(100.0)
         self.timeDelayBox.setObjectName("timeDelayBox")
-        self.gridLayout_5.addWidget(self.timeDelayBox, 5, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.timeDelayBox, 6, 0, 1, 1)
         self.unitLabel = QtWidgets.QLabel(self.frame_3)
         self.unitLabel.setObjectName("unitLabel")
-        self.gridLayout_5.addWidget(self.unitLabel, 5, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.unitLabel, 6, 1, 1, 1)
         self.label_16 = QtWidgets.QLabel(self.frame_3)
         self.label_16.setMaximumSize(QtCore.QSize(16777215, 20))
         self.label_16.setAlignment(QtCore.Qt.AlignCenter)
@@ -193,21 +194,24 @@ class Ui_SettingsDialog(object):
         self.gridLayout_5.addWidget(self.label_16, 0, 0, 1, 2)
         self.relayMode = QtWidgets.QRadioButton(self.frame_3)
         self.relayMode.setObjectName("relayMode")
-        self.gridLayout_5.addWidget(self.relayMode, 7, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.relayMode, 8, 0, 1, 1)
         self.fb_scan = QtWidgets.QCheckBox(self.frame_3)
         self.fb_scan.setMaximumSize(QtCore.QSize(16777215, 24))
         self.fb_scan.setObjectName("fb_scan")
         self.gridLayout_5.addWidget(self.fb_scan, 2, 0, 1, 2)
         self.timeMode = QtWidgets.QRadioButton(self.frame_3)
         self.timeMode.setObjectName("timeMode")
-        self.gridLayout_5.addWidget(self.timeMode, 4, 0, 1, 2)
+        self.gridLayout_5.addWidget(self.timeMode, 5, 0, 1, 2)
         self.countBox = QtWidgets.QSpinBox(self.frame_3)
         self.countBox.setMaximum(1000)
         self.countBox.setObjectName("countBox")
-        self.gridLayout_5.addWidget(self.countBox, 6, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.countBox, 7, 0, 1, 1)
         self.label_10 = QtWidgets.QLabel(self.frame_3)
         self.label_10.setObjectName("label_10")
-        self.gridLayout_5.addWidget(self.label_10, 6, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.label_10, 7, 1, 1, 1)
+        self.darkBox = QtWidgets.QCheckBox(self.frame_3)
+        self.darkBox.setObjectName("darkBox")
+        self.gridLayout_5.addWidget(self.darkBox, 3, 0, 1, 1)
         self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 1)
 
         self.retranslateUi(SettingsDialog)
@@ -243,11 +247,13 @@ class Ui_SettingsDialog(object):
         self.label_7.setText(_translate("SettingsDialog", "Size of array"))
         self.label_9.setText(_translate("SettingsDialog", "<html><head/><body><p>x<span style=\" vertical-align:sub;\">mean</span>/𝚫x</p></body></html>"))
         self.label_8.setText(_translate("SettingsDialog", "Wait[ms]"))
-        self.oneShotMode.setText(_translate("SettingsDialog", "One contact"))
+        self.oneShotMode.setText(_translate("SettingsDialog", "O&ne contact"))
         self.unitLabel.setText(_translate("SettingsDialog", "t [min]"))
         self.label_16.setText(_translate("SettingsDialog", "SC name:"))
-        self.relayMode.setText(_translate("SettingsDialog", "Relay mode"))
+        self.relayMode.setText(_translate("SettingsDialog", "Relay &mode"))
         self.fb_scan.setText(_translate("SettingsDialog", "Forward-Backward Scan"))
-        self.timeMode.setText(_translate("SettingsDialog", "Continuous observation over time"))
+        self.timeMode.setText(_translate("SettingsDialog", "Continuous obser&vation over time"))
         self.label_10.setText(_translate("SettingsDialog", "Counts"))
+        self.darkBox.setText(_translate("SettingsDialog", "Measure dark?"))
+
 

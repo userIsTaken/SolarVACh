@@ -393,6 +393,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         el_area = self.ui.area_box.value() # in mm^2 !!!!
         in_power = self.ui.power_input_box.value()
         fb_scan = self.ui.fb_scan.checkState()
+        dark_scan=self.ui.darkBox.checkState()
         relay_combo = self.ui.relay_combo.currentIndex()
         el_combo = self.ui.electrode_combo.currentIndex()
         sc_name =  self.ui.name_of_cell.toPlainText()
@@ -411,6 +412,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'area': el_area,
                       'in_power': in_power,
                       'fb_scan': fb_scan,
+                      'dark_scan':dark_scan,
                       'relay_combo':relay_combo,
                       'el_combo': el_combo,
                       'sc_name':sc_name,
@@ -805,6 +807,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.area_box.setValue(parameters['area'])
             self.ui.power_input_box.setValue(parameters['in_power'])
             self.ui.fb_scan.setCheckState(parameters['fb_scan'])
+            self.ui.darkBox.setCheckState(parameters['dark_scan'])
             # TODO: ComboBoxes are left, need to implement:
             # relay_combo = self.ui.relay_combo.currentText()
             self.ui.relay_combo.setCurrentIndex(parameters['relay_combo'])

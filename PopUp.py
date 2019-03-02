@@ -31,6 +31,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui.limitA_box.setValue(float(params['limitA']))
         # CheckBox: 0 - unchecked,  2- checked
         self.ui.fb_scan.setCheckState(params['fb_scan'])
+        self.ui.darkBox.setCheckState(params['dark_scan'])
         # TODO: ComboBoxes:
         self.ui.electrode_combo.setCurrentIndex(params['el_combo'])
         self.ui.relay_combo.setCurrentIndex(params['el_combo'])
@@ -86,6 +87,7 @@ class PopUp(QtWidgets.QDialog):
         el_area = self.ui.area_box.value()
         in_power = self.ui.power_input_box.value()
         fb_scan = self.ui.fb_scan.checkState()
+        dark_scan=self.ui.darkBox.checkState()
         relay_combo = self.ui.relay_combo.currentIndex()
         el_combo = self.ui.electrode_combo.currentIndex()
         sc_name = self.ui.sc_name.toPlainText()
@@ -102,6 +104,7 @@ class PopUp(QtWidgets.QDialog):
                       'area': el_area,
                       'in_power': in_power,
                       'fb_scan': fb_scan,
+                      'dark_scan':dark_scan,
                       'relay_combo':relay_combo,
                       'el_combo': el_combo,
                       'sc_name':sc_name,
