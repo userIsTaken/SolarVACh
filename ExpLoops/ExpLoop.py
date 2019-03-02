@@ -6,6 +6,8 @@ from AnalyseScripts.Analyse import *
 import numpy as np
 import scipy as sp
 import traceback
+from HardwareAccess.MotorWrapper import *
+from Config.confparser import getGPIOip
 
 
 class LoopWorker(QObject):
@@ -37,6 +39,9 @@ class LoopWorker(QObject):
     def run(self):
         try:
             # current_scale=None
+            motor = Motor()
+            motor.set_ip(getGPIOip())
+            motor.setup()
             counter=0
             startV = self.params['startV']
             endV = self.params['endV']
@@ -46,6 +51,7 @@ class LoopWorker(QObject):
             limit = self.params['x_mean']
             self.prepare_source_meter(array_size)
             fb_scan = self.params['fb_scan']
+            dark = self.params['dark_scan']
             self._require_stop = False
             name = 'electrode'
             # print("(y)")
