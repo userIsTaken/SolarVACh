@@ -58,9 +58,11 @@ class LoopWorker(QObject):
                 if dark == 2:
                     motor.move_motor_ccw()
                     motor.Status = True
+                    name = 'dark'
                 elif dark == 0 and motor.Status:
                     motor.move_motor_cw()
                     motor.Status = False
+                    name = 'light'
                 if 0 == fb_scan:
                     while (totalV > (endV+step) and not self._require_stop):
                         while not self.err_ok and not self._require_stop:
