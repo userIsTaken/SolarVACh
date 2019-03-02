@@ -19,27 +19,86 @@ class Motor():
     def __init__(self):
         self.IP = None
         self.GpioPins = [4, 17, 27, 22]
+        self.self.StepSequence = list(range(0, 8))
+        self.wait_time = 0.001
+        self.Shell = None
+
 
     def set_ip(self, IP):
         self.IP = IP
 
-    def move_motor_ccw(self, steps=256):
+    def setup(self):
+        try:
+            for pin in self.GpioPins:
+                GPIO.setup(pin, GPIO.OUT)  # Set pin to output
+                GPIO.output(pin, False)  # Set pin to low ("False")
+
+        except Exception as ex:
+            print(str(ex))
+            pass
+        self.StepSequence[0] = [self.GpioPins[0]]
+        self.StepSequence[1] = [self.GpioPins[0], self.GpioPins[1]]
+        self.StepSequence[2] = [self.GpioPins[1]]
+        self.StepSequence[3] = [self.GpioPins[1], self.GpioPins[2]]
+        self.StepSequence[4] = [self.GpioPins[2]]
+        self.StepSequence[5] = [self.GpioPins[2], self.GpioPins[3]]
+        self.StepSequence[6] = [self.GpioPins[3]]
+        self.StepSequence[7] = [self.GpioPins[3], self.GpioPins[0]]
         if not local:
-            pass
-        elif local:
-            pass
-        else:
-            print('Something wrong with the control of a stepper motor')
+            self.Shell = spur.SshShell([self.IP, 'a310', 'a310'])
         pass
 
-    def move_motor_cw(self, steps=256):
+    def move_motor_ccw(self, steps=256):
+        status = False
         if not local:
-            pass
+            cmd = ['python3','stp_mot.py','-s '+str(steps),'-cc']
+            c = self.Shell.run(cmd)
+            if c == 0:
+                status = True
         elif local:
-            pass
+            stepsRemaining = steps
+            seq = self.StepSequence
+            while stepsRemaining > 0:
+                for pinList in seq.reverse():
+                    for pin in self.GpioPins:
+                        if pin in pinList:
+                            GPIO.output(pin, True)
+                        else:
+                            GPIO.output(pin, False)
+                        # PrintStatus(pinList)
+                    time.sleep(self.wait_time)
+                stepsRemaining -= 1
+            status = True
         else:
+            status = False
             print('Something wrong with the control of a stepper motor')
-        pass
+        return status
+
+    def move_motor_cw(self, steps=256):
+        status = False
+        if not local:
+            cmd = ['python3', 'stp_mot.py', '-s ' + str(steps)]
+            c = self.Shell.run(cmd)
+            if c ==0:
+                status = True
+        elif local:
+            stepsRemaining = steps
+            seq = self.StepSequence
+            while stepsRemaining > 0:
+                for pinList in seq:
+                    for pin in self.GpioPins:
+                        if pin in pinList:
+                            GPIO.output(pin, True)
+                        else:
+                            GPIO.output(pin, False)
+                        # PrintStatus(pinList)
+                    time.sleep(self.wait_time)
+                stepsRemaining -= 1
+            status = True
+        else:
+            status = False
+            print('Something wrong with the control of a stepper motor')
+        return status
 
     def low_pins(self):
         pass
