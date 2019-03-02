@@ -22,6 +22,8 @@ class Motor():
         self.StepSequence = list(range(0, 8))
         self.wait_time = 0.001
         self.Shell = None
+        self.Status = False # if false - it is opened, true - closed
+
 
 
     def set_ip(self, IP):
