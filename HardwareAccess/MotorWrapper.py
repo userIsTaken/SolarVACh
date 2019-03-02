@@ -23,6 +23,7 @@ class Motor():
         self.wait_time = 0.001
         self.Shell = None
         self.Status = False # if false - it is opened, true - closed
+        self.Local = local
 
 
 
@@ -46,18 +47,18 @@ class Motor():
         self.StepSequence[5] = [self.GpioPins[2], self.GpioPins[3]]
         self.StepSequence[6] = [self.GpioPins[3]]
         self.StepSequence[7] = [self.GpioPins[3], self.GpioPins[0]]
-        if not local:
+        if not self.Local:
             self.Shell = spur.SshShell([self.IP, 'a310', 'a310'])
         pass
 
     def move_motor_ccw(self, steps=256):
         status = False
-        if not local:
+        if not self.Local:
             cmd = ['python3','stp_mot.py','-s '+str(steps),'-cc']
             c = self.Shell.run(cmd)
             if c == 0:
                 status = True
-        elif local:
+        elif self.Local:
             stepsRemaining = steps
             seq = self.StepSequence
             while stepsRemaining > 0:
@@ -78,12 +79,12 @@ class Motor():
 
     def move_motor_cw(self, steps=256):
         status = False
-        if not local:
+        if not self.Local:
             cmd = ['python3', 'stp_mot.py', '-s ' + str(steps)]
             c = self.Shell.run(cmd)
             if c ==0:
                 status = True
-        elif local:
+        elif self.Local:
             stepsRemaining = steps
             seq = self.StepSequence
             while stepsRemaining > 0:
