@@ -11,6 +11,7 @@ from Config.confparser import *
 import datetime
 from random import randint
 from HardwareAccess.KeithleyWrapper import SourceMeter_KTHL
+from HardwareAccess.MotorWrapper import Motor
 import traceback
 
 
@@ -79,6 +80,29 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       6: self.VIOLET}
         self.max_array = 45
         self.setupUI()
+        self.motor = None
+        #control of a motor:
+        self.ui.motorButton.clicked.connect(self.motorFn)
+        self.ui.turnCWbutton.clicked.connect(self.CW)
+        self.ui.turnCCWbutton.clicked.connect(self.CCW)
+        pass
+
+    def CW(self):
+        steps = self.ui.stepsBox.value()
+        result = self.motor.move_motor_cw(steps)
+        self.ui.infoBox.setText(str(result))
+        pass
+
+    def CCW(self):
+        steps = self.ui.stepsBox.value()
+        result = self.motor.move_motor_ccw(steps)
+        self.ui.infoBox.setText(str(result))
+        pass
+
+    def motorFn(self):
+        self.motor = Motor()
+        self.motor.setup()
+        self.ui.infoBox.setText(str(self.motor.Local))
 
     def updateDevices(self):
         if self.ui.device_box.currentIndex() == 0:
