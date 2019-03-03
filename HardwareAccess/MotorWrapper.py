@@ -9,10 +9,11 @@ if 'arm' in platform.machine():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
     local = True
-
+    print('local mode')
 else:
     import spur
     local = False
+    print('remote mode')
 
 
 class Motor():
