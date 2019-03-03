@@ -50,12 +50,14 @@ class Motor():
         self.StepSequence[7] = [self.GpioPins[3], self.GpioPins[0]]
         if not self.Local:
             self.Shell = spur.SshShell([self.IP, 'a310', 'a310'])
+            print('Shell ?', self.IP)
         pass
 
     def move_motor_ccw(self, steps=256):
         status = False
         if not self.Local:
             cmd = ['python3','stp_mot.py','-s '+str(steps),'-cc']
+            print(cmd, ' CMD')
             c = self.Shell.run(cmd)
             if c == 0:
                 status = True
@@ -83,6 +85,7 @@ class Motor():
         status = False
         if not self.Local:
             cmd = ['python3', 'stp_mot.py', '-s ' + str(steps)]
+            print(cmd, ' CMD')
             c = self.Shell.run(cmd)
             if c ==0:
                 status = True

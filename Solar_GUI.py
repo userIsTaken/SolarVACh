@@ -101,10 +101,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def motorFn(self):
         self.motor = Motor()
-        self.motor.setup()
         IP = getGPIOip()
-        self.ui.infoBox.setText(str(self.motor.Local))
         self.motor.set_ip(IP)
+        print(IP, ' IP')
+        self.motor.setup()
+        self.ui.infoBox.setText(str(self.motor.Local))
+
 
     def updateDevices(self):
         if self.ui.device_box.currentIndex() == 0:
