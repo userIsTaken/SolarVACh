@@ -1,8 +1,5 @@
 import time
 import platform
-# import RPi.GPIO as GPIO
-# import argparse
-# GPIO.setwarnings(False)
 local = True
 if 'arm' in platform.machine():
     import RPi.GPIO as GPIO
