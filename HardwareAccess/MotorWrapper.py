@@ -22,6 +22,7 @@ class Motor():
         self.Shell = None
         self.Status = False # if false - it is opened, true - closed
         self.Local = local
+        self.idx = 0
 
 
 

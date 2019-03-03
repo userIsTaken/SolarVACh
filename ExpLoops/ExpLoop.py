@@ -219,6 +219,8 @@ class LoopWorker(QObject):
                     self.errors.emit(1, "ERR.CODE.SHIT\n"+str(fb_scan)+" FB SCAN VALUE")
                 #Below is the end of while loop:
                 dark = dark - 2
+            if motor is not None and motor.idx == 0:
+                motor.low_pins()
         except Exception as ex:
             traceback.print_exc()
             print("ERR.CODE.001")
