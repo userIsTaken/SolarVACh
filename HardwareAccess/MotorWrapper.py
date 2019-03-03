@@ -31,13 +31,15 @@ class Motor():
 
     def setup(self):
         try:
-            for pin in self.GpioPins:
-                GPIO.setup(pin, GPIO.OUT)  # Set pin to output
-                GPIO.output(pin, False)  # Set pin to low ("False")
+            if self.Local:
+                for pin in self.GpioPins:
+                    GPIO.setup(pin, GPIO.OUT)  # Set pin to output
+                    GPIO.output(pin, False)  # Set pin to low ("False")
 
         except Exception as ex:
             print(str(ex))
             pass
+
         self.StepSequence[0] = [self.GpioPins[0]]
         self.StepSequence[1] = [self.GpioPins[0], self.GpioPins[1]]
         self.StepSequence[2] = [self.GpioPins[1]]
