@@ -66,6 +66,7 @@ class LoopWorker(QObject):
                     motor.Status = False
                     name = 'light'
                     self.name = name
+                # MAIN LOOP with all measurements:
                 if 0 == fb_scan:
                     while (totalV > (endV+step) and not self._require_stop):
                         while not self.err_ok and not self._require_stop:
@@ -217,6 +218,7 @@ class LoopWorker(QObject):
                     print("ERR.CODE.SHIT")
                     print(str(fb_scan), " FB SCAN VALUE")
                     self.errors.emit(1, "ERR.CODE.SHIT\n"+str(fb_scan)+" FB SCAN VALUE")
+                #END of measurement loop
                 #Below is the end of while loop:
                 dark = dark - 2
             if motor is not None and motor.idx == 0:
