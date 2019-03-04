@@ -50,16 +50,17 @@ class Motor():
         self.StepSequence[6] = [self.GpioPins[3]]
         self.StepSequence[7] = [self.GpioPins[3], self.GpioPins[0]]
         self.ReversedSteps = self.StepSequence[:] # copy of this object
-        print(self.StepSequence)
+        # print(self.StepSequence)
         self.ReversedSteps.reverse()
-        print(self.ReversedSteps)
-        print(self.StepSequence)
+        # print(self.ReversedSteps)
+        # print(self.StepSequence)
         if not self.Local:
             self.Shell = spur.SshShell([self.IP, 'a310', 'a310'])
             print('Shell ?', self.IP)
         pass
 
     def move_motor_ccw(self, steps=256):
+        # counter-clockwise
         status = False
         if not self.Local:
             cmd = ['python3','stp_mot.py','-s '+str(steps),'-cc']
@@ -88,6 +89,7 @@ class Motor():
         return status
 
     def move_motor_cw(self, steps=256):
+        # clockwise
         status = False
         if not self.Local:
             cmd = ['python3', 'stp_mot.py', '-s ' + str(steps)]
