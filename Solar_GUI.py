@@ -91,12 +91,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         steps = self.ui.stepsBox.value()
         result = self.motor.move_motor_cw(steps)
         self.ui.infoBox.setText(str(result))
+        self.motor.low_pins()
         pass
 
     def CCW(self):
         steps = self.ui.stepsBox.value()
         result = self.motor.move_motor_ccw(steps)
         self.ui.infoBox.setText(str(result))
+        self.motor.low_pins()
         pass
 
     def motorFn(self):
