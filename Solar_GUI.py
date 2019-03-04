@@ -85,19 +85,27 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.motorButton.clicked.connect(self.motorFn)
         self.ui.turnCWbutton.clicked.connect(self.CW)
         self.ui.turnCCWbutton.clicked.connect(self.CCW)
+        # degree entry control:
+        self.ui.degreeBox.valueChanged.connect(self.setStepsFromDegrees)
+        pass
+
+    def setStepsFromDegrees(self):
+        y = self.ui.degreeBox.value()
+        x = (512.0*y)/360.0
+        self.ui.stepsBox.setValue(int(x))
         pass
 
     def CW(self):
         steps = self.ui.stepsBox.value()
         result = self.motor.move_motor_cw(steps)
-        self.ui.infoBox.setText(str(result))
+        self.ui.infoBox.setText(str(result)+" CW result")
         self.motor.low_pins()
         pass
 
     def CCW(self):
         steps = self.ui.stepsBox.value()
         result = self.motor.move_motor_ccw(steps)
-        self.ui.infoBox.setText(str(result))
+        self.ui.infoBox.setText(str(result)+" CCW result")
         self.motor.low_pins()
         pass
 
@@ -170,6 +178,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.prepare_graphs(self.ui.PCEVsTime, 't (min)', None, 'PCE (%)', None, False)
         self.prepare_graphs(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', True)
         self.prepare_graphs(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
+        self.ui.stepsBox.setEnabled(False)
 
     def select_path(self):
         file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))
