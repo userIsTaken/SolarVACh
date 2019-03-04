@@ -102,12 +102,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def motorFn(self):
-        self.motor = Motor()
-        IP = getGPIOip()
-        self.motor.set_ip(IP)
-        print(IP, ' IP')
-        self.motor.setup()
-        self.ui.infoBox.setText(str(self.motor.Local))
+        if "Connect to" in self.ui.motorButton.text():
+            self.motor = Motor()
+            IP = getGPIOip()
+            self.motor.set_ip(IP)
+            print(IP, ' motor IP')
+            self.motor.setup()
+            self.ui.infoBox.setText(str(self.motor.Local))
+            self.ui.motorButton.setText("Disconnect from motor")
+            pass
+        elif "Disconnect from" in self.ui.motorButton.text():
+            self.motor.low_pins()
+            self.motor = None
 
 
     def updateDevices(self):
