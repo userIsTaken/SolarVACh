@@ -62,7 +62,7 @@ class LoopWorker(QObject):
                     name = 'dark'
                     self.name = name
                 elif dark == 0 and motor.Status:
-                    motor.move_motor_cw()
+                    motor.move_motor_ccw()
                     motor.Status = False
                     name = 'light'
                     self.name = name
