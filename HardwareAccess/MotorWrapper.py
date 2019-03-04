@@ -18,6 +18,7 @@ class Motor():
         self.IP = None
         self.GpioPins = [4, 17, 27, 22] # pinout
         self.StepSequence = list(range(0, 8))
+        self.ReversedSteps =  None
         self.wait_time = 0.001
         self.Shell = None
         self.Status = False # if false - it is opened, true - closed
@@ -48,6 +49,11 @@ class Motor():
         self.StepSequence[5] = [self.GpioPins[2], self.GpioPins[3]]
         self.StepSequence[6] = [self.GpioPins[3]]
         self.StepSequence[7] = [self.GpioPins[3], self.GpioPins[0]]
+        self.ReversedSteps = self.StepSequence[:] # copy of this object
+        print(self.StepSequence)
+        self.ReversedSteps.reverse()
+        print(self.ReversedSteps)
+        print(self.StepSequence)
         if not self.Local:
             self.Shell = spur.SshShell([self.IP, 'a310', 'a310'])
             print('Shell ?', self.IP)
@@ -63,10 +69,10 @@ class Motor():
                 status = True
         elif self.Local:
             stepsRemaining = steps
-            self.StepSequence.reverse()
+            # self.StepSequence.reverse()
             #seq = seq.reverse()
             while stepsRemaining > 0:
-                for pinList in self.StepSequence:
+                for pinList in self.ReversedSteps:
                     for pin in self.GpioPins:
                         if pin in pinList:
                             GPIO.output(pin, True)
@@ -91,9 +97,8 @@ class Motor():
                 status = True
         elif self.Local:
             stepsRemaining = steps
-            seq = self.StepSequence
             while stepsRemaining > 0:
-                for pinList in seq:
+                for pinList in self.StepSequence:
                     for pin in self.GpioPins:
                         if pin in pinList:
                             GPIO.output(pin, True)
