@@ -54,7 +54,7 @@ class LoopWorker(QObject):
             fb_scan = self.params['fb_scan']
             dark = self.params['dark_scan'] # 0 or 2 (unchecked or checked)
             self._require_stop = False
-            name = 'electrode'
+            name = ''
             while dark >= 0:
                 if dark == 2:
                     motor.move_motor_cw()
