@@ -114,6 +114,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         elif "Disconnect from" in self.ui.motorButton.text():
             self.motor.low_pins()
             self.motor = None
+            self.ui.motorButton.setText("Connect to motor")
 
 
     def updateDevices(self):
