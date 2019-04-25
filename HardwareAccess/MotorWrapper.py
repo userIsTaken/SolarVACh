@@ -1,16 +1,20 @@
 import time
 import platform
 local = True
-if 'arm' in platform.machine():
-    import RPi.GPIO as GPIO
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    local = True
-    print('local mode')
-else:
-    import spur
-    local = False
-    print('remote mode')
+try:
+    if 'arm' in platform.machine():
+        import RPi.GPIO as GPIO
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        local = True
+        print('local mode')
+    else:
+        import spur
+        local = False
+        print('remote mode')
+except Exception as ex:
+    print('No SPUR - no motor!')
+    spur=None
 
 
 class Motor():
