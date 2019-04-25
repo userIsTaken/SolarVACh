@@ -341,6 +341,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ExpensiveMeter.setSourceOutputMode('volt')
             self.ExpensiveMeter.setMeasurementMode(1)
+            if self.ui.channel_box.currentText().lower() == 'a':
+                self.ExpensiveMeter.setChannel(self.ExpensiveMeter.A)
+                # self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
+            elif self.ui.channel_box.currentText().lower() == 'b':
+                self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
             # self.ExpensiveMeter.setCurrentLimit(self.parameters['limitA'])
             print('limitA', self.parameters['limitA'])
         self._thread = QThread(self) # why??? WHY????
