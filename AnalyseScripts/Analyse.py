@@ -47,8 +47,10 @@ def getStats(_array, limit, current_scale):
 
 
 def getBiggerScale(curr_scale):
-    c_scale = float(curr_scale)
-    new_scale = c_scale * 10.0
+    new_scale = None
+    if curr_scale is not None:
+        c_scale = float(curr_scale)
+        new_scale = c_scale * 10.0
     return new_scale
     pass
 

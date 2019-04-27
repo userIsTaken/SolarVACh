@@ -127,6 +127,8 @@ class LoopWorker(QObject):
                                 if overflow:
                                     curr_range = self.meter.getCurrentSensorRange()
                                     new_scale = getBiggerScale(curr_range)
+                                    if new_scale is not None and new_scale >= 0.02:
+                                        self.stop_now()
                                     self.meter.setCurrentSensorRange(new_scale)
                                     self.current_scale = new_scale
                                     status = False
@@ -304,4 +306,9 @@ class LoopWorker(QObject):
     def stop(self):
         self._require_stop = True
         self.stop_measurement()
+        pass
+
+    def stop_now(self):
+        self.stop_measurement()
+        print('Overflow was to big!')
         pass

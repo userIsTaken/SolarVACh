@@ -158,6 +158,7 @@ class SourceMeter_KTHL():
         pass
 
     def getCurrentSensorRange(self):
+        return None
         pass
 
     def setBufferSize(self, size):
