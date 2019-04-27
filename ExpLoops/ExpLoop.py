@@ -313,7 +313,7 @@ class LoopWorker(QObject):
         pass
 
     def stop_now(self):
-        self.errors.emit(-1, 'EXP was cancelled! The current was to big!')
+        self.errors.emit(-1, 'EXP was cancelled! The current was to big! I >= 0.021 A ( 21 mA )')
         self.stop_measurement()
         print('Overflow was to big!')
         pass
