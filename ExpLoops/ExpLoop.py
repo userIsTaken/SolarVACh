@@ -76,6 +76,8 @@ class LoopWorker(QObject):
                                 if overflow:
                                     curr_range = self.meter.getCurrentSensorRange()
                                     new_scale = getBiggerScale(curr_range)
+                                    if new_scale is not None and new_scale >= 0.021:
+                                        self.stop_now()
                                     self.meter.setCurrentSensorRange(new_scale)
                                     self.current_scale = new_scale
                                     status = False
@@ -127,7 +129,7 @@ class LoopWorker(QObject):
                                 if overflow:
                                     curr_range = self.meter.getCurrentSensorRange()
                                     new_scale = getBiggerScale(curr_range)
-                                    if new_scale is not None and new_scale >= 0.02:
+                                    if new_scale is not None and new_scale >= 0.021:
                                         self.stop_now()
                                     self.meter.setCurrentSensorRange(new_scale)
                                     self.current_scale = new_scale
@@ -177,6 +179,8 @@ class LoopWorker(QObject):
                                 if overflow:
                                     curr_range = self.meter.getCurrentSensorRange()
                                     new_scale = getBiggerScale(curr_range)
+                                    if new_scale is not None and new_scale >= 0.021:
+                                        self.stop_now()
                                     self.meter.setCurrentSensorRange(new_scale)
                                     self.current_scale = new_scale
                                     status = False
