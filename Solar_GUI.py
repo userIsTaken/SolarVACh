@@ -429,13 +429,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return mode
         pass
 
+    def return_start_stop_fn(self):
+        startV = self.ui.startV_box.value()
+        endV = self.ui.endV_box.value()
+        mn = min(startV, endV)
+        mx = max(startV, endV)
+        return mx, mn
+
     def GetAllParameters(self):
         """
 
         :return:
         """
-        startV = self.ui.startV_box.value()
-        endV = self.ui.endV_box.value()
+        # startV = self.ui.startV_box.value()
+        # endV = self.ui.endV_box.value()
+        startV, endV = self.return_start_stop_fn()
         points = self.ui.points_box.value()
         current_limit = self.ui.limitA_box.value()
         wait = self.ui.wait_box.value()
