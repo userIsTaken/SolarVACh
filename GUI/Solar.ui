@@ -484,7 +484,7 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
+           <item row="0" column="4">
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -698,7 +698,7 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="3">
+           <item row="2" column="4">
             <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -724,6 +724,24 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="runingLabel">
+             <property name="font">
+              <font>
+               <pointsize>28</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>STOPPED</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
           </layout>
           <zorder>current_graph</zorder>
           <zorder>horizontalSpacer</zorder>
@@ -732,6 +750,7 @@
           <zorder>frame_6</zorder>
           <zorder>frame_4</zorder>
           <zorder>real_data_output</zorder>
+          <zorder>runingLabel</zorder>
          </widget>
         </item>
         <item row="1" column="1">

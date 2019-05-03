@@ -235,6 +235,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._worker = None
         self.ui.startButton.setEnabled(True)
         self.ui.stopButton.setEnabled(False)
+        self.ui.runingLabel.setText('STOPPED')
         self._threads = []
         pass
 
@@ -242,6 +243,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if status:
             self.ui.startButton.setEnabled(True)
             self.ui.stopButton.setEnabled(False)
+            self.ui.runingLabel.setText('STOPPED')
             # self._thread = None # ?
             self._threads = []
             pass
@@ -316,6 +318,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def startExp(self):
         self.ui.startButton.setEnabled(False)
+        self.ui.runingLabel.setText('RUNNING')
         self.ui.stopButton.setEnabled(True)
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
         # clear all graph arrays:

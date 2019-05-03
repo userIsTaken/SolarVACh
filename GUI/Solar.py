@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.12
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -213,7 +213,7 @@ class Ui_MainWindow(object):
         self.current_graph.setObjectName("current_graph")
         self.gridLayout_3.addWidget(self.current_graph, 0, 1, 2, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem, 0, 3, 1, 1)
+        self.gridLayout_3.addItem(spacerItem, 0, 4, 1, 1)
         self.frame_4 = QtWidgets.QFrame(self.frame_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
@@ -306,17 +306,26 @@ class Ui_MainWindow(object):
         self.gridLayout_11.addWidget(self.area_box, 1, 0, 1, 1)
         self.gridLayout_3.addWidget(self.frame_6, 2, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem1, 2, 3, 1, 1)
+        self.gridLayout_3.addItem(spacerItem1, 2, 4, 1, 1)
         self.real_data_output = QtWidgets.QPlainTextEdit(self.frame_2)
         self.real_data_output.setMaximumSize(QtCore.QSize(300, 16777215))
         self.real_data_output.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.real_data_output.setObjectName("real_data_output")
         self.gridLayout_3.addWidget(self.real_data_output, 0, 2, 3, 1)
+        self.runingLabel = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(28)
+        self.runingLabel.setFont(font)
+        self.runingLabel.setTextFormat(QtCore.Qt.RichText)
+        self.runingLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.runingLabel.setObjectName("runingLabel")
+        self.gridLayout_3.addWidget(self.runingLabel, 0, 3, 1, 1)
         self.current_graph.raise_()
         self.frame_3.raise_()
         self.frame_6.raise_()
         self.frame_4.raise_()
         self.real_data_output.raise_()
+        self.runingLabel.raise_()
         self.gridLayout_2.addWidget(self.frame_2, 0, 0, 1, 3)
         self.frame_5 = QtWidgets.QFrame(self.vach_tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.MinimumExpanding)
@@ -653,6 +662,7 @@ class Ui_MainWindow(object):
         self.live_error.setText(_translate("MainWindow", "Live Error"))
         self.label_18.setText(_translate("MainWindow", "<html><head/><body><p>Area of electrode [mm<span style=\" vertical-align:super;\">2</span>]</p></body></html>"))
         self.label_20.setText(_translate("MainWindow", "<html><head/><body><p>Power input[mW/cm<span style=\" vertical-align:super;\">2</span>]</p></body></html>"))
+        self.runingLabel.setText(_translate("MainWindow", "STOPPED"))
         self.fbStatusLabel.setText(_translate("MainWindow", "FW/BW?"))
         self.label_12.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">𝜂, %</span></p></body></html>"))
         self.label_13.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">FF, %</span></p></body></html>"))
