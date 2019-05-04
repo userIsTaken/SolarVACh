@@ -87,6 +87,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.turnCCWbutton.clicked.connect(self.CCW)
         # degree entry control:
         self.ui.degreeBox.valueChanged.connect(self.setStepsFromDegrees)
+        self._params_updated = False
         pass
 
     def setStepsFromDegrees(self):
@@ -211,6 +212,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             pData= open(params_file, 'w')
             pData.write(params_text)
             pData.close()
+            self._params_updated = False # if saved, we do not want to overwrite it again, except they will be updated again
         except Exception as ex:
             print("ERR:FILE:SAVE")
             print(str(ex))
@@ -257,7 +259,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self._worker.stop()
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
-            self.save_results()
+            if self._params_updated: # if parameters were calculated, they will be saved on quit.
+                self.save_results()
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
@@ -499,6 +502,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         params_dict = {}
         if(trigger):
             t_min = 0
+            self._params_updated = True
             if(fb_scan):
                 # BW section
                 #     forward direction
