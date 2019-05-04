@@ -26,7 +26,7 @@
       <property name="minimumSize">
        <size>
         <width>120</width>
-        <height>80</height>
+        <height>100</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -1437,7 +1437,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>27</height>
+     <height>35</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

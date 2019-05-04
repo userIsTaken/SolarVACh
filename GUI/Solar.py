@@ -2,12 +2,11 @@
 
 # Form implementation generated from reading ui file 'Solar.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -23,7 +22,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy)
-        self.frame.setMinimumSize(QtCore.QSize(120, 80))
+        self.frame.setMinimumSize(QtCore.QSize(120, 100))
         self.frame.setMaximumSize(QtCore.QSize(16777215, 100))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -613,7 +612,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 35))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -716,6 +715,5 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.motorTab), _translate("MainWindow", "Manual control of a shutter"))
         self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
-
 
 from pyqtgraph import PlotWidget

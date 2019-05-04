@@ -2,12 +2,11 @@
 
 # Form implementation generated from reading ui file 'Dialog.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
@@ -255,5 +254,4 @@ class Ui_SettingsDialog(object):
         self.timeMode.setText(_translate("SettingsDialog", "Continuous obser&vation over time"))
         self.label_10.setText(_translate("SettingsDialog", "Counts"))
         self.darkBox.setText(_translate("SettingsDialog", "Measure dark?"))
-
 
