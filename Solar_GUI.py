@@ -179,6 +179,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.prepare_graphs(self.ui.jUatThisMoment, 'Voltage', 'V', 'Current', 'A', True)
         self.prepare_graphs(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
         self.ui.stepsBox.setEnabled(False)
+        self.ui.runingLabel.setStyleSheet("QLabel { background-color : red; color : black; }")
 
     def select_path(self):
         file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))
@@ -236,6 +237,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.startButton.setEnabled(True)
         self.ui.stopButton.setEnabled(False)
         self.ui.runingLabel.setText('STOPPED')
+        self.ui.runingLabel.setStyleSheet("QLabel { background-color : red; color : black; }")
         self._threads = []
         pass
 
@@ -244,6 +246,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.startButton.setEnabled(True)
             self.ui.stopButton.setEnabled(False)
             self.ui.runingLabel.setText('STOPPED')
+            self.ui.runingLabel.setStyleSheet("QLabel { background-color : red; color : black; }")
             # self._thread = None # ?
             self._threads = []
             pass
@@ -254,6 +257,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self._worker.stop()
             if self.ExpensiveMeter is not None:
                 self.ExpensiveMeter.close()
+            self.save_results()
         except Exception as ex:
             print("ERR.CODE.EXIT")
             print(str(ex))
@@ -319,6 +323,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.runingLabel.setText('RUNNING')
+        self.ui.runingLabel.setStyleSheet("QLabel { background-color : green; color : black; }")
         self.ui.stopButton.setEnabled(True)
         self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
         # clear all graph arrays:
