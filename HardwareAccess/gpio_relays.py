@@ -23,12 +23,12 @@ class RelayToggle():
         """
         :param _ip_address: TCP/IP address of source meter
         """
-        self.pin = {'1': 5,
-                    '2': 6,
-                    '3': 13,
-                    '4': 19,
-                    '5': 26,
-                    '6': 12}
+        self.pin = {'1': 14,
+                    '2': 15,
+                    '3': 18,
+                    '4': 23,
+                    '5': 24,
+                    '6': 25}
 
         self.ON = True
         self.OFF = False
