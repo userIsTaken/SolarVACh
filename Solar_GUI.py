@@ -380,6 +380,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.errors.connect(self.ErrorHasBeenGot)
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 2:
+            self.delete_graph()
             print("RELAY MODE")
             self._worker = RelayObserver(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
@@ -854,9 +855,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         else:
             print("Inequality", y_name, " ; ", sizex, " ; ", sizey)
 
-
-
-
+    def delete_graph(self):
+        dataItems = self.ui.density_graph.listDataItems()
+        for i in dataItems:
+            self.ui.density_graph.removeItem(i)
+            self.ui.power_graph.removeItem(i)
 
     def pop_dialog(self, params):
         self.dialog = PopUp(params)
