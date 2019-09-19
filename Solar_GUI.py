@@ -859,8 +859,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         dataItems1 = self.ui.density_graph.listDataItems()
         for i in dataItems1:
             self.ui.density_graph.removeItem(i)
-            
-        dataItems2 = self.ui.density_graph.listDataItems()
+
+        dataItems2 = self.ui.power_graph.listDataItems()
         for i in dataItems2:
             self.ui.power_graph.removeItem(i)
 
