@@ -856,9 +856,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             print("Inequality", y_name, " ; ", sizex, " ; ", sizey)
 
     def delete_graph(self):
-        dataItems = self.ui.density_graph.listDataItems()
-        for i in dataItems:
+        dataItems1 = self.ui.density_graph.listDataItems()
+        for i in dataItems1:
             self.ui.density_graph.removeItem(i)
+            
+        dataItems2 = self.ui.density_graph.listDataItems()
+        for i in dataItems2:
             self.ui.power_graph.removeItem(i)
 
     def pop_dialog(self, params):
