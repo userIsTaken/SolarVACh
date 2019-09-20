@@ -554,7 +554,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_bw.append(j_sc)
                     self.Uoc_time_bw.append(round(V_oc,5))
                     self.ff_time_bw.append(ff)
-                self.upload_values(params_dict)
+                self.upload_values(params_dict, name)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
                 self.ui.uocLCD.setValue(V_oc)
@@ -625,7 +625,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_fw.append(j_sc)
                     self.Uoc_time_fw.append(round(V_oc,5))
                     self.ff_time_fw.append(ff)
-                self.upload_values(params_dict)
+                self.upload_values(params_dict, name)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -668,7 +668,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             print(trigger, " trig value")
         pass
 
-    def upload_values(self, params_dict):
+    def upload_values(self, params_dict, name=''):
         fb = "FW"
         if params_dict['fb_scan']:
             fb = "BW"
@@ -676,7 +676,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             fb="FW"
         sc_name = self.ui.name_of_cell.toPlainText()
         # contruct strings to write down:
-        a1 = sc_name+" ; "+fb+" ; "+str(params_dict['v_oc'])+" ; "
+        a1 = sc_name+name + " ; "+fb+" ; "+str(params_dict['v_oc'])+" ; "
         a2 = str(params_dict['j_sc'])+ " ; "+str(params_dict['ff'])+ " ; "+str(params_dict['vmax'])+" ; "
         a3 = str(params_dict['Imax']*1000*100/self.parameters['area'])+ " ; "+str(params_dict['pmax'])+" ; "
         a4 = str(params_dict['pce'])+" ; "+str(self.parameters['area']/100)+" ; "+str(params_dict['t_min'])

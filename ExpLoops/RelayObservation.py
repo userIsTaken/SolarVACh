@@ -66,7 +66,7 @@ class RelayObserver(QObject):
             while (rel < first_rel + elec):
                 self.relay = RelayToggle(str(rel))
                 self.relay.toggle(self.relay.ON)
-                name = str(elec_nr)+' el.'
+                name = '_' + str(elec_nr)+'el.'
             # print("(y)")
             # print(fb_scan)
             # self.curr_array.append(totalV) # what the hell is this?
