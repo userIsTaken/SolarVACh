@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+#-*- coding: utf-8 -*-
+
 from PyQt5 import QtWidgets, QtGui
 from Solar_GUI import ApplicationWindow
 import sys
