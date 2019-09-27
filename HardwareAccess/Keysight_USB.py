@@ -8,15 +8,22 @@ class Device_USB():
         pass
 
     def ask(self, cmd:str):
+        self._write(cmd)
+        txt = self._read()
+        return txt
         pass
 
     def write(self, cmd:str):
+        self._write(cmd)
         pass
 
     def _write(self, cmd:str):
+        self._dev_file.write(cmd)
         pass
 
     def _read(self):
+        answ = self._dev_file.readline()
+        return answ
         pass
 
     def _close_f(self):
