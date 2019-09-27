@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, QtGui
 from GUI.Solar import Ui_MainWindow
 from PopUp import PopUp
 from HardwareAccess.KeysightWrapper import SourceMeter
+from HardwareAccess.Keysight_USB import SourceMeter_USB
 from ExpLoops.ExpLoop import *
 from ExpLoops.CObservation import *
 from ExpLoops.RelayObservation import *
@@ -31,6 +32,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._path = None
         self.ExpensiveMeter = None
         self.ip = None
+        self._usb = None
         self.jvView = self.ui.density_graph
         self.ui.connect_button.clicked.connect(self.MeterConnect)
         self.ui.startButton.clicked.connect(self.hell)
@@ -88,7 +90,38 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # degree entry control:
         self.ui.degreeBox.valueChanged.connect(self.setStepsFromDegrees)
         self._params_updated = False
+        # usbtmc button:
+        self.ui.connectUSBbutton.clicked.connect(self.usbtmc_connect)
+        self.populate_usbtmc()
         pass
+
+    def populate_usbtmc(self):
+        try:
+            self.ui.usbtmcComboBox.clear()
+            mypath = "/dev"
+            for f in os.listdir(mypath):
+                if f.startswith('usbtmc'):
+                    self.ui.usbtmcComboBox.addItem(mypath + "/" + f)
+        except Exception as ex:
+            print(str(ex))
+        pass
+
+    def usbtmc_connect(self):
+        self._usb = self.ui.usbtmcComboBox.currentText()
+        try:
+            if self.ui.device_box.currentText().lower() in 'keysight':
+                self.ExpensiveMeter = SourceMeter_USB(self._usb)
+                id = self.ExpensiveMeter.ID
+                self.ui.connectionErrorsBox.setPlainText(
+                    "Connected successfully @" + str(self._usb) + "\nIDN:" + self.ExpensiveMeter.ID)
+                self.ui.tabWidget.setCurrentIndex(0)
+                self.ui.startButton.setEnabled(True)
+                self.updateDevices()
+            else:
+                pass
+        except Exception as ex:
+            print(str(ex))
+            pass
 
     def setStepsFromDegrees(self):
         y = self.ui.degreeBox.value()
