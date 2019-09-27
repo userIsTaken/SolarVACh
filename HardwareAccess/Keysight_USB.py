@@ -33,7 +33,7 @@ class SourceMeter_USB():
     def __init__(self, _usb:str):
         """
 
-        :param _ip_address: TCP/IP address of source meter
+        :param _usb: /dev/usbtmcX link of source meter, where X is 0, 1, 2, ...
         """
         self.Device = Device_USB(_usb)
         self.ID = self.Device.ask("*IDN?")
