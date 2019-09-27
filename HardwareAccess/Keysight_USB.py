@@ -1,9 +1,10 @@
 from PyQt5 import QtCore, QtGui
-from vxi11 import vxi11 as vx
 import os, sys
 
 class Device_USB():
     def __init__(self, _usb:str):
+        self._dev = _usb
+        self._dev_file = open(self._dev, 'rw', buffering=0)
         pass
 
     def ask(self, cmd:str):
@@ -11,6 +12,15 @@ class Device_USB():
 
     def write(self, cmd:str):
         pass
+
+    def _write(self, cmd:str):
+        pass
+
+    def _read(self):
+        pass
+
+    def _close_f(self):
+        self._dev_file.close()
 
 class SourceMeter_USB():
     def __init__(self, _usb:str):
