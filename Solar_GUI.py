@@ -103,6 +103,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             for f in os.listdir(mypath):
                 if f.startswith('usbtmc'):
                     self.ui.usbtmcComboBox.addItem(mypath + "/" + f)
+            indexes = self.ui.usbtmcComboBox.count()
+            if indexes == 0:
+                self.ui.connectUSBbutton.setEnabled(False)
         except Exception as ex:
             print(str(ex))
         pass
@@ -175,7 +178,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.connectUSBbutton.setEnabled(True)
         else:
             self.ui.connectUSBbutton.setEnabled(False)
-        pass
+        indexes = self.ui.usbtmcComboBox.count()
+        if indexes == 0:
+            self.ui.connectUSBbutton.setEnabled(False)
 
     def setupUI(self):
         self.ui.params_field.setPlainText(
