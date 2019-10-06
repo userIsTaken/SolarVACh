@@ -92,6 +92,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._params_updated = False
         # usbtmc button:
         self.ui.connectUSBbutton.clicked.connect(self.usbtmc_connect)
+        self._line_ending_usb = None
         self.populate_usbtmc()
         pass
 
@@ -108,9 +109,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def usbtmc_connect(self):
         self._usb = self.ui.usbtmcComboBox.currentText()
+        self._line_ending_usb = self.ui.lineEndingBox.currentText()
         try:
             if self.ui.device_box.currentText().lower() in 'keysight':
-                self.ExpensiveMeter = SourceMeter_USB(self._usb)
+                self.ExpensiveMeter = SourceMeter_USB(self._usb, self._line_ending_usb)
                 id = self.ExpensiveMeter.ID
                 self.ui.connectionErrorsBox.setPlainText(
                     "Connected successfully @" + str(self._usb) + "\nIDN:" + self.ExpensiveMeter.ID)
@@ -169,6 +171,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.max_array = 1000
             self.ui.array_size_box.setMaximum(self.max_array)
         print(self.max_array, " : MAX ARRAY")
+        if (self.ui.device_box.currentText().lower() in "keysight"):
+            self.ui.connectUSBbutton.setEnabled(True)
+        else:
+            self.ui.connectUSBbutton.setEnabled(False)
         pass
 
     def setupUI(self):
@@ -214,6 +220,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.prepare_graphs(self.ui.PUatThisMoment, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
         self.ui.stepsBox.setEnabled(False)
         self.ui.runingLabel.setStyleSheet("QLabel { background-color : red; color : black; }")
+        if (self.ui.device_box.currentText().lower() in "keysight"):
+            self.ui.connectUSBbutton.setEnabled(True)
+        else:
+            self.ui.connectUSBbutton.setEnabled(False)
 
     def select_path(self):
         file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))

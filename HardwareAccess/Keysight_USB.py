@@ -2,9 +2,9 @@ from PyQt5 import QtCore, QtGui
 import os, sys
 
 class Device_USB():
-    def __init__(self, _usb:str):
+    def __init__(self, _usb:str, _line:str = "\r\n"):
         self._dev = _usb
-        self._dev_file = open(self._dev, 'rw', buffering=0)
+        self._dev_file = open(self._dev, 'rw', buffering=0, newline=_line)
         pass
 
     def ask(self, cmd:str):
@@ -19,6 +19,7 @@ class Device_USB():
 
     def _write(self, cmd:str):
         self._dev_file.write(cmd)
+        #self._dev_file.writelines(cmd)
         pass
 
     def _read(self):
@@ -30,7 +31,7 @@ class Device_USB():
         self._dev_file.close()
 
 class SourceMeter_USB():
-    def __init__(self, _usb:str):
+    def __init__(self, _usb:str, _line:str="\r\n"):
         """
 
         :param _usb: /dev/usbtmcX link of source meter, where X is 0, 1, 2, ...
