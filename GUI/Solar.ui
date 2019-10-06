@@ -1196,29 +1196,6 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="connect_button">
-             <property name="text">
-              <string>Connect to IP</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_22">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>DEVICE CONFIGURATION</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::PlainText</enum>
-             </property>
-            </widget>
-           </item>
            <item row="6" column="1">
             <widget class="QComboBox" name="nplc_box">
              <property name="currentIndex">
@@ -1273,7 +1250,36 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="5" column="1">
+            <widget class="QPushButton" name="connectUSBbutton">
+             <property name="text">
+              <string>Connect to USB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QComboBox" name="usbtmcComboBox"/>
+           </item>
+           <item row="5" column="2">
+            <widget class="QComboBox" name="lineEndingBox">
+             <item>
+              <property name="text">
+               <string>Win (\r\n)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Lin (\n)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mac (\r)</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
             <widget class="QTextEdit" name="ip_address">
              <property name="maximumSize">
               <size>
@@ -1295,15 +1301,28 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="connectUSBbutton">
+           <item row="4" column="1" colspan="2">
+            <widget class="QPushButton" name="connect_button">
              <property name="text">
-              <string>Connect to selected USB device</string>
+              <string>Connect to IP</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
-            <widget class="QComboBox" name="usbtmcComboBox"/>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLabel" name="label_22">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>DEVICE CONFIGURATION</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1447,7 +1466,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>27</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
