@@ -113,9 +113,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def usbtmc_connect(self):
         self._usb = self.ui.usbtmcComboBox.currentText()
         self._line_ending_usb = self.ui.lineEndingBox.currentText()
+        e = None
+        if "win" in self._line_ending_usb.lower():
+            e = "\r\n"
+        elif "lin" in self._line_ending_usb.lower():
+            e = "\n"
+        elif "mac" in self._line_ending_usb.lower():
+            e = "\r"
+        else:
+            e = "\r\n"
         try:
             if self.ui.device_box.currentText().lower() in 'keysight':
-                self.ExpensiveMeter = SourceMeter_USB(self._usb, self._line_ending_usb)
+                self.ExpensiveMeter = SourceMeter_USB(self._usb, e)
                 id = self.ExpensiveMeter.ID
                 self.ui.connectionErrorsBox.setPlainText(
                     "Connected successfully @" + str(self._usb) + "\nIDN:" + self.ExpensiveMeter.ID)
