@@ -19,6 +19,36 @@ def write_path_ip(path, ip):
     with open(cfpath, 'w') as cfg:
         cp.write(cfg)
 
+def get_dev_line():
+    section = "LINE"
+    cp.read(cfpath)
+    lin_ = cp[section]["line"]
+    d = cp[section]["dev"]
+    _line = None
+    _dev = None
+    if lin_.lower() in "windows":
+        _line="\r\n"
+    elif lin_.lower() in "linux":
+        _line = "\n"
+    elif lin_.lower() in "mac":
+        _line="\r"
+    return _line, _dev
+    pass
+
+def write_path_line(path, line):
+    """
+    TODO: fix it
+    :param path:
+    :param line:
+    :return:
+    """
+    section = "LINE"
+    cp[section]["line"] = line
+    cp[section]["dev"] = path
+    with open(cfpath, 'w') as cfg:
+        cp.write(cfg)
+    pass
+
 
 def get_previous_values():
     """Still not used anywhere"""
