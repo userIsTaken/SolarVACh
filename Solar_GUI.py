@@ -92,6 +92,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._params_updated = False
         # usbtmc button:
         self.ui.connectUSBbutton.clicked.connect(self.usbtmc_connect)
+        self.ui.rescanButton.clicked.connect(self.populate_usbtmc)
         self._line_ending_usb = None
         self.populate_usbtmc()
         pass
@@ -132,6 +133,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ui.tabWidget.setCurrentIndex(0)
                 self.ui.startButton.setEnabled(True)
                 self.updateDevices()
+                # update defaults:
+                write_path_line(self._usb, e)
             else:
                 pass
         except Exception as ex:
@@ -239,6 +242,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.connectUSBbutton.setEnabled(True)
         else:
             self.ui.connectUSBbutton.setEnabled(False)
+        #defaults:
+        line, dev = get_dev_line()
+        if self.ui.usbtmcComboBox.count() > 0 :
+            index = self.ui.usbtmcComboBox.findText(dev)
+            if index != -1:
+                self.ui.usbtmcComboBox.setCurrentIndex(index)
+            pass
+        #index = self.ui.lineEndingBox.findText(line)
+        #TODO fix default values related to line endings
+
 
     def select_path(self):
         file = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select a directory to save files to:"))

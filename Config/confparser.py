@@ -42,8 +42,15 @@ def write_path_line(path, line):
     :param line:
     :return:
     """
+    l = "win"
+    if line == "\r\n":
+        l = "win"
+    elif line == "\r":
+        l = "mac"
+    elif line == "\n":
+        l = "lin"
     section = "LINE"
-    cp[section]["line"] = line
+    cp[section]["line"] = l
     cp[section]["dev"] = path
     with open(cfpath, 'w') as cfg:
         cp.write(cfg)
