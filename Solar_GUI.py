@@ -104,6 +104,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 if f.startswith('usbtmc'):
                     self.ui.usbtmcComboBox.addItem(mypath + "/" + f)
             indexes = self.ui.usbtmcComboBox.count()
+            print("Indexes were :", str(indexes))
             if indexes == 0:
                 self.ui.connectUSBbutton.setEnabled(False)
         except Exception as ex:
