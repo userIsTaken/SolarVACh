@@ -250,6 +250,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ui.usbtmcComboBox.setCurrentIndex(index)
             pass
         #index = self.ui.lineEndingBox.findText(line)
+
+        # self.setWindowIcon()
         #TODO fix default values related to line endings
 
 
