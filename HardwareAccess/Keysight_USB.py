@@ -19,7 +19,7 @@ class Device_USB():
         pass
 
     def _write(self, cmd:str):
-        os.write(self._dev_file, bytes(cmd))
+        os.write(self._dev_file, str.encode(cmd))
         #self._dev_file.writelines(cmd)
         pass
 
@@ -28,7 +28,7 @@ class Device_USB():
         while not p.endswith(self._endline):
             p += os.read(self._dev_file, 1)
             pass
-        answ = str(p)
+        answ = str(p, encoding='utf-8', errors='ignore')
         return answ
         pass
 
