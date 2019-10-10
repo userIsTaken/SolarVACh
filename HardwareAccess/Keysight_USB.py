@@ -4,7 +4,7 @@ import os, sys
 class Device_USB():
     def __init__(self, _usb:str, _line:str = "\r\n"):
         self._dev = _usb
-        self._dev_file = open(self._dev, 'r+', buffering=0, newline=_line)
+        self._dev_file = open(self._dev, 'r+', newline=_line)
         pass
 
     def ask(self, cmd:str):
