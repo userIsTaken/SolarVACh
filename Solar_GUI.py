@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from GUI.Solar import Ui_MainWindow
 from PopUp import PopUp
 from HardwareAccess.KeysightWrapper import SourceMeter
@@ -250,9 +250,19 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ui.usbtmcComboBox.setCurrentIndex(index)
             pass
         #index = self.ui.lineEndingBox.findText(line)
-
         # self.setWindowIcon()
         #TODO fix default values related to line endings
+        l = "win"
+        if line == "\r\n":
+            l = "Win"
+        elif line == "\r":
+            l = "Mac"
+        elif line == "\n":
+            l = "Lin"
+        index = self.ui.lineEndingBox.findText(l, QtCore.Qt.MatchContains)
+        print(l, line)
+        if index != -1:
+            self.ui.lineEndingBox.setCurrentIndex(index)
 
 
     def select_path(self):

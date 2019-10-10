@@ -25,13 +25,18 @@ def get_dev_line():
     lin_ = cp[section]["line"]
     d = cp[section]["dev"]
     _line = None
-    _dev = None
-    if lin_.lower() in "windows":
+    _dev = d
+    ll =lin_.lower()
+    idx = "linux".find(ll)
+    print(idx, " idx")
+    if ll == "win":
         _line="\r\n"
-    elif lin_.lower() in "linux":
+    elif ll == "lin":
         _line = "\n"
-    elif lin_.lower() in "mac":
+    elif ll == "mac":
         _line="\r"
+    else:
+        _line="\n"
     return _line, _dev
     pass
 
