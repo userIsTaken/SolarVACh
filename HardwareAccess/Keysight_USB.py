@@ -19,15 +19,21 @@ class Device_USB():
         pass
 
     def _write(self, cmd:str):
-        os.write(self._dev_file, str.encode(cmd))
+        try:
+            os.write(self._dev_file, str.encode(cmd))
+        except Exception as ex:
+            print(str(ex), "_write()")
         #self._dev_file.writelines(cmd)
         pass
 
     def _read(self):
         p = ""
-        while not p.endswith(self._endline):
-            p += os.read(self._dev_file, 1)
-            pass
+        try:
+            while not p.endswith(self._endline):
+                p += str(os.read(self._dev_file, 1), encoding='utf-8', errors='ignore')
+                pass
+        except Exception as ex:
+            print(str(ex), "_read()")
         answ = str(p, encoding='utf-8', errors='ignore')
         return answ
         pass
