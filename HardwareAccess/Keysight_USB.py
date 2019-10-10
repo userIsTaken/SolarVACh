@@ -34,7 +34,7 @@ class Device_USB():
                 pass
         except Exception as ex:
             print(str(ex), "_read()")
-        answ = str(p, encoding='utf-8', errors='ignore')
+        answ = p
         return answ
         pass
 
