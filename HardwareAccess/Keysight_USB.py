@@ -4,7 +4,8 @@ import os, sys
 class Device_USB():
     def __init__(self, _usb:str, _line:str = "\r\n"):
         self._dev = _usb
-        self._dev_file = open(self._dev, 'r+', newline=_line)
+        self._dev_file = os.open(self._dev, os.O_RDWR)
+        self._endline = _line
         pass
 
     def ask(self, cmd:str):
@@ -18,17 +19,24 @@ class Device_USB():
         pass
 
     def _write(self, cmd:str):
-        self._dev_file.write(cmd)
+        os.write(self._dev_file, bytes(cmd))
         #self._dev_file.writelines(cmd)
         pass
 
     def _read(self):
-        answ = self._dev_file.readline()
+        p = ""
+        while not p.endswith(self._endline):
+            p += os.read(self._dev_file, 1)
+            pass
+        answ = str(p)
         return answ
         pass
 
-    def _close_f(self):
-        self._dev_file.close()
+    def _close(self):
+        os.close(self._dev_file)
+
+    def close(self):
+        self._close()
 
 class SourceMeter_USB():
     def __init__(self, _usb:str, _line:str="\r\n"):
