@@ -138,6 +138,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             else:
                 pass
         except Exception as ex:
+            print("ERROR in usb connection")
             print(str(ex))
             pass
 

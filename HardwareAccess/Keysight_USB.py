@@ -36,7 +36,7 @@ class SourceMeter_USB():
 
         :param _usb: /dev/usbtmcX link of source meter, where X is 0, 1, 2, ...
         """
-        self.Device = Device_USB(_usb)
+        self.Device = Device_USB(_usb, _line)
         self.ID = self.Device.ask("*IDN?")
         self.ON = "ON"
         self.OFF = "OFF"
