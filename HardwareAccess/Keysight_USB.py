@@ -42,7 +42,8 @@ class Device_USB():
         os.close(self._dev_file)
 
     def close(self):
-        self._close()
+        pass
+        #self._close()
 
 class SourceMeter_USB():
     def __init__(self, _usb:str, _line:str="\r\n"):
