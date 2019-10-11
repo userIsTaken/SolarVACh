@@ -6,6 +6,7 @@ class Device_USB():
         self._dev = _usb
         self._dev_file = os.open(self._dev, os.O_RDWR)
         self._endline = _line
+        self._opened = True # opened by default
         pass
 
     def ask(self, cmd:str):
@@ -19,6 +20,7 @@ class Device_USB():
         pass
 
     def _write(self, cmd:str):
+        self._open()
         try:
             os.write(self._dev_file, str.encode(cmd))
         except Exception as ex:
@@ -26,7 +28,14 @@ class Device_USB():
         #self._dev_file.writelines(cmd)
         pass
 
+    def _open(self):
+        if not self._opened:
+            self._dev_file = os.open(self._dev, os.O_RDWR)
+            self._opened = True
+        pass
+
     def _read(self):
+        self._open()
         p = ""
         try:
             while not p.endswith(self._endline):
@@ -40,10 +49,10 @@ class Device_USB():
 
     def _close(self):
         os.close(self._dev_file)
+        self._opened = False
 
     def close(self):
-        pass
-        #self._close()
+        self._close()
 
 class SourceMeter_USB():
     def __init__(self, _usb:str, _line:str="\r\n"):
