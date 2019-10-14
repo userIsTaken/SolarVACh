@@ -968,11 +968,192 @@
         <string>Options</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="1" column="0" colspan="2">
-         <widget class="QPlainTextEdit" name="connectionErrorsBox">
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOn</enum>
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_7">
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>250</height>
+           </size>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Device IP :</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QComboBox" name="nplc_box">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>0.001</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>0.01</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>0.1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="nplc_value">
+             <property name="text">
+              <string>NPLC?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="connectUSBbutton">
+             <property name="text">
+              <string>Connect to USB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QComboBox" name="usbtmcComboBox"/>
+           </item>
+           <item row="5" column="2">
+            <widget class="QComboBox" name="lineEndingBox">
+             <item>
+              <property name="text">
+               <string>Win (\r\n)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Lin (\n)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Mac (\r)</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
+            <widget class="QTextEdit" name="ip_address">
+             <property name="maximumSize">
+              <size>
+               <width>256</width>
+               <height>41</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;192.168.0.100&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="2">
+            <widget class="QPushButton" name="connect_button">
+             <property name="text">
+              <string>Connect to IP</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLabel" name="label_22">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>DEVICE CONFIGURATION</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="rescanButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>45</width>
+               <height>45</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>45</width>
+               <height>45</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>Icons/reload.png</normaloff>Icons/reload.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>45</width>
+               <height>45</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="0" column="1">
@@ -1174,180 +1355,14 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QFrame" name="frame_7">
-          <property name="maximumSize">
-           <size>
-            <width>350</width>
-            <height>250</height>
-           </size>
+        <item row="1" column="0">
+         <widget class="serialPortWidget" name="serialPortWidget" native="true"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPlainTextEdit" name="connectionErrorsBox">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_9">
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
-              <string>Device IP :</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QComboBox" name="nplc_box">
-             <property name="currentIndex">
-              <number>0</number>
-             </property>
-             <item>
-              <property name="text">
-               <string>0.001</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>0.01</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>0.1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>5</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>10</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>20</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="nplc_value">
-             <property name="text">
-              <string>NPLC?</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="connectUSBbutton">
-             <property name="text">
-              <string>Connect to USB</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QComboBox" name="usbtmcComboBox"/>
-           </item>
-           <item row="5" column="2">
-            <widget class="QComboBox" name="lineEndingBox">
-             <item>
-              <property name="text">
-               <string>Win (\r\n)</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Lin (\n)</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Mac (\r)</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="2" column="1" colspan="2">
-            <widget class="QTextEdit" name="ip_address">
-             <property name="maximumSize">
-              <size>
-               <width>256</width>
-               <height>41</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;192.168.0.100&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1" colspan="2">
-            <widget class="QPushButton" name="connect_button">
-             <property name="text">
-              <string>Connect to IP</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1" colspan="2">
-            <widget class="QLabel" name="label_22">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>DEVICE CONFIGURATION</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::PlainText</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="rescanButton">
-             <property name="maximumSize">
-              <size>
-               <width>45</width>
-               <height>45</height>
-              </size>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>Icons/reload.png</normaloff>Icons/reload.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>45</width>
-               <height>45</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
@@ -1489,7 +1504,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>28</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1515,6 +1530,12 @@ p, li { white-space: pre-wrap; }
    <class>PlotWidget</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraph</header>
+  </customwidget>
+  <customwidget>
+   <class>serialPortWidget</class>
+   <extends>QWidget</extends>
+   <header>serialPortWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
