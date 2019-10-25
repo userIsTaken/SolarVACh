@@ -507,7 +507,7 @@ class Ui_MainWindow(object):
         self.rescanButton.setMaximumSize(QtCore.QSize(45, 45))
         self.rescanButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("GUI/Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.rescanButton.setIcon(icon)
         self.rescanButton.setIconSize(QtCore.QSize(45, 45))
         self.rescanButton.setObjectName("rescanButton")
@@ -578,7 +578,7 @@ class Ui_MainWindow(object):
         self.darkBox.setObjectName("darkBox")
         self.gridLayout_5.addWidget(self.darkBox, 2, 1, 1, 2)
         self.gridLayout_4.addWidget(self.widget, 0, 1, 1, 1)
-        self.serialPortWidget = SerialPortWidget(self.opt_tab)
+        self.serialPortWidget = serialPortWidget(self.opt_tab)
         self.serialPortWidget.setObjectName("serialPortWidget")
         self.gridLayout_4.addWidget(self.serialPortWidget, 1, 0, 1, 1)
         self.connectionErrorsBox = QtWidgets.QPlainTextEdit(self.opt_tab)
@@ -751,4 +751,4 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
 
 from pyqtgraph import PlotWidget
-from HardwareAccess.serialPortWidget.serialPortWidget import SerialPortWidget
+from GUI.SerialPortWidget.serialPortWidget import serialPortWidget
