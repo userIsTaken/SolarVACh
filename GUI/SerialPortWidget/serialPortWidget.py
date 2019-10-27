@@ -11,4 +11,6 @@ class serialPortWidget(QtWidgets.QWidget):
 
     def __scan_ports(self):
         # TODO : IMPLEMENT THIS!
+        # for ttyUSB:
+        # linux part:
         pass
