@@ -14,6 +14,16 @@
    <string>Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="1">
     <widget class="QFrame" name="frame_2">
      <property name="frameShape">
@@ -148,16 +158,6 @@
        <widget class="QDoubleSpinBox" name="area_box"/>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
    <item row="0" column="0">
@@ -363,6 +363,22 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_16">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>SC name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" colspan="2">
        <widget class="QTextEdit" name="sc_name">
         <property name="maximumSize">
@@ -379,53 +395,6 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QRadioButton" name="oneShotMode">
-        <property name="text">
-         <string>O&amp;ne contact</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QDoubleSpinBox" name="timeDelayBox">
-        <property name="maximum">
-         <double>100.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLabel" name="unitLabel">
-        <property name="text">
-         <string>t [min]</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label_16">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>SC name:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QRadioButton" name="relayMode">
-        <property name="text">
-         <string>Relay &amp;mode</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="fb_scan">
         <property name="maximumSize">
@@ -439,31 +408,76 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="darkBox">
+        <property name="text">
+         <string>Measure dark?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QRadioButton" name="oneShotMode">
+        <property name="text">
+         <string>O&amp;ne contact</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Choose from relay</string>
+        </property>
+       </widget>
+      </item>
       <item row="5" column="0" colspan="2">
        <widget class="QRadioButton" name="timeMode">
         <property name="text">
-         <string>Continuous obser&amp;vation over time</string>
+         <string>Continuous observation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QRadioButton" name="timeMode_2">
+        <property name="text">
+         <string>Con&amp;tinuous relay observation</string>
         </property>
        </widget>
       </item>
       <item row="7" column="0">
+       <widget class="QDoubleSpinBox" name="timeDelayBox">
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="unitLabel">
+        <property name="text">
+         <string>t [min]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
        <widget class="QSpinBox" name="countBox">
         <property name="maximum">
          <number>1000</number>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="8" column="1">
        <widget class="QLabel" name="label_10">
         <property name="text">
          <string>Counts</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="darkBox">
+      <item row="9" column="0">
+       <widget class="QRadioButton" name="relayMode">
         <property name="text">
-         <string>Measure dark?</string>
+         <string>Re&amp;lay mode</string>
         </property>
        </widget>
       </item>

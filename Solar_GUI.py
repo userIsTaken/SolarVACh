@@ -6,6 +6,7 @@ from HardwareAccess.Keysight_USB import SourceMeter_USB
 from ExpLoops.ExpLoop import *
 from ExpLoops.CObservation import *
 from ExpLoops.RelayObservation import *
+from ExpLoops.RelayCO import *
 from pyqtgraph import mkPen
 import pyqtgraph as pg
 from Config.confparser import *
@@ -474,6 +475,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.errors.connect(self.ErrorHasBeenGot)
             self._worker.progress.connect(self.ExperimentInfo)
             pass
+        elif mode == 3:
+            self.delete_graph()
+            print("RELAY TIME MODE")
+            self._worker = RelayCO(self.ExpensiveMeter, **self.parameters)
+            self._worker.moveToThread(self._thread)
+            self._worker.current_results.connect(self.draw_time_graph_relay)
+            self._worker.final.connect(self.loop_stopped)
+            self._worker.trigger.connect(self.calculate_param)
+            self._worker.errors.connect(self.ErrorHasBeenGot)
+            self._worker.progress.connect(self.ExperimentInfo)
+            pass
         else:
             print("WTF IN THIS LINE?")
             print('mode', mode)
@@ -518,6 +530,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             mode = 1
         elif self.ui.relayMode.isChecked():
             mode=2
+        elif self.ui.timeMode_2.isChecked():
+            mode=3
         elif self.ui.oneShotMode.isChecked():
             mode =0
         else:
@@ -578,7 +592,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def calculate_param(self, trigger, fb_scan, counter, name=''):
+    def calculate_param(self, trigger, fb_scan, counter, name='', c=1):
         """
 
         :return:
@@ -619,7 +633,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1:
+                elif self.parameters['mode'] == 1 or 3:
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
@@ -747,6 +761,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.update_graph(self.ui.UocVsTime, self.t_time_bw, self.Uoc_time_bw, "BWUOC", color=self.RED)
                 self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
                 self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
+            elif self.parameters['mode'] == 3:
+                self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.color[c])
+                self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.color[c])
+                self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.color[c])
+                self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.color[c])
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
@@ -858,6 +877,39 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.update_graph(self.ui.power_graph,  self.voltage_arr, self.power_arr, name, color=self.color[c])
             pass
 
+
+    def draw_graph_time_relay(self, status, fb_scan, data_mean, err_rate, totalV, curr_array, name, wipe, c):
+        """
+
+        :param status:
+        :param fb_scan:
+        :param data_mean:
+        :param err_rate:
+        :param totalV:
+        :param curr_array:
+        :return:
+        """
+        if wipe:
+            self.curr_array_analysis = []
+            self.voltage_array_analysis = []
+            self.current_arr = []
+            self.voltage_arr = []
+        else:
+            self.ExperimentInfo('Current '+ str(round(data_mean, 7))+"\n"+'U : '+str(round(totalV, 4)))
+            self.ui.live_error.setText(str(round(err_rate, 5)))
+            array = np.arange(0, self.parameters['array_size'], 1)
+            self.draw_method(self.ui.current_graph,  array, curr_array, clear=True)
+            if status:
+                self.current_arr.append(data_mean)
+                self.curr_array_analysis.append(data_mean)
+                self.voltage_arr.append(totalV)
+                self.voltage_array_analysis.append(totalV)
+                self.append_jV_values(data_mean, totalV, self.parameters['area'])
+                self.density_arr = [(x / self.parameters['area'])*100 for x in self.current_arr]
+                self.power_arr = [a * b for a,b in zip(self.density_arr, self.voltage_arr)]
+                self.update_graph(self.ui.jUatThisMoment,  self.voltage_arr, self.current_arr, name, color=self.color[c])
+                self.update_graph(self.ui.PUatThisMoment,  self.voltage_arr, self.power_arr, name, color=self.color[c])
+            pass
 
     def append_jV_values(self, I, V, area):
         """
