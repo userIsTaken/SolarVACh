@@ -480,7 +480,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             print("RELAY TIME MODE")
             self._worker = RelayCO(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
-            self._worker.current_results.connect(self.draw_time_graph_relay)
+            self._worker.current_results.connect(self.draw_graph_time_relay)
             self._worker.final.connect(self.loop_stopped)
             self._worker.trigger.connect(self.calculate_param)
             self._worker.errors.connect(self.ErrorHasBeenGot)
