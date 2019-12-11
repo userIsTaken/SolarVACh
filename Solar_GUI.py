@@ -518,6 +518,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         elif mode == 2:
             self.ui.relayMode.setChecked(True)
             pass
+        elif mode == 3:
+            self.ui.timeMode_2.setChecked(True)
         pass
 
     def getMode(self):

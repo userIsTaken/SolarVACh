@@ -57,6 +57,9 @@ class PopUp(QtWidgets.QDialog):
         elif mode == 2:
             self.ui.relayMode.setChecked(True)
             pass
+        elif mode == 3:
+            self.ui.timeMode_2.setChecked(True)
+            pass
         pass
 
     def getMode(self):
@@ -71,6 +74,8 @@ class PopUp(QtWidgets.QDialog):
             mode = 2
         elif self.ui.oneShotMode.isChecked():
             mode = 0
+        if self.ui.timeMode_2.isChecked():
+            mode = 3
         else:
             mode = 0
         return mode
