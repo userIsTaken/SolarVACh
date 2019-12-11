@@ -594,9 +594,23 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
+    def _console_(self, *args):
+        """
+        Prints output to the console (tty)
+        :param args:
+        :return:
+        """
+        n = ""
+        a = args
+        for i in a:
+            n = n + str(i)
+            pass
+        print(n+"\n")
+        pass
+
     def calculate_param(self, trigger, fb_scan, counter, name='', c=1):
         """
-
+        o kur grafikai paišomi?
         :return:
         """
         print(self.parameters['mode'], ' : MODE')
@@ -636,6 +650,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': counter
                     }
                 elif self.parameters['mode'] == 1 or 3:
+                    self._console_("Mode", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
