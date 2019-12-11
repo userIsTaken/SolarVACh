@@ -15,7 +15,7 @@ class RelayCO(QObject):
     errors = pyqtSignal(int, str)
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
-    trigger = pyqtSignal(bool, bool, float)  # trigger and fb_scan value ( 0 - False, 2 - True)
+    trigger = pyqtSignal(bool, bool, float, str, int)  # trigger and fb_scan value ( 0 - False, 2 - True)
     relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float,
                                  np.ndarray, str, bool, int)  # err ok, fb_scan, mean, rate, volts, curr_array
