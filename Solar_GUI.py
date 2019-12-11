@@ -706,7 +706,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1:
+                elif self.parameters['mode'] == 1 or 3:
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
