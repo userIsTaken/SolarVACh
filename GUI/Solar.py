@@ -474,7 +474,7 @@ class Ui_MainWindow(object):
         self.rescanButton.setMaximumSize(QtCore.QSize(45, 45))
         self.rescanButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("GUI/Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.rescanButton.setIcon(icon)
         self.rescanButton.setIconSize(QtCore.QSize(45, 45))
         self.rescanButton.setObjectName("rescanButton")
