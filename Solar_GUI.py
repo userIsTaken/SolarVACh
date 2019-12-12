@@ -98,6 +98,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.populate_usbtmc()
         pass
 
+    def debug(self, b):
+        if b:
+            self.ui.startButton.setEnabled(b)
+            pass
+        pass
+
     def populate_usbtmc(self):
         try:
             self.ui.usbtmcComboBox.clear()

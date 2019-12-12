@@ -14,6 +14,12 @@ if __name__ == "__main__":
             window.showFullScreen()
         else:
             pass
+        if sys.argv[1] == "-d" or sys.argv[1] == "--debug":
+            print("DEBUG MODE")
+            window.show()
+            window.debug(True)
+        else:
+            pass
     else:
         window.show()  # just show a window()
     sys.exit(app.exec_())
