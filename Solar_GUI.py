@@ -641,7 +641,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: '+str(j_sc))
                 self.ExperimentInfo("P max: " + str(p_max) + "\nI_max: " + str(I_max) + "\nU_max: " + str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0 or 2:
+                if self.parameters['mode'] == 0 or self.parameters['mode'] == 2:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -654,7 +654,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1 or 3:
+                elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
                     self._console_("Mode from elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
@@ -713,7 +713,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.ExperimentInfo('j sc: ' + str(j_sc))
                 self.ExperimentInfo("P max: "+str(p_max)+"\nI_max: "+str(I_max)+"\nU_max: "+str(U_max))
                 self.ExperimentInfo("===END OF STATS===")
-                if self.parameters['mode'] == 0 or 2:
+                if self.parameters['mode'] == 0 or self.parameters['mode'] == 2:
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -726,7 +726,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1 or 3:
+                elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
+                    self._console_("Mode from elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
