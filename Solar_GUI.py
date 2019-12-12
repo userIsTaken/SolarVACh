@@ -727,7 +727,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': counter
                     }
                 elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
-                    self._console_("Mode from elif", self.parameters['mode'])
+                    self._console_("Mode from FW elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
