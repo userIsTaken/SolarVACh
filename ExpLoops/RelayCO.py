@@ -245,6 +245,7 @@ class RelayCO(QObject):
                 rel = self.params['relay_combo'] + 1
                 elec = self.params['el_combo'] + 1
                 color = 1
+                elec_nr = 1
             #===========================================================
             # END of counter
             self.final.emit(True)
