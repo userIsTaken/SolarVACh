@@ -774,6 +774,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
+            self._console_("MODE:",self.parameters['mode'])
             if self.parameters['mode'] == 1:
                 self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.GREEN)
                 self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
@@ -784,6 +785,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.GREEN)
                 self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
             elif self.parameters['mode'] == 3:
+                self._console_("3'rd case")
                 self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.color[c])
                 self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.color[c])
                 self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.color[c])
@@ -999,6 +1001,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 graph.plot(x, i, pen=(randint(0,255), randint(0,255), randint(0,255)), symbol='o')
 
     def update_graph(self, graph:pg.PlotWidget, x, y, y_name, color=(255, 255, 102)):
+        """
+        Updates a graph
+        :param graph: plotWidget
+        :param x: x dataset
+        :param y: y dataset
+        :param y_name: name (MUST)
+        :param color: default: 255, 255, 102
+        :return:
+        """
         sizex = len(x)
         sizey=len(y)
         # print("Upd. graph triggered")
