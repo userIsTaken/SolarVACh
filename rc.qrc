@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="reaload">
+    <file>GUI/Icons/reload.png</file>
+  </qresource>
+</RCC>
