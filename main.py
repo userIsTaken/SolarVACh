@@ -17,7 +17,7 @@ if __name__ == "__main__":
         if sys.argv[1] == "-d" or sys.argv[1] == "--debug":
             print("DEBUG MODE")
             window.show()
-            window.debug(True)
+            window.debug()
         else:
             pass
     else:

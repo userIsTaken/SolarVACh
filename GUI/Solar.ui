@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>SolarTestModule</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/reaload/GUI/Icons/comport.png</normalon>
+   </iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -1550,7 +1555,14 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionDemo_mode"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuit">
@@ -1559,6 +1571,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionDemo_mode">
+   <property name="text">
+    <string>Demo mode</string>
    </property>
   </action>
  </widget>

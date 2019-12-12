@@ -41,6 +41,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.fullscreenButton.clicked.connect(self.fullscreen)
         self.ui.stopButton.clicked.connect(self.stopExperiment)
         self.ui.actionQuit.triggered.connect(self.quit)
+        self.ui.actionDemo_mode.triggered.connect(self.debug)
 
         # save button
         self.ui.save_as_button.clicked.connect(self.save_results)
@@ -98,10 +99,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.populate_usbtmc()
         pass
 
-    def debug(self, b):
-        if b:
-            self.ui.startButton.setEnabled(b)
-            pass
+    def debug(self):
+        self.ui.startButton.setEnabled(b)
         pass
 
     def populate_usbtmc(self):
