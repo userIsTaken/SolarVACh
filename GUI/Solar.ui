@@ -1038,8 +1038,8 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>Icons/reload.png</normaloff>Icons/reload.png</iconset>
+                <iconset resource="../rc.qrc">
+                 <normaloff>:/reaload/GUI/Icons/reload.png</normaloff>:/reaload/GUI/Icons/reload.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -1541,7 +1541,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>33</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1575,6 +1575,8 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../rc.qrc"/>
+ </resources>
  <connections/>
 </ui>

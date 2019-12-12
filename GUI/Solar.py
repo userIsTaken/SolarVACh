@@ -474,7 +474,7 @@ class Ui_MainWindow(object):
         self.rescanButton.setMaximumSize(QtCore.QSize(45, 45))
         self.rescanButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("GUI/Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/reaload/GUI/Icons/reload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.rescanButton.setIcon(icon)
         self.rescanButton.setIconSize(QtCore.QSize(45, 45))
         self.rescanButton.setObjectName("rescanButton")
@@ -658,7 +658,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 33))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 31))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -770,3 +770,4 @@ class Ui_MainWindow(object):
 
 from pyqtgraph import PlotWidget
 from GUI.SerialPortWidget.serialPortWidget import serialPortWidget
+import rc
