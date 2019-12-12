@@ -121,7 +121,7 @@ class RelayCO(QObject):
                             # print('totalV', totalV)
                             # print('step', step)
                         if not self._require_stop:
-                            self.trigger.emit(True, False, -1, name, color)
+                            self.trigger.emit(True, False, observation_counter, name, color)
                         self.stop_measurement()
                     #     TODO this part is incomplete!
                     #     TODO: This part needs to be checked again, seems to be working
@@ -169,7 +169,7 @@ class RelayCO(QObject):
                             # print('totalV', totalV)
                             # print('step', step)
                         if not self._require_stop:
-                            self.trigger.emit(True, False, -1, name, color)
+                            self.trigger.emit(True, False, observation_counter, name, color)
                         #     second loop:
                         totalV = endV
                         while (totalV <= (startV - step) and not self._require_stop):  # +/- step?
@@ -215,7 +215,7 @@ class RelayCO(QObject):
                             # print('totalV', totalV)
                             # print('step', step)
                         if not self._require_stop:
-                            self.trigger.emit(True, True, -1, name, color)
+                            self.trigger.emit(True, True, observation_counter, name, color)
                         self.stop_measurement()
                     else:
                         # tcbk.print_exc()
