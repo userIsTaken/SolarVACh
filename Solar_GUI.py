@@ -100,7 +100,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def debug(self):
-        self.ui.startButton.setEnabled(b)
+        self.ui.startButton.setEnabled(True)
         pass
 
     def populate_usbtmc(self):
