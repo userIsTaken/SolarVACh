@@ -47,14 +47,14 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="0" column="12">
+       <item row="0" column="13">
         <widget class="QPushButton" name="directory_button">
          <property name="text">
           <string>Set a directory ...</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="11">
+       <item row="2" column="12">
         <widget class="QComboBox" name="channel_box">
          <property name="enabled">
           <bool>false</bool>
@@ -71,14 +71,14 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="6" rowspan="3" colspan="2">
+       <item row="0" column="7" rowspan="3" colspan="2">
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
-       <item row="0" column="9">
+       <item row="0" column="10">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Device</string>
@@ -88,7 +88,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="15">
+       <item row="0" column="16">
         <widget class="QPushButton" name="quitButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -113,7 +113,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="15">
+       <item row="2" column="16">
         <widget class="QPushButton" name="fullscreenButton">
          <property name="minimumSize">
           <size>
@@ -132,7 +132,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="9">
+       <item row="2" column="10">
         <widget class="QComboBox" name="device_box">
          <property name="currentIndex">
           <number>1</number>
@@ -181,7 +181,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="11">
+       <item row="0" column="12">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Channel</string>
@@ -191,7 +191,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="13">
+       <item row="0" column="14">
         <widget class="QPlainTextEdit" name="directory_path">
          <property name="enabled">
           <bool>true</bool>
@@ -219,7 +219,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="12">
+       <item row="2" column="13">
         <widget class="QLabel" name="label_17">
          <property name="text">
           <string>SC name:</string>
@@ -229,13 +229,31 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="13">
+       <item row="2" column="14">
         <widget class="QPlainTextEdit" name="name_of_cell">
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6" rowspan="3">
+        <widget class="QLabel" name="runingLabel">
+         <property name="font">
+          <font>
+           <pointsize>28</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>STOPPED</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -729,24 +747,6 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="runingLabel">
-             <property name="font">
-              <font>
-               <pointsize>28</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>STOPPED</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::RichText</enum>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
           </layout>
           <zorder>current_graph</zorder>
           <zorder>horizontalSpacer</zorder>
@@ -755,7 +755,6 @@
           <zorder>frame_6</zorder>
           <zorder>frame_4</zorder>
           <zorder>real_data_output</zorder>
-          <zorder>runingLabel</zorder>
          </widget>
         </item>
         <item row="1" column="1">
@@ -1546,7 +1545,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>31</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1557,7 +1556,7 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Edit</string>
+     <string>E&amp;dit</string>
     </property>
     <addaction name="actionDemo_mode"/>
    </widget>
@@ -1575,7 +1574,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionDemo_mode">
    <property name="text">
-    <string>Demo mode</string>
+    <string>&amp;Demo mode</string>
    </property>
   </action>
  </widget>
