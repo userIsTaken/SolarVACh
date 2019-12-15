@@ -10,7 +10,6 @@ import traceback
 
 
 class RelayCO(QObject):
-    # TODO: delete all unnecessary signals:
     # results = pyqtSignal(int, np.ndarray)
     errors = pyqtSignal(int, str)
     final = pyqtSignal(bool)

@@ -16,7 +16,7 @@ from HardwareAccess.KeithleyWrapper import SourceMeter_KTHL
 from HardwareAccess.MotorWrapper import Motor
 import traceback
 
-
+from vars import *
 
 
 class ApplicationWindow(QtWidgets.QMainWindow):
@@ -599,19 +599,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         return parameters
         pass
 
-    def _console_(self, *args):
-        """
-        Prints output to the console (tty)
-        :param args:
-        :return:
-        """
-        n = ""
-        a = args
-        for i in a:
-            n = n + str(i)
-            pass
-        print(n+"\n")
-        pass
 
     def calculate_param(self, trigger, fb_scan, counter, name='', c=1):
         """
@@ -655,7 +642,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': counter
                     }
                 elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
-                    self._console_("Mode from elif", self.parameters['mode'])
+                    console("Mode from elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
@@ -727,7 +714,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         't_min': counter
                     }
                 elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
-                    self._console_("Mode from FW elif", self.parameters['mode'])
+                    console("Mode from FW elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
@@ -775,7 +762,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 print("ERR:CODE:SHIT_HAPPENED AGAIN")
                 print(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
-            self._console_("MODE:",self.parameters['mode'])
+            console("MODE:",self.parameters['mode'])
             if self.parameters['mode'] == 1:
                 self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.GREEN)
                 self.update_graph(self.ui.PCEVsTime, self.t_time_bw, self.PCE_time_bw, "BWPCE", color=self.RED)
