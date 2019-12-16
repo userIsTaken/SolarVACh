@@ -1,4 +1,7 @@
 def console(self, *args):
+    """
+    Prints an output into console(/tty)
+    """
     a = args
     cc = ""
     for i in a:
