@@ -780,4 +780,4 @@ class Ui_MainWindow(object):
 
 from GUI.SerialPortWidget.serialPortWidget import serialPortWidget
 from pyqtgraph import PlotWidget
-import rc
+import rc_rc
