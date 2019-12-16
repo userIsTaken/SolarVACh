@@ -60,6 +60,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.jsc_time = []
         self.Uoc_time = []
         self.PCE_time = []
+        # for relay-based time observations:
+        self._time_c = [[],[],[],[],[],[]]
+        # no more than 6 relays:
+        self._pce_c = [[],[],[],[],[],[]]
+        self._ff_c = [[],[],[],[],[],[]]
+        self._jsc_c= [[],[],[],[],[],[]]
+        self._uoc_c= [[],[],[],[],[],[]]
     #     Shortcuts:
         self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
         # events of shortcuts:
@@ -435,6 +442,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.Uoc_time_bw = []
         self.PCE_time_bw = []
         # self._thread = None
+        # for relay-based time observations:
+        self._time_c = [[], [], [], [], [], []]
+        # no more than 6 relays:
+        self._pce_c = [[], [], [], [], [], []]
+        self._ff_c = [[], [], [], [], [], []]
+        self._jsc_c = [[], [], [], [], [], []]
+        self._uoc_c = [[], [], [], [], [], []]
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         mode = self.parameters['mode'] # we will start a particular thread
@@ -605,7 +619,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         o kur grafikai paišomi?
         :return:
         """
-        print(self.parameters['mode'], ' : MODE')
+        console(self.parameters['mode'], ' : MODE')
         params_dict = {}
         if(trigger):
             t_min = 0
@@ -641,7 +655,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
+                elif self.parameters['mode'] == 1: #self.parameters['mode'] == 3:
                     console("Mode from elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
@@ -661,6 +675,28 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_bw.append(j_sc)
                     self.Uoc_time_bw.append(round(V_oc,5))
                     self.ff_time_bw.append(ff)
+                elif self.parameters['mode'] == 3: #self.parameters['mode'] == 3:
+                    console("Mode from elif", self.parameters['mode'])
+                    t_min = counter*self.ui.timeDelayBox.value()
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': t_min
+                    }
+                    # append measurement data:
+                    # c indicates relay's number and array's index also:
+                    self._time_c[c].append(t_min)
+                    self._pce_c[c].append(pce)
+                    self._ff_c[c].append(ff)
+                    self._jsc_c[c].append(j_sc)
+                    self._uoc_c[c].append(V_oc)
                 self.upload_values(params_dict, name)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
@@ -713,7 +749,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         'fb_scan': fb_scan,
                         't_min': counter
                     }
-                elif self.parameters['mode'] == 1 or self.parameters['mode'] == 3:
+                elif self.parameters['mode'] == 1:# or self.parameters['mode'] == 3:
                     console("Mode from FW elif", self.parameters['mode'])
                     t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
@@ -733,6 +769,28 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.jsc_time_fw.append(j_sc)
                     self.Uoc_time_fw.append(round(V_oc,5))
                     self.ff_time_fw.append(ff)
+                elif self.parameters['mode'] == 3: #self.parameters['mode'] == 3:
+                    console("Mode from elif, FW fork: ", self.parameters['mode'])
+                    t_min = counter*self.ui.timeDelayBox.value()
+                    params_dict = {
+                        'v_oc': round(V_oc, 5),
+                        'j_sc': round(j_sc, 5),
+                        'I_sc': round(I_sc, 5),
+                        'Imax': round(I_max, 7),
+                        'ff': round(ff, 4),
+                        'pce': round(pce, 4),
+                        'pmax': round(p_max / self.parameters['area'] * 1000 * 100, 4),  # P max in mW/cm^2
+                        'vmax': round(U_max, 4),
+                        'fb_scan': fb_scan,
+                        't_min': t_min
+                    }
+                    # append measurement data:
+                    # c indicates relay's number and array's index also:
+                    self._time_c[c].append(t_min)
+                    self._pce_c[c].append(pce)
+                    self._ff_c[c].append(ff)
+                    self._jsc_c[c].append(j_sc)
+                    self._uoc_c[c].append(V_oc)
                 self.upload_values(params_dict, name)
                 #     LCDs:
                 self.ui.pceLCD.setValue(pce)
@@ -774,10 +832,24 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.update_graph(self.ui.FFVsTime, self.t_time_bw, self.ff_time_bw, "BWFF", color=self.RED)
             elif self.parameters['mode'] == 3:
                 console("3'rd case")
-                self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.color[c])
-                self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.color[c])
-                self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.color[c])
-                self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.color[c])
+                #================================================
+                # self.update_graph(self.ui.PCEVsTime, self.t_time_fw, self.PCE_time_fw, "FWPCE", color=self.color[c])
+                # self.update_graph(self.ui.jscVsTime, self.t_time_fw, self.jsc_time_fw, "FWJSC", color=self.color[c])
+                # self.update_graph(self.ui.UocVsTime, self.t_time_fw, self.Uoc_time_fw, "FWUOC", color=self.color[c])
+                # self.update_graph(self.ui.FFVsTime, self.t_time_fw, self.ff_time_fw, "FWFF", color=self.color[c])
+                #================================================
+                for i in range(0,6):
+                    t_arr = self._time_c[i]
+                    pce_arr = self._pce_c[i]
+                    jsc_arr = self._jsc_c[i]
+                    uoc_arr = self._uoc_c[i]
+                    ff_arr = self._ff_c[i]
+                    if len(t_arr) > 0 and len(pce_arr) > 0 and len(jsc_arr) > 0 and len(uoc_arr) > 0 and len(ff_arr) > 0:
+                        self.update_graph(self.ui.PCEVsTime, t_arr, pce_arr, "FWPCE"+str(i), color=self.color[i])
+                        self.update_graph(self.ui.jscVsTime, t_arr, jsc_arr, "FWJSC"+str(i), color=self.color[i])
+                        self.update_graph(self.ui.UocVsTime, t_arr, uoc_arr, "FWUOC"+str(i), color=self.color[i])
+                        self.update_graph(self.ui.FFVsTime, t_arr, ff_arr, "FWFF"+str(i), color=self.color[i])
+                        pass
         else:
             print("ERR:CODE:über shit")
             print(trigger, " trig value")
