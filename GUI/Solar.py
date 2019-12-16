@@ -660,7 +660,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1121, 31))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -778,6 +778,6 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(_translate("MainWindow", "&Quit(Ctrl+Q)"))
         self.actionDemo_mode.setText(_translate("MainWindow", "&Demo mode"))
 
-from pyqtgraph import PlotWidget
 from GUI.SerialPortWidget.serialPortWidget import serialPortWidget
-import rc
+from pyqtgraph import PlotWidget
+import rc_rc

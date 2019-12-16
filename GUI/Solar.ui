@@ -1545,7 +1545,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1121</width>
-     <height>28</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1587,7 +1587,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>serialPortWidget</class>
    <extends>QWidget</extends>
-   <header>serialPortWidget</header>
+   <header>GUI.SerialPortWidget.serialPortWidget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
