@@ -692,11 +692,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     }
                     # append measurement data:
                     # c indicates relay's number and array's index also:
-                    self._time_c[c].append(t_min)
-                    self._pce_c[c].append(pce)
-                    self._ff_c[c].append(ff)
-                    self._jsc_c[c].append(j_sc)
-                    self._uoc_c[c].append(V_oc)
+                    self._time_c[c-1].append(t_min)
+                    self._pce_c[c-1].append(pce)
+                    self._ff_c[c-1].append(ff)
+                    self._jsc_c[c-1].append(j_sc)
+                    self._uoc_c[c-1].append(V_oc)
                 self.upload_values(params_dict, name)
                 self.ui.pceLCD.setValue(pce)
                 self.ui.jscLCD.setValue(j_sc)
