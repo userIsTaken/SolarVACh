@@ -420,6 +420,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.pop_dialog(params)
         pass
 
+    def _clear_t_graphs(self):
+        d = self.ui.jscVsTime.listDataItems()
+        for i in d:
+            self.ui.jscVsTime.removeItem(i)
+        d = self.ui.FFVsTime.listDataItems()
+        for i in d:
+            self.ui.FFVsTime.removeItem(i)
+        d = self.ui.UocVsTime.listDataItems()
+        for i in d:
+            self.ui.UocVsTime.removeItem(i)
+        d = self.ui.PCEVsTime.listDataItems()
+        for i in d:
+            self.ui.PCEVsTime.removeItem(i)
+
+
     def startExp(self):
         self.ui.startButton.setEnabled(False)
         self.ui.runingLabel.setText('RUNNING')
@@ -449,6 +464,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._ff_c = [[], [], [], [], [], []]
         self._jsc_c = [[], [], [], [], [], []]
         self._uoc_c = [[], [], [], [], [], []]
+        #clear graphs:
+        self._clear_t_graphs()
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         mode = self.parameters['mode'] # we will start a particular thread
