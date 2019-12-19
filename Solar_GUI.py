@@ -651,7 +651,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         console(self.parameters['mode'], ' : MODE')
         self._t2 = datetime.datetime.now()
         self._t_diff = self._t2 - self._t1
-        t_min = self._t_diff.seconds
+        t_min = round((self._t_diff.seconds/60.0), 2)
         params_dict = {}
         if(trigger):
             # t_min = 0
