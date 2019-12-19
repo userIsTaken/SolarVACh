@@ -654,7 +654,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         t_min = self._t_diff.seconds
         params_dict = {}
         if(trigger):
-            t_min = 0
+            # t_min = 0
             self._params_updated = True
             if(fb_scan):
                 # BW section
