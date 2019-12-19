@@ -39,6 +39,7 @@ class PopUp(QtWidgets.QDialog):
         self.setMode(params['mode'])
         self.ui.timeDelayBox.setValue(params['delay_min'])
         self.ui.countBox.setValue(params['counts'])
+        self.ui.chooseRel.setChecked(params['cRel'])
         pass
 
     def setMode(self, mode):
@@ -99,6 +100,7 @@ class PopUp(QtWidgets.QDialog):
         mode = self.getMode()
         delay_min = self.ui.timeDelayBox.value()
         counts = self.ui.countBox.value()
+        use_relay = self.ui.chooseRel.isChecked()
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
@@ -115,6 +117,8 @@ class PopUp(QtWidgets.QDialog):
                       'sc_name':sc_name,
                       'mode':mode,
                       'delay_min':delay_min,
-                      'counts':counts}
+                      'counts':counts,
+                      'cRel':use_relay
+                      }
         return parameters
         pass

@@ -104,10 +104,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.rescanButton.clicked.connect(self.populate_usbtmc)
         self._line_ending_usb = None
         self.populate_usbtmc()
+        self._demo_ = False
         pass
 
     def debug(self):
-        self.ui.startButton.setEnabled(True)
+        if not self._demo_:
+            self.ui.startButton.setEnabled(True)
+            self._demo_ = True
+        elif self._demo_:
+            self._demo_ = False
         pass
 
     def populate_usbtmc(self):
@@ -608,6 +613,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         delay_min = self.ui.timeDelayBox.value()
         counts = self.ui.countBox.value()
         nplc = self.ui.nplc_box.currentText()
+        use_relay = self.ui.chooseRel.isChecked()
         print('NPLC: ', nplc)
         parameters = {'startV': startV,
                       'endV': endV,
@@ -626,7 +632,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                       'mode':mode,
                       'delay_min':delay_min,
                       'counts':counts,
-                      'nplc': nplc}
+                      'nplc': nplc,
+                      'cRel':use_relay
+                      }
         return parameters
         pass
 
@@ -1135,5 +1143,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.setMode(parameters['mode'])
             self.ui.timeDelayBox.setValue(parameters['delay_min'])
             self.ui.countBox.setValue(parameters['counts'])
+            self.ui.chooseRel.setChecked(parameters['cRel'])
             # print("done")
-            self.startExp()
+            if not self._demo_:
+                self.startExp()

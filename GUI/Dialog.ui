@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>528</width>
-    <height>595</height>
+    <width>582</width>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -426,7 +426,7 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="chooseRel">
         <property name="text">
          <string>Choose from relay</string>
         </property>
@@ -435,7 +435,7 @@
       <item row="5" column="0" colspan="2">
        <widget class="QRadioButton" name="timeMode">
         <property name="text">
-         <string>Continuous observation</string>
+         <string>&amp;Continuous observation</string>
         </property>
        </widget>
       </item>

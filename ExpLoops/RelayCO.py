@@ -15,7 +15,7 @@ class RelayCO(QObject):
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
     trigger = pyqtSignal(bool, bool, float, str, int)  # trigger and fb_scan value ( 0 - False, 2 - True)
-    relay = pyqtSignal(int)
+    #relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float,
                                  np.ndarray, str, bool, int)  # err ok, fb_scan, mean, rate, volts, curr_array
 
@@ -34,6 +34,7 @@ class RelayCO(QObject):
         self.current_array_counter = []  # empty list
         self.time_delay = self.params['delay_min']*60 # delay in seconds
         self.counts = self.params['counts']
+        self.relay = None
         pass
 
     @pyqtSlot()

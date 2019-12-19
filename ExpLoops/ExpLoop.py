@@ -8,6 +8,9 @@ import scipy as sp
 import traceback
 from HardwareAccess.MotorWrapper import *
 from Config.confparser import getGPIOip
+from HardwareAccess.gpio_relays import *
+
+from vars import *
 
 
 class LoopWorker(QObject):
@@ -17,7 +20,7 @@ class LoopWorker(QObject):
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
     trigger = pyqtSignal(bool, bool, float, str) # trigger and fb_scan value ( 0 - False, 2 - True), counter for time observer, name(dark light)
-    relay = pyqtSignal(int)
+    #relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float, np.ndarray, str) # err ok, fb_scan, mean, rate, volts, curr_array
 
     def __init__(self, meter, *args, **kwargs):
@@ -34,7 +37,10 @@ class LoopWorker(QObject):
         self.current_scale=None
         self.current_array_counter=[] # empty list
         self.name = None
+        self.relay = None
         pass
+
+
 
     @pyqtSlot()
     def run(self):
@@ -55,6 +61,11 @@ class LoopWorker(QObject):
             dark = self.params['dark_scan'] # 0 or 2 (unchecked or checked)
             self._require_stop = False
             name = ''
+            if self.params['cRel']:
+                console("VAL of cRel", self.params['cRel'])
+                rel = self.params['relay_combo']
+                self.relay = RelayToggle(str(rel))
+                self.relay.toggle(self.relay.ON)
             while dark >= 0:
                 if dark == 2:
                     motor.move_motor_cw()
@@ -229,6 +240,9 @@ class LoopWorker(QObject):
                 dark = dark - 2
             if motor is not None and motor.idx == 0:
                 motor.low_pins()
+            if self.params['cRel']:
+                console("REL OFF")
+                self.relay.toggle(self.relay.OFF)
         except Exception as ex:
             traceback.print_exc()
             print("ERR.CODE.001")

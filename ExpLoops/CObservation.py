@@ -7,6 +7,10 @@ import numpy as np
 import scipy as sp
 import traceback
 
+from HardwareAccess.gpio_relays import *
+
+from vars import *
+
 
 class ContinuousObserver(QObject):
     # TODO: delete all unnecessary signals:
@@ -15,7 +19,7 @@ class ContinuousObserver(QObject):
     final = pyqtSignal(bool)
     progress = pyqtSignal(str)
     trigger = pyqtSignal(bool, bool, float)  # trigger and fb_scan value ( 0 - False, 2 - True)
-    relay = pyqtSignal(int)
+    #relay = pyqtSignal(int)
     current_results = pyqtSignal(bool, bool, float, float, float,
                                  np.ndarray)  # err ok, fb_scan, mean, rate, volts, curr_array
 
@@ -34,6 +38,7 @@ class ContinuousObserver(QObject):
         self.current_array_counter = []  # empty list
         self.time_delay = self.params['delay_min']*60 # delay in seconds
         self.counts = self.params['counts']
+        self.relay = None
         pass
 
     @pyqtSlot()
@@ -52,6 +57,11 @@ class ContinuousObserver(QObject):
             self.prepare_source_meter(array_size)
             fb_scan = self.params['fb_scan']
             self._require_stop = False
+            if self.params['cRel']:
+                console("VAL of cRel", self.params['cRel'])
+                rel = self.params['relay_combo']
+                self.relay = RelayToggle(str(rel))
+                self.relay.toggle(self.relay.ON)
             # print("(y)")
             # print(fb_scan)
             # self.curr_array.append(totalV) # what the hell is this?
@@ -213,6 +223,9 @@ class ContinuousObserver(QObject):
                     if not self._require_stop:
                         self.trigger.emit(True, True, observation_counter)
                     self.stop_measurement()
+                    if self.params['cRel']:
+                        console("REL OFF")
+                        self.relay.toggle(self.relay.OFF)
                 else:
                     print("ERR.CODE.SHIT")
                     print(str(fb_scan), " FB SCAN VALUE")
