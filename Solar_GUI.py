@@ -105,6 +105,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._line_ending_usb = None
         self.populate_usbtmc()
         self._demo_ = False
+        self._t1 = None
+        self._t2 = None
+        self._t_diff = None
         pass
 
     def debug(self):
@@ -471,6 +474,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._uoc_c = [[], [], [], [], [], []]
         #clear graphs:
         self._clear_t_graphs()
+        self._t1 = datetime.datetime.now()
         # It will allow to start new thread with empty graphs:
         self.parameters = self.GetAllParameters() # we will obtain these values from already updated fields
         mode = self.parameters['mode'] # we will start a particular thread
@@ -645,6 +649,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         :return:
         """
         console(self.parameters['mode'], ' : MODE')
+        self._t2 = datetime.datetime.now()
+        self._t_diff = self._t2 - self._t1
+        t_min = self._t_diff.seconds
         params_dict = {}
         if(trigger):
             t_min = 0
@@ -682,7 +689,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     }
                 elif self.parameters['mode'] == 1: #self.parameters['mode'] == 3:
                     console("Mode from elif", self.parameters['mode'])
-                    t_min = counter*self.ui.timeDelayBox.value()
+                    #t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -702,7 +709,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.ff_time_bw.append(ff)
                 elif self.parameters['mode'] == 3: #self.parameters['mode'] == 3:
                     console("Mode from elif", self.parameters['mode'])
-                    t_min = counter*self.ui.timeDelayBox.value()
+                    #t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -776,7 +783,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     }
                 elif self.parameters['mode'] == 1:# or self.parameters['mode'] == 3:
                     console("Mode from FW elif", self.parameters['mode'])
-                    t_min = counter*self.ui.timeDelayBox.value()
+                    #t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
@@ -796,7 +803,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.ff_time_fw.append(ff)
                 elif self.parameters['mode'] == 3: #self.parameters['mode'] == 3:
                     console("Mode from elif, FW fork: ", self.parameters['mode'])
-                    t_min = counter*self.ui.timeDelayBox.value()
+                    #t_min = counter*self.ui.timeDelayBox.value()
                     params_dict = {
                         'v_oc': round(V_oc, 5),
                         'j_sc': round(j_sc, 5),
