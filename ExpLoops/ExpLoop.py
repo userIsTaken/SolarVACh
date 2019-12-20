@@ -63,7 +63,7 @@ class LoopWorker(QObject):
             name = ''
             if self.params['cRel']:
                 console("VAL of cRel", self.params['cRel'])
-                rel = self.params['relay_combo']
+                rel = self.params['relay_combo']+1
                 self.relay = RelayToggle(str(rel))
                 self.relay.toggle(self.relay.ON)
             while dark >= 0:
