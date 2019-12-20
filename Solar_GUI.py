@@ -230,7 +230,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         now = datetime.datetime.now()
         st = now.strftime('%Y_%m_%d_%Hval%Mmin')
         self.ui.params_file_name.setText(st)
-        startV, endV, points, array_size, idx, nplc = get_previous_values()
+        startV, endV, points, array_size, idx, nplc, area = get_previous_values()
         if startV is not None and startV:
             self.ui.startV_box.setValue(float(startV))
             pass
@@ -247,6 +247,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.device_box.setCurrentIndex(int(idx))
         if nplc is not None and nplc:
             self.ui.nplc_box.setCurrentIndex(int(nplc))
+        if area is not None and area:
+            self.ui.area_box.setValue(float(area))
         #setup graphs:
         self.prepare_graphs(self.ui.density_graph, 'Voltage', 'V', 'Current', 'A', True)
         self.prepare_graphs(self.ui.power_graph, 'Voltage', 'V', 'Power density', 'W/cm^2', True)
@@ -404,6 +406,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         pass
 
     def hell(self):
+        """
+        starts a dialog which starts an experiment
+        :return:
+        """
         params = self.GetAllParameters()
         # defaults
         path = self.ui.directory_path.toPlainText()
@@ -415,6 +421,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         array_size = self.ui.array_size_box.value()
         dev_idx = self.ui.device_box.currentIndex()
         nplc = self.ui.nplc_box.currentIndex()
+        area = self.ui.area_box.value()
         # end of defaults
         dct = {
             'startV':startV,
@@ -422,7 +429,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             'points':points,
             'array_size':array_size,
             'idx':dev_idx,
-            'nplc':nplc
+            'nplc':nplc,
+            'area':area
         }
         set_previous_values(dct)
         self.pop_dialog(params)
