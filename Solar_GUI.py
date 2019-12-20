@@ -393,6 +393,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
                     # self.ExpensiveMeter.setBufferSize(self.parameters['array_size'])
             self.ui.connectionErrorsBox.setPlainText("Connected successfully @"+str(self.ip)+"\nIDN:"+self.ExpensiveMeter.ID)
+            self.ui.statusbar.showMessage("@"+str(self.ExpensiveMeter.ID))
             self.ui.tabWidget.setCurrentIndex(0)
             self.ui.startButton.setEnabled(True)
             self.updateDevices()
