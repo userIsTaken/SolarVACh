@@ -1152,7 +1152,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.darkBox.setCheckState(parameters['dark_scan'])
             # TODO: ComboBoxes are left, need to implement:
             # relay_combo = self.ui.relay_combo.currentText()
+            # console("RELAY:", parameters['relay_combo'])
             self.ui.relay_combo.setCurrentIndex(parameters['relay_combo'])
+            # console(self.ui.relay_combo.currentIndex())
             # el_combo = self.ui.electrode_combo.currentText()
             self.ui.electrode_combo.setCurrentIndex(parameters['el_combo'])
             self.ui.name_of_cell.setPlainText(parameters['sc_name'])
