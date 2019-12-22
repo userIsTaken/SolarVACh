@@ -126,11 +126,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 if f.startswith('usbtmc'):
                     self.ui.usbtmcComboBox.addItem(mypath + "/" + f)
             indexes = self.ui.usbtmcComboBox.count()
-            print("Indexes were :", str(indexes))
+            console("Indexes were :", str(indexes))
             if indexes == 0:
                 self.ui.connectUSBbutton.setEnabled(False)
         except Exception as ex:
-            print(str(ex))
+            console(str(ex))
         pass
 
     def usbtmc_connect(self):
@@ -159,8 +159,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             else:
                 pass
         except Exception as ex:
-            print("ERROR in usb connection")
-            print(str(ex))
+            console("ERROR in usb connection")
+            console(str(ex))
             pass
 
     def setStepsFromDegrees(self):
@@ -188,7 +188,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.motor = Motor()
             IP = getGPIOip()
             self.motor.set_ip(IP)
-            print(IP, ' motor IP')
+            console(IP, ' motor IP')
             self.motor.setup()
             self.ui.infoBox.setText(str(self.motor.Local))
             self.ui.motorButton.setText("Disconnect from motor")
@@ -208,7 +208,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.channel_box.setEnabled(False)
             self.max_array = 1000
             self.ui.array_size_box.setMaximum(self.max_array)
-        print(self.max_array, " : MAX ARRAY")
+        console(self.max_array, " : MAX ARRAY")
         if (self.ui.device_box.currentText().lower() in "keysight"):
             self.ui.connectUSBbutton.setEnabled(True)
         else:
@@ -284,7 +284,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         elif line == "\n":
             l = "Lin"
         index = self.ui.lineEndingBox.findText(l, QtCore.Qt.MatchContains)
-        print(l, line)
+        console(l, line)
         if index != -1:
             self.ui.lineEndingBox.setCurrentIndex(index)
 
@@ -308,8 +308,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         file_path = self.ui.directory_path.toPlainText()
         # full_file = os.path.join(file_path, file_name+'_vach'+suffix)
         params_file = os.path.join(file_path, params_name+'_params'+suffix)
-        # print(full_file)
-        print(params_file)
+        # console(full_file)
+        console(params_file)
         # text = self.ui.vach_text.toPlainText() # all data in one big string
         params_text= self.ui.params_field.toPlainText()
         try:
@@ -321,8 +321,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             pData.close()
             self._params_updated = False # if saved, we do not want to overwrite it again, except they will be updated again
         except Exception as ex:
-            print("ERR:FILE:SAVE")
-            print(str(ex))
+            console("ERR:FILE:SAVE")
+            console(str(ex))
         pass
 
 
@@ -369,8 +369,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             if self._params_updated: # if parameters were calculated, they will be saved on quit.
                 self.save_results()
         except Exception as ex:
-            print("ERR.CODE.EXIT")
-            print(str(ex))
+            console("ERR.CODE.EXIT")
+            console(str(ex))
         sys.exit(0)
 
     def fullscreen(self):
@@ -398,10 +398,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.startButton.setEnabled(True)
             self.updateDevices()
         except Exception as ex:
-            # print("ERR.CODE.A")
-            # print("wrong IP")
-            # print(str(ex))
-            traceback.print_exc()
+            # console("ERR.CODE.A")
+            # console("wrong IP")
+            # console(str(ex))
+            traceback.console_exc()
             self.ui.connectionErrorsBox.setPlainText("ERR.CODE.A\nwrong IP\n"+str(ex))
 
         pass
@@ -497,7 +497,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             elif self.ui.channel_box.currentText().lower() == 'b':
                 self.ExpensiveMeter.setChannel(self.ExpensiveMeter.B)
             # self.ExpensiveMeter.setCurrentLimit(self.parameters['limitA'])
-            print('limitA', self.parameters['limitA'])
+            console('limitA', self.parameters['limitA'])
         self._thread = QThread(self) # why??? WHY????
         self._thread.setObjectName("WLoop")
         if mode == 0:
@@ -509,7 +509,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.errors.connect(self.ErrorHasBeenGot)
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 1:
-            print("TIME MODE")
+            console("TIME MODE")
             self._worker = ContinuousObserver(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
             # TODO: correct all signals!
@@ -520,7 +520,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.progress.connect(self.ExperimentInfo)
         elif mode == 2:
             self.delete_graph()
-            print("RELAY MODE")
+            console("RELAY MODE")
             self._worker = RelayObserver(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
             self._worker.current_results.connect(self.draw_graph_relay)
@@ -531,7 +531,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             pass
         elif mode == 3:
             self.delete_graph()
-            print("RELAY TIME MODE")
+            console("RELAY TIME MODE")
             self._worker = RelayCO(self.ExpensiveMeter, **self.parameters)
             self._worker.moveToThread(self._thread)
             self._worker.current_results.connect(self.draw_graph_time_relay)
@@ -541,8 +541,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self._worker.progress.connect(self.ExperimentInfo)
             pass
         else:
-            print("WTF IN THIS LINE?")
-            print('mode', mode)
+            console("WTF IN THIS LINE?")
+            console('mode', mode)
             sys.exit(-127)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
@@ -627,7 +627,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         counts = self.ui.countBox.value()
         nplc = self.ui.nplc_box.currentText()
         use_relay = self.ui.chooseRel.isChecked()
-        print('NPLC: ', nplc)
+        console('NPLC: ', nplc)
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
@@ -756,8 +756,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     writer.write(text)
                     writer.close()
                 except Exception as ex:
-                    print("ERR:WRITE FW")
-                    print(str(ex))
+                    console("ERR:WRITE FW")
+                    console(str(ex))
                     pass
                 # todo: clear data:
                 self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
@@ -851,15 +851,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                     writer.write(text)
                     writer.close()
                 except Exception as ex:
-                    print("ERR:WRITE BW")
-                    print(str(ex))
+                    console("ERR:WRITE BW")
+                    console(str(ex))
                     pass
                 # todo: clear data:
                 self.ui.vach_text.setPlainText('U[V] ; I[A] ; j[mA/cm^2] ; P[mW/cm^2]')
                 pass
             else:
-                print("ERR:CODE:SHIT_HAPPENED AGAIN")
-                print(trigger, fb_scan, " VALUES")
+                console("ERR:CODE:SHIT_HAPPENED AGAIN")
+                console(trigger, fb_scan, " VALUES")
             # here we will plot all time dpendencies:
             console("MODE:",self.parameters['mode'])
             if self.parameters['mode'] == 1:
@@ -892,8 +892,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                         self.update_graph(self.ui.FFVsTime, t_arr, ff_arr, "FWFF"+str(i), color=self.color[i])
                         pass
         else:
-            print("ERR:CODE:über shit")
-            print(trigger, " trig value")
+            console("ERR:CODE:über shit")
+            console(trigger, " trig value")
         pass
 
     def upload_values(self, params_dict, name=''):
@@ -1087,7 +1087,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if clear:
             dataItems = graph.listDataItems()
             for i in dataItems:
-                print(i.name())
+                console(i.name())
                 if i is not None:
                     if i.name() == y_name:
                         graph.removeItem(i)
@@ -1113,17 +1113,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         """
         sizex = len(x)
         sizey=len(y)
-        # print("Upd. graph triggered")
+        # console("Upd. graph triggered")
         if sizex == sizey:
             dataItems =  graph.listDataItems()
             for i in dataItems:
-                # print(i.name(), " ", y_name)
+                # console(i.name(), " ", y_name)
                 if i is not None:
                     if i.name() == y_name:
                         graph.removeItem(i)
             graph.plot(x,y, pen=color, symbol='o', name=y_name, symbolBrush=color)
         else:
-            print("Inequality", y_name, " ; ", sizex, " ; ", sizey)
+            console("Inequality", y_name, " ; ", sizex, " ; ", sizey)
 
     def delete_graph(self):
         dataItems1 = self.ui.density_graph.listDataItems()
@@ -1162,6 +1162,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.ui.timeDelayBox.setValue(parameters['delay_min'])
             self.ui.countBox.setValue(parameters['counts'])
             self.ui.chooseRel.setChecked(parameters['cRel'])
-            # print("done")
+            # console("done")
             if not self._demo_:
                 self.startExp()
