@@ -114,6 +114,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if not self._demo_:
             self.ui.startButton.setEnabled(True)
             self._demo_ = True
+            self.ui.statusbar.showMessage("DEMO. Not connected to any device!")
         elif self._demo_:
             self._demo_ = False
         pass
