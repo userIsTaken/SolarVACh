@@ -10,7 +10,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
         self.fillParams(parameters)
-        self.ui.relay_combo.currentIndexChanged.connect(self.comboUpdate)
+        # self.ui.relay_combo.currentIndexChanged.connect(self.comboUpdate)
 
     def comboUpdate(self):
         """

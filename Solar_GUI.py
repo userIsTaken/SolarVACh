@@ -72,7 +72,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # events of shortcuts:
         self.quit_shortcut.activated.connect(self.quit)
     #     relay combos:
-        self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
+    #     self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
         self.ui.device_box.currentIndexChanged.connect(self.updateDevices)
         # Colors:
         self.RED = (255,0,0)
