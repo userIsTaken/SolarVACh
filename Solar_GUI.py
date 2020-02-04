@@ -108,6 +108,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._t1 = None
         self._t2 = None
         self._t_diff = None
+        self.ui.params_field.textChanged.connect(self.text_changed)
+        pass
+
+    def text_changed(self):
+        self._params_updated = True
         pass
 
     def debug(self):
