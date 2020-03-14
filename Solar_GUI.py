@@ -35,18 +35,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ip = None
         self._usb = None
         self.jvView = self.ui.density_graph
-        self.ui.connect_button.clicked.connect(self.MeterConnect)
-        self.ui.startButton.clicked.connect(self.hell)
-        self.ui.quitButton.clicked.connect(self.quit)
-        self.ui.fullscreenButton.clicked.connect(self.fullscreen)
-        self.ui.stopButton.clicked.connect(self.stopExperiment)
-        self.ui.actionQuit.triggered.connect(self.quit)
-        self.ui.actionDemo_mode.triggered.connect(self.debug)
-
-        # save button
-        self.ui.save_as_button.clicked.connect(self.save_results)
-        self.ui.directory_button.clicked.connect(self.select_path)
-
         self.parameters = {} # global dictionary
         self.current_arr = []
         self.voltage_arr = []
@@ -67,13 +55,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self._ff_c = [[],[],[],[],[],[]]
         self._jsc_c= [[],[],[],[],[],[]]
         self._uoc_c= [[],[],[],[],[],[]]
-    #     Shortcuts:
-        self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence( "Ctrl+Q" ), self)
-        # events of shortcuts:
-        self.quit_shortcut.activated.connect(self.quit)
-    #     relay combos:
-    #     self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
-        self.ui.device_box.currentIndexChanged.connect(self.updateDevices)
         # Colors:
         self.RED = (255,0,0)
         self.CUSTOM=(255, 255, 102)
@@ -92,28 +73,50 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.max_array = 45
         self.setupUI()
         self.motor = None
-        #control of a motor:
-        self.ui.motorButton.clicked.connect(self.motorFn)
-        self.ui.turnCWbutton.clicked.connect(self.CW)
-        self.ui.turnCCWbutton.clicked.connect(self.CCW)
-        # degree entry control:
-        self.ui.degreeBox.valueChanged.connect(self.setStepsFromDegrees)
         self._params_updated = False
-        # usbtmc button:
-        self.ui.connectUSBbutton.clicked.connect(self.usbtmc_connect)
-        self.ui.rescanButton.clicked.connect(self.populate_usbtmc)
         self._line_ending_usb = None
         self.populate_usbtmc()
         self._demo_ = False
         self._t1 = None
         self._t2 = None
         self._t_diff = None
-        self.ui.params_field.textChanged.connect(self.text_changed)
+        self.__connect_listeners()
         pass
 
     def text_changed(self):
         self._params_updated = True
         pass
+
+    def __connect_listeners(self):
+        self.ui.connect_button.clicked.connect(self.MeterConnect)
+        self.ui.startButton.clicked.connect(self.hell)
+        self.ui.quitButton.clicked.connect(self.quit)
+        self.ui.fullscreenButton.clicked.connect(self.fullscreen)
+        self.ui.stopButton.clicked.connect(self.stopExperiment)
+        self.ui.actionQuit.triggered.connect(self.quit)
+        self.ui.actionDemo_mode.triggered.connect(self.debug)
+
+        # save button
+        self.ui.save_as_button.clicked.connect(self.save_results)
+        self.ui.directory_button.clicked.connect(self.select_path)
+        #     Shortcuts:
+        self.quit_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+Q"), self)
+        # events of shortcuts:
+        self.quit_shortcut.activated.connect(self.quit)
+        #     relay combos:
+        #     self.ui.relay_combo.currentIndexChanged.connect(self.updateCombos)
+        self.ui.device_box.currentIndexChanged.connect(self.updateDevices)
+        # control of a motor:
+        self.ui.motorButton.clicked.connect(self.motorFn)
+        self.ui.turnCWbutton.clicked.connect(self.CW)
+        self.ui.turnCCWbutton.clicked.connect(self.CCW)
+        # degree entry control:
+        self.ui.degreeBox.valueChanged.connect(self.setStepsFromDegrees)
+        self.ui.connectUSBbutton.clicked.connect(self.usbtmc_connect)
+        self.ui.rescanButton.clicked.connect(self.populate_usbtmc)
+        self.ui.params_field.textChanged.connect(self.text_changed)
+        pass
+
 
     def debug(self):
         if not self._demo_:
