@@ -301,11 +301,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def ensure_relays_off(self):
         try:
             for i in range(1,7):
+                print(str(i), " turning off ...")
                 relay = RelayToggle(str(i))
                 relay.toggle(relay.OFF)
         except Exception as ex:
-            console(str(ex))
-            #traceback.print_exc()
+            print(str(ex))
             console("No raspberry attached, no spur, no local or remote relays?")
         pass
 
