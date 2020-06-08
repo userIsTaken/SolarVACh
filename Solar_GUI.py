@@ -299,6 +299,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ensure_relays_off()
 
     def ensure_relays_off(self):
+        """
+        turns off all relays
+        :return:
+        """
         try:
             for i in range(1,7):
                 print(str(i), " turning off ...")
