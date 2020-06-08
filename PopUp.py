@@ -78,7 +78,7 @@ class PopUp(QtWidgets.QDialog):
             mode = 2
         elif self.ui.oneShotMode.isChecked():
             mode = 0
-        if self.ui.timeMode_2.isChecked():
+        elif self.ui.timeMode_2.isChecked():
             mode = 3
         else:
             mode = 0
