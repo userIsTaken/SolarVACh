@@ -296,6 +296,18 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         console(l, line)
         if index != -1:
             self.ui.lineEndingBox.setCurrentIndex(index)
+        self.ensure_relays_off()
+
+    def ensure_relays_off(self):
+        try:
+            for i in range(1,7):
+                relay = RelayToggle(str(i))
+                relay.toggle(relay.OFF)
+        except Exception as ex:
+            console(str(ex))
+            #traceback.print_exc()
+            console("No raspberry attached, no spur, no local or remote relays?")
+        pass
 
 
     def select_path(self):
