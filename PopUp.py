@@ -36,7 +36,7 @@ class PopUp(QtWidgets.QDialog):
         self.ui.darkBox.setCheckState(params['dark_scan'])
         # TODO: ComboBoxes:
         self.ui.electrode_combo.setCurrentIndex(params['el_combo'])
-        console("RELAY?")
+        #console("RELAY?")
         self.ui.relay_combo.setCurrentIndex(params['relay_combo'])
         self.ui.sc_name.setPlainText(params['sc_name'])
         self.setMode(params['mode'])

@@ -426,7 +426,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             # console("ERR.CODE.A")
             # console("wrong IP")
             # console(str(ex))
-            traceback.console_exc()
+            traceback.print_exc()
             self.ui.connectionErrorsBox.setPlainText("ERR.CODE.A\nwrong IP\n"+str(ex))
 
         pass
@@ -652,7 +652,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         counts = self.ui.countBox.value()
         nplc = self.ui.nplc_box.currentText()
         use_relay = self.ui.chooseRel.isChecked()
-        console('NPLC: ', nplc)
         parameters = {'startV': startV,
                       'endV': endV,
                       'points': points,
