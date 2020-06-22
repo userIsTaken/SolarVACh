@@ -699,9 +699,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # Update values in LCDs:
                 # TODO: update LCDs and clear arrays:
                 p_max, I_max, U_max = getMaxPJV(self.curr_array_analysis, self.voltage_array_analysis)
+                #
                 ff = getFF(p_max*1000/self.parameters['area']*100, V_oc, j_sc) # W => mW
                 pce = getPCE(p_max*1000/self.parameters['area']*100, self.parameters['in_power']) # as well as here
                 self.ExperimentInfo("========STATS=========")
+                self.ExperimentInfo('p_max array length: '+str(len(self.curr_array_analysis))+ " , "+str(len(self.voltage_array_analysis)))
                 self.ExperimentInfo('V_oc: ' + str(V_oc) + '\n' + 'I_sc: ' + str(I_sc) + '\n' + 'PCE: ' + str(
                     pce) + '\n' + 'FF: ' + str(ff))
                 self.ExperimentInfo('j sc: '+str(j_sc))
